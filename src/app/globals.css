@@ -20,6 +20,8 @@
   --tracking-section: 18px;
   --tracking-card: 5px;
   --tracking-label: 2.8px;
+
+  --breakpoint-3xl: 108rem;
 }
 
 html {

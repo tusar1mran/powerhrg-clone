@@ -48,8 +48,12 @@ export default function Footer() {
           </div>
           <p className="mt-10 text-[12px] text-white/70">
             © 2026 Power Home Remodeling. All Rights Reserved.{" "}
-            <a href="#" className="hover:text-white">Privacy Notice</a>{" "}
-            <a href="#" className="ml-2 hover:text-white">Terms of Service</a>
+            <Link href="/privacy-notice" className="hover:text-white">
+              Privacy Notice
+            </Link>{" "}
+            <Link href="/terms-of-service" className="ml-2 hover:text-white">
+              Terms of Service
+            </Link>
           </p>
         </div>
       </div>

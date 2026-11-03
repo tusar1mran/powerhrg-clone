@@ -25,7 +25,7 @@ export const supportFaqs: FaqGroup[] = [
         q: "How does POWER protect my information?",
         a: [
           "We use industry-standard security protocols and never sell your information. For details on how data is handled, read our ",
-          { label: "Privacy Policy", href: "#" },
+          { label: "Privacy Policy", href: "/privacy-notice" },
           " or ",
           { label: "Customer Bill of Rights", href: "/support/bill-of-rights" },
           ".",
