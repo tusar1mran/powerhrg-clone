@@ -35,7 +35,11 @@
   }
 }
 
-a.underline {
+a.underline,
+.hover\:underline:hover,
+.focus\:underline:focus,
+.group:hover .group-hover\:underline,
+.group:focus .group-focus\:underline {
   text-decoration-line: underline;
 }
 

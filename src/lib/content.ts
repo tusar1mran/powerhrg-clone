@@ -104,7 +104,7 @@ export const news = [
 ];
 
 export const footerColumns: { heading: string; links: NavItem[] }[] = [
-  ...navMenu.filter((g) => g.label !== "Support").map((g) => ({ heading: g.label, links: g.items.filter((i) => !i.hidden) })),
+  ...navMenu.filter((g) => g.label !== "Support").map((g) => ({ heading: g.label, links: g.items.map((i) => (i.hidden ? { label: i.label, href: "#" } : i)) })),
   {
     heading: "Support",
     links: [
@@ -122,9 +122,9 @@ export const footerColumns: { heading: string; links: NavItem[] }[] = [
 ];
 
 export const footerBadges = [
-  { src: "/assets/footer/angi.jpg", alt: "Angi Super Service Award 2025" },
-  { src: "/assets/footer/bbb.jpg", alt: "BBB A+ rating" },
-  { src: "/assets/footer/bobvila.jpg", alt: "Bob Vila Editors' Choice" },
-  { src: "/assets/footer/best-place-to-work.jpg", alt: "Glassdoor Best Places to Work" },
-  { src: "/assets/footer/top-100.jpg", alt: "Fortune 100 Best Companies to Work For" },
+  { src: "/assets/footer/angi-super-service-2025.webp", alt: "Angi Super Service Award 2025", href: "https://www.angi.com/companylist/us/pa/chester/power-home-remodeling-reviews-123064.htm" },
+  { src: "/assets/footer/bbb-a-plus-rating.webp", alt: "BBB A+ Rating", href: "https://www.bbb.org/us/pa/chester/profile/window-installation/power-home-remodeling-group-llc-0241-80011989" },
+  { src: "/assets/footer/bobvila_logo.webp", alt: "Bob Vila Editors' Choice", href: "https://www.bobvila.com/articles/best-home-renovation-contractors/" },
+  { src: "/assets/footer/glassdoor-best-places-to-work.webp", alt: "Glassdoor Best Places to Work", href: "https://www.glassdoor.com/Reviews/Power-Home-Remodeling-Reviews-E405781.htm" },
+  { src: "/assets/footer/fortune-100.webp", alt: "Fortune 100", href: "https://www.greatplacetowork.com/certified-company/1221006" },
 ];
