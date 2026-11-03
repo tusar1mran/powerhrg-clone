@@ -76,3 +76,24 @@ Still missing:
 | openings/hero-mobile.jpg | openings-hero-img-mobile-1.jpg |
 | innovations/video-poster.jpg | (Vimeo video - optional still) |
 | partner/video-poster.jpg | (Vimeo video - optional still) |
+
+## /support, /support/tax-credits, /support/warranties, /support/bill-of-rights, /support/project-pulse
+
+All in place from the "Save page as" folders in C:\Users\imran\Downloads\Support (support/).
+support/home: licenses.jpg = page-link-licenses.jpg, tax-credits.png = Rectangle-1101.png, warranties.jpg = Rectangle-109.jpg.
+support/tax-credits: hero.png = Rectangle-110.png, hero-mobile.jpg = TAX-CREDITS-IMG-768x1174.jpg.
+support/bill-of-rights: hero.png = Rectangle-3.png, licenses.png = Rectangle-93.png, warranties.jpg = page-link-warranties.jpg,
+numbers/1-10.svg = Group-608 … Group-617.svg, slides/1-10.svg = BOR-1 … BOR-10 (slider numerals).
+support/project-pulse: hero.png = Hero_Desktop-1.png, hero-mobile.png = Hero_Mobile.png, view-projects.png = View-Projects-3.png,
+track-appointments.png = track-appointments-phone-mockup-e1773927209819.png, manage-documents.png = Manage-Documents_3.png,
+good-housekeeping.jpg = 7c2b1f837470ae397a6e1bb6034e10bdf2491495-1.jpg, ruby-central.jpg = Rectangle-5.jpg.
+support/warranties: hero.png = Rectangle-109.png, open-file-icon.png = open_file_icon.png.
+
+Still missing:
+
+| Save as (in public/assets) | File name on powerhrg.com |
+|---|---|
+| support/bill-of-rights/video-poster.jpg | (Vimeo 1024746868 - optional still) |
+| support/project-pulse/video-poster.jpg | (Vimeo 944556647 - optional still) |
+
+Not saved yet (pages not built): /support/locations, /support/our-process, /support/licenses-and-insurance, /sash-replacement-how-to.

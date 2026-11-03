@@ -8,12 +8,13 @@ type Props = {
   cards: ImageCard[];
   /** Vertical white title over the photo. The community page's cards have none. */
   verticalTitle?: boolean;
+  tone?: "white" | "sky";
 };
 
 // Two photo cards - "Power is our people", "Reasons to relax", "Improvement never ends".
-export default function ImageCardPair({ heading, cards, verticalTitle = true }: Props) {
+export default function ImageCardPair({ heading, cards, verticalTitle = true, tone = "white" }: Props) {
   return (
-    <section className="bg-white py-20 lg:py-24">
+    <section className={`${tone === "sky" ? "bg-sky-soft" : "bg-white"} py-20 lg:py-24`}>
       <div className="mx-auto max-w-[1150px] px-6">
         <Reveal>
           <h2 className="text-[28px] font-light tracking-[4px] text-navy uppercase lg:text-[37px] lg:tracking-card">{heading}</h2>
@@ -32,7 +33,7 @@ export default function ImageCardPair({ heading, cards, verticalTitle = true }: 
                   </h3>
                 )}
               </a>
-              <p className="mt-4 text-[16px] text-navy">{c.text}</p>
+              <p className="mt-4 text-[16px] whitespace-pre-line text-navy">{c.text}</p>
               <a href={c.href ?? "#"} className="link-underline mt-3 text-navy">
                 {c.cta}
               </a>

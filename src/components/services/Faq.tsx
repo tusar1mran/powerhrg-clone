@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import Reveal from "../Reveal";
+import RichText, { type Rich } from "../RichText";
 
-export type FaqGroup = { tab: string; items: { q: string; a: string }[] };
+export type FaqItem = { q: string; a: Rich; list?: string[]; more?: Rich[] };
+export type FaqGroup = { tab: string; items: FaqItem[] };
 
 /**
  * Tabbed FAQ in a light-blue box. Pass a single group with an empty `tab` to get the
@@ -64,7 +66,23 @@ export default function Faq({ faqs }: { faqs: FaqGroup[] }) {
                   </button>
                   {/* grid-rows trick animates height without measuring */}
                   <div className={`grid transition-all duration-300 ${isOpen ? "grid-rows-[1fr] pb-8" : "grid-rows-[0fr]"}`}>
-                    <p className="overflow-hidden text-[14px] leading-[24px]">{item.a}</p>
+                    <div className="space-y-4 overflow-hidden text-[14px] leading-[24px] whitespace-pre-line">
+                      <p>
+                        <RichText value={item.a} />
+                      </p>
+                      {item.list && (
+                        <ul className="list-disc space-y-1 pl-5">
+                          {item.list.map((l) => (
+                            <li key={l}>{l}</li>
+                          ))}
+                        </ul>
+                      )}
+                      {item.more?.map((m, j) => (
+                        <p key={j}>
+                          <RichText value={m} />
+                        </p>
+                      ))}
+                    </div>
                   </div>
                 </li>
               );

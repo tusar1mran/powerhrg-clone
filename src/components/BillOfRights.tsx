@@ -8,10 +8,12 @@ import { rights } from "@/lib/content";
 // The speech-bubble/house panel is a clip-path polygon - no image needed.
 const PANEL_SHAPE = "polygon(50% 0%, 100% 22%, 100% 66%, 51% 92%, 50% 100%, 49% 92%, 0% 66%, 0% 22%)";
 
-export default function BillOfRights() {
+type Props = { items?: { title: string; text: string }[] };
+
+export default function BillOfRights({ items = rights }: Props) {
   const [i, setI] = useState(0);
-  const go = (d: number) => setI((v) => (v + d + rights.length) % rights.length);
-  const r = rights[i];
+  const go = (d: number) => setI((v) => (v + d + items.length) % items.length);
+  const r = items[i];
 
   return (
     <section className="bg-navy-700 py-20 text-white lg:py-28">
@@ -32,7 +34,7 @@ export default function BillOfRights() {
             don’t cut corners on quality or service because we’re as proud of our work as you are of your home. And as
             a proud homeowner, we believe you’re entitled to the following inalienable rights:
           </p>
-          <a href="#" className="link-underline mt-8">
+          <a href="/support/bill-of-rights" className="link-underline mt-8">
             View bill of rights
           </a>
         </Reveal>
@@ -49,7 +51,7 @@ export default function BillOfRights() {
             </h3>
             <p className="relative mt-6 max-w-[360px] text-[15px] leading-6">{r.text}</p>
             <p className="absolute bottom-[14%] text-[11px] font-bold tracking-[2.8px] uppercase">
-              {i + 1} of {rights.length}
+              {i + 1} of {items.length}
             </p>
           </div>
           <Arrow dir="left" label="Previous right" onClick={() => go(-1)} className="absolute top-1/3 left-0 lg:-left-6" />
