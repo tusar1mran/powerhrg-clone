@@ -23,7 +23,7 @@ export default function ImageCardPair({ heading, cards, verticalTitle = true, to
           {cards.map((c, i) => (
             <Reveal key={c.title} delay={i * 150}>
               <a href={c.href ?? "#"} aria-label={c.title} className="group relative block aspect-[565/338] overflow-hidden">
-                <Photo src={c.image} className="absolute inset-0 transition-transform duration-700 group-hover:scale-105" />
+                <Photo src={c.image} className="absolute inset-0 scale-100 transition-transform duration-700 group-hover:scale-110 group-focus:scale-110" />
                 {verticalTitle && (
                   <h3
                     className="absolute top-6 left-5 text-[32px] font-light tracking-card text-white uppercase lg:text-[40px]"

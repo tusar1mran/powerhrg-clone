@@ -25,6 +25,7 @@ type Props = {
   buttonVariant?: "lime" | "outline";
   overlay?: boolean;
   ink?: "light" | "dark";
+  onDark?: boolean;
 };
 
 // Server component: checks the file system so a missing desktop image falls back cleanly,
@@ -44,6 +45,7 @@ export default function Hero({
   buttonVariant = "lime",
   overlay = false,
   ink = "light",
+  onDark = false,
 }: Props) {
   const dark = ink === "dark";
   const mobile = mobileImage ?? image;
@@ -64,7 +66,7 @@ export default function Hero({
   return (
     <section
       style={style}
-      className={`relative flex items-start overflow-hidden [background:var(--hero-m)] lg:[background:var(--hero-d)] ${
+      className={`relative flex items-start overflow-hidden ${onDark ? "on-dark" : ""} [background:var(--hero-m)] lg:[background:var(--hero-d)] ${
         size === "full" ? "h-screen min-h-[640px]" : "h-[600px] lg:h-[700px]"
       }`}
     >
@@ -104,8 +106,8 @@ export default function Hero({
             href={button.href}
             className={
               buttonVariant === "outline"
-                ? "mt-[35px] flex w-full items-center justify-center border-4 border-white px-8 py-6 text-[14px] leading-none font-bold tracking-[0.3em] text-white uppercase transition-colors hover:bg-white hover:text-navy sm:inline-flex sm:w-auto sm:min-w-[240px]"
-                : "mt-10 inline-block bg-lime px-6 py-4 text-[12px] font-bold tracking-[3px] text-navy uppercase transition-colors hover:bg-white lg:mt-12 lg:text-[13px] lg:tracking-[3.5px]"
+                ? "mt-[35px] flex w-full items-center justify-center border-4 border-white px-8 py-6 text-[14px] leading-none font-bold tracking-[0.3em] text-white uppercase transition-colors duration-150 hover:border-navy hover:bg-navy hover:text-lime sm:inline-flex sm:w-auto sm:min-w-[240px]"
+                : "mt-10 inline-block bg-lime px-6 py-4 text-[12px] font-bold tracking-[3px] text-navy uppercase transition-colors duration-150 hover:bg-navy hover:text-lime focus:bg-navy focus:text-lime lg:mt-12 lg:text-[13px] lg:tracking-[3.5px]"
             }
           >
             {button.label}
@@ -113,9 +115,12 @@ export default function Hero({
         )}
         <a
           href={ctaHref}
-          className={`link-underline ${dark ? "text-navy" : "text-white"} ${button ? "mt-8 flex w-fit lg:mt-10" : size === "full" ? "mt-12 lg:mt-20" : "mt-8 lg:mt-10"}`}
+          className={`group relative inline-block pr-5 ${dark ? "text-navy" : "text-white"} ${button ? "mt-8 flex w-fit lg:mt-10" : size === "full" ? "mt-12 lg:mt-20" : "mt-8 lg:mt-10"}`}
         >
-          {ctaLabel} <span aria-hidden>↓</span>
+          <span className="link-underline">{ctaLabel}</span>
+          <span aria-hidden className="absolute top-0 right-0 inline-block text-[14px] leading-6 font-bold transition-transform duration-500 group-hover:translate-y-2">
+            ↓
+          </span>
         </a>
       </div>
     </section>

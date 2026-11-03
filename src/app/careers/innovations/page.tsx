@@ -19,7 +19,7 @@ export default function InnovationsPage() {
     <>
       <Header transparentAtTop={false} cta={applyCta} />
       <main id="main">
-        <Hero {...innovationsHero} ctaHref="#innovations" ctaLabel="Explore innovations" />
+        <Hero {...innovationsHero} onDark ctaHref="#innovations" ctaLabel="Explore innovations" />
         <IconGrid id="innovations" {...innovationsIntro} />
         <SplitRow variant="contained" {...nitro} imageAlt="Co-workers collaborating during Nitro Create" imageSide="right" tone="blue" />
         <div className="pt-16 lg:pt-20">

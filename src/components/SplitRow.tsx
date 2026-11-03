@@ -43,7 +43,7 @@ export default function SplitRow({
   bgImage,
 }: Props) {
   const bg = { blue: "bg-[#edf3fd]", white: "bg-white", sky: "bg-sky-soft", navy: "bg-navy", pale: "bg-sky/20" }[tone];
-  const ink = tone === "navy" ? "text-white" : "text-navy";
+  const ink = tone === "navy" ? "on-dark text-white" : "text-navy";
 
   const copy = (
     <Reveal className={`max-w-[420px] ${ink}`}>

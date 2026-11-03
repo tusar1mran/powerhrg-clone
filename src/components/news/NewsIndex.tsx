@@ -50,6 +50,7 @@ function Dropdown({ label, value, options, onChange }: { label: string; value: s
                   setOpen(false);
                 }}
                 className="block w-full px-3 py-2 text-left text-[13px] hover:bg-lime"
+                style={{ cursor: "default" }}
               >
                 {o}
               </button>
@@ -86,12 +87,12 @@ export default function NewsIndex({ featured, posts, categories, totalPages }: P
       {/* Featured post: full-width photo with a pale card overlapping its bottom edge */}
       <a href="#" className="group relative block">
         <div className="relative h-[420px] overflow-hidden lg:h-[560px]">
-          <Photo src={featured.image} label={featured.title} className="absolute inset-0 transition-transform duration-700 group-hover:scale-105" />
+          <Photo src={featured.image} label={featured.title} className="absolute inset-0 scale-100 transition-transform duration-700 group-hover:scale-110 group-focus:scale-110" />
           <CategoryLabel>{featured.category}</CategoryLabel>
         </div>
         <div className="relative mx-auto -mt-24 max-w-[700px] border-b-4 border-lime bg-[#edf3fd] px-8 py-8 lg:px-[30px]">
           <p className="text-[12px] font-bold tracking-[3px] lg:text-[14px] lg:tracking-[4.2px]">{fmt(featured.date)}</p>
-          <h1 className="mt-3 text-[24px] leading-[1.3] font-bold tracking-[3px] uppercase lg:text-[35px] lg:tracking-card">{featured.title}</h1>
+          <h1 className="mt-3 group-hover:underline group-focus:underline text-[24px] leading-[1.3] font-bold tracking-[3px] uppercase lg:text-[35px] lg:tracking-card">{featured.title}</h1>
         </div>
       </a>
 
@@ -106,12 +107,12 @@ export default function NewsIndex({ featured, posts, categories, totalPages }: P
             <Reveal delay={(i % 2) * 120} className="h-full">
               <a href="#" className="group flex h-full flex-col">
                 <div className="relative aspect-[565/340] overflow-hidden">
-                  <Photo src={p.image} label={p.title} className="absolute inset-0 transition-transform duration-700 group-hover:scale-105" />
+                  <Photo src={p.image} label={p.title} className="absolute inset-0 scale-100 transition-transform duration-700 group-hover:scale-110 group-focus:scale-110" />
                   <CategoryLabel>{p.category}</CategoryLabel>
                 </div>
                 <div className="flex-1 border-b-4 border-lime bg-sky/20 px-6 py-8 lg:px-[30px]">
                   <p className="text-[12px] font-bold tracking-[3px] lg:text-[14px] lg:tracking-[4.2px]">{fmt(p.date)}</p>
-                  <h3 className="mt-3 text-[22px] leading-[1.3] font-bold tracking-[3px] uppercase lg:text-[35px] lg:tracking-card">{p.title}</h3>
+                  <h3 className="mt-3 group-hover:underline group-focus:underline text-[22px] leading-[1.3] font-bold tracking-[3px] uppercase lg:text-[35px] lg:tracking-card">{p.title}</h3>
                 </div>
               </a>
             </Reveal>

@@ -44,16 +44,16 @@ html {
   color-scheme: only light;
 }
 
-@layer base {
-  button:not(:disabled),
-  [role="button"],
-  [role="option"],
-  [role="tab"],
-  select,
-  summary,
-  label[for] {
-    cursor: pointer;
-  }
+a[href],
+button:not(:disabled),
+[role="button"],
+[role="tab"],
+select,
+summary,
+label[for],
+label:has(> input[type="checkbox"]),
+input[type="checkbox"] {
+  cursor: pointer;
 }
 
 body {
@@ -62,19 +62,48 @@ body {
   font-family: var(--font-sans);
 }
 
+.on-dark {
+  --link-rest: var(--color-lime);
+  --link-sweep: var(--color-sky);
+}
+
 /* Small uppercase label with a lime underline - "EXPLORE SERVICES", "VIEW BILL OF RIGHTS" etc. */
 @utility link-underline {
+  position: relative;
   display: inline-block;
-  padding-bottom: 6px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: var(--tracking-label);
+  line-height: 1.5rem;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  border-bottom: 2px solid var(--color-lime);
-  transition: border-color 200ms;
-  &:hover {
-    border-color: currentColor;
+  &::after,
+  &::before {
+    content: "";
+    display: block;
+    height: 2px;
+    width: calc(100% - 0.3em);
   }
+  &::after {
+    margin-top: 0.25rem;
+    background-color: var(--link-rest, var(--color-navy));
+  }
+  &::before {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: var(--link-sweep, var(--color-lime));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  &:hover::before {
+    transform: scaleX(1);
+  }
+}
+
+a:hover .link-underline::before,
+a:focus-visible .link-underline::before {
+  transform: scaleX(1);
 }
 
 /* Fade-up on scroll, toggled by the Reveal component */

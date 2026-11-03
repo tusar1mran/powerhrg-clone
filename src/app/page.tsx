@@ -16,6 +16,7 @@ export default function Home() {
       <Header />
       <main id="main">
         <Hero
+          onDark
           title={["Our work shows"]}
           subtitle={["Over 30 years of experience improving everything we touch."]}
           image="/assets/home/hero.png"

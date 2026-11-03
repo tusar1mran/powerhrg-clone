@@ -19,7 +19,7 @@ export default function ProjectPulsePage() {
     <>
       <Header transparentAtTop={false} />
       <main id="main">
-        <Hero {...pulseHero} size="short" buttonVariant="outline" overlay ctaHref="#content" ctaLabel="Learn More" />
+        <Hero {...pulseHero} onDark size="short" buttonVariant="outline" overlay ctaHref="#content" ctaLabel="Learn More" />
         <TextColumns id="content" columns={pulseIntro} />
         <FeatureRows {...pulseFeatures} />
         <Testimonial {...pulseTestimonial} link={null} />

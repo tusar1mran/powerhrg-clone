@@ -54,7 +54,7 @@ export default function Accolades({ eyebrow, title, text, cta, items }: Props) {
           </h2>
           <p className="mt-6 max-w-[460px] text-[16px] leading-6">{text}</p>
           {cta && (
-            <a href={cta.href} className="link-underline mt-8 !border-navy">
+            <a href={cta.href} className="link-underline mt-8">
               {cta.label}
             </a>
           )}

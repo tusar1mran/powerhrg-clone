@@ -41,8 +41,11 @@ export default function TrackProject() {
           </Reveal>
         </div>
       </div>
-      <a href="#" className="block bg-navy py-[14px] text-center text-[15px] text-white hover:underline lg:text-[20px]">
-        {trackProject.bar} <span aria-hidden>→</span>
+      <a href="#" className="group block bg-navy py-[14px] text-center text-[15px] text-white lg:text-[20px]">
+        {trackProject.bar}{" "}
+        <span aria-hidden className="inline-block transition-transform duration-500 group-hover:translate-x-1">
+          →
+        </span>
       </a>
     </section>
   );

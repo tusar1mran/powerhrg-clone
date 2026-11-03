@@ -41,7 +41,7 @@ export default function Faq({ faqs, heading = "FAQs", intro, variant }: Props) {
                       setTab(i);
                       setOpen(null);
                     }}
-                    className={`px-[2px] text-[12px] font-bold tracking-[2.8px] uppercase lg:text-[13px] ${tab === i ? "bg-lime" : "hover:bg-lime/50"}`}
+                    className={`px-[2px] text-[12px] font-bold tracking-[2.8px] uppercase lg:text-[13px] ${tab === i ? "bg-lime" : ""}`}
                   >
                     {f.tab}
                   </button>

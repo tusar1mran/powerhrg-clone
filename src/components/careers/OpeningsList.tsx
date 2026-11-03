@@ -47,7 +47,7 @@ export default function OpeningsList({ id, regions, titles, groups }: Props) {
           </select>
           <button
             type="submit"
-            className="bg-lime px-8 py-4 text-[12px] font-bold tracking-[3px] whitespace-nowrap text-navy uppercase transition-colors hover:bg-navy hover:text-white"
+            className="border-b-4 border-l-4 border-sky bg-lime px-8 py-4 text-[12px] font-bold tracking-[3px] whitespace-nowrap text-navy uppercase transition-colors duration-150 hover:border-lime hover:bg-navy hover:text-lime focus:border-lime focus:bg-navy focus:text-lime"
           >
             Find jobs
           </button>
@@ -69,7 +69,7 @@ export default function OpeningsList({ id, regions, titles, groups }: Props) {
                   <ul className="mt-3 space-y-[6px]">
                     {g.jobs.map((j, i) => (
                       <li key={`${j}-${i}`}>
-                        <a href="#" className="text-[15px] underline underline-offset-2 hover:text-[#3b6fd4]">
+                        <a href="#" className="text-[15px] underline underline-offset-2">
                           {j}
                         </a>
                       </li>

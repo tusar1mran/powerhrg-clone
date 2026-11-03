@@ -12,7 +12,7 @@ type Props = {
 export default function CtaBand({ title, label, href = "#", text, tone = "sky", variant = "button" }: Props) {
   const bg = { sky: "bg-sky text-navy", white: "bg-white text-navy", navy: "bg-navy text-white" }[tone];
   const button =
-    tone === "navy" ? "bg-lime text-navy hover:bg-white" : "bg-navy text-white hover:bg-lime hover:text-navy";
+    tone === "navy" ? "bg-lime text-black hover:bg-sky focus:bg-sky" : "bg-navy text-white hover:bg-lime hover:text-black focus:bg-lime focus:text-black";
 
   return (
     <section className={`${bg} px-6 py-20 text-center lg:py-24 ${text ? "xl:py-36" : ""}`}>
@@ -28,7 +28,7 @@ export default function CtaBand({ title, label, href = "#", text, tone = "sky", 
         {variant === "button" ? (
           <a
             href={href}
-            className={`mt-10 inline-block px-6 py-4 text-[12px] font-bold tracking-[3px] uppercase transition-colors lg:text-[14px] lg:tracking-[4.2px] ${button} ${
+            className={`mt-10 inline-block px-6 py-4 text-[12px] font-bold tracking-[3px] uppercase transition-colors duration-150 lg:text-[14px] lg:tracking-[4.2px] ${button} ${
               text ? "lg:mt-[60px]" : ""
             }`}
           >

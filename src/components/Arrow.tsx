@@ -6,7 +6,7 @@ export default function Arrow({ dir, onClick, className = "", label, tone = "lig
       type="button"
       onClick={onClick}
       aria-label={label}
-      className={`flex h-[66px] w-[66px] items-center justify-center transition-opacity hover:opacity-80 ${
+      className={`flex h-[66px] w-[66px] items-center justify-center ${
         tone === "dark" ? "bg-navy text-lime" : "bg-white text-navy"
       } ${className}`}
     >

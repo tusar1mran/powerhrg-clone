@@ -28,10 +28,10 @@ export default function ServicesCarousel() {
               <button
                 type="button"
                 onClick={() => setActive(i)}
-                className="relative block aspect-[765/477] w-full overflow-hidden text-left"
+                className="group relative block aspect-[765/477] w-full overflow-hidden text-left"
                 aria-label={`Show ${s.name}`}
               >
-                <Photo src={s.image} className="absolute inset-0 transition-transform duration-700 hover:scale-105" />
+                <Photo src={s.image} className="absolute inset-0 scale-100 transition-transform duration-700 group-hover:scale-110" />
                 <span className={`absolute inset-0 bg-white transition-opacity duration-700 ${isActive ? "opacity-0" : "opacity-60"}`} />
                 <h3
                   className="absolute top-6 left-6 text-[28px] font-light tracking-card text-white uppercase lg:text-[47px]"

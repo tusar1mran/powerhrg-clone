@@ -10,8 +10,11 @@ export default function LatestNews() {
           {news.map((n) => (
             <li key={n.title} className="border-t border-navy/40 pt-5">
               <p className="text-[11px] font-bold tracking-[1.5px]">{n.date}</p>
-              <a href="#" className="mt-2 block text-[14px] leading-[22px] hover:underline">
-                {n.title} <span aria-hidden>→</span>
+              <a href="#" className="group mt-2 block text-[14px] leading-[22px]">
+                <span className="align-middle">{n.title}</span>{" "}
+                <span aria-hidden className="inline-block align-middle transition-transform duration-500 group-hover:translate-x-1">
+                  →
+                </span>
               </a>
             </li>
           ))}

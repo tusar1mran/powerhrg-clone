@@ -21,7 +21,7 @@ export default function Footer() {
           <ul className="flex gap-4">
             {socials.map((s) => (
               <li key={s.name}>
-                <a href="#" aria-label={s.name} className="block opacity-100 transition-opacity hover:opacity-70">
+                <a href="#" aria-label={s.name} className="block">
                   <img src={s.icon} alt="" className="h-[13px] w-auto" />
                 </a>
               </li>
@@ -37,7 +37,7 @@ export default function Footer() {
                 <ul className="mt-5 space-y-[18px]">
                   {col.links.map((l) => (
                     <li key={l.label}>
-                      <Link href={l.href} className="text-[14px] hover:text-lime">
+                      <Link href={l.href} className="text-[14px] hover:underline focus:text-white focus:underline focus:outline-none">
                         {l.label}
                       </Link>
                     </li>
@@ -48,10 +48,10 @@ export default function Footer() {
           </div>
           <p className="mt-10 text-[12px] text-white/70">
             © 2026 Power Home Remodeling. All Rights Reserved.{" "}
-            <Link href="/privacy-notice" className="hover:text-white">
+            <Link href="/privacy-notice" className="hover:text-white hover:underline focus:text-white focus:underline focus:outline-none">
               Privacy Notice
             </Link>{" "}
-            <Link href="/terms-of-service" className="ml-2 hover:text-white">
+            <Link href="/terms-of-service" className="ml-2 hover:text-white hover:underline focus:text-white focus:underline focus:outline-none">
               Terms of Service
             </Link>
           </p>

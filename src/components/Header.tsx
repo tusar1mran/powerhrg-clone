@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { navMenu } from "@/lib/content";
 
 type Props = {
@@ -146,6 +146,16 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
     setMobileOpen(false);
   }
 
+  const goHome = (e: ReactMouseEvent<HTMLAnchorElement>) => {
+    setMobileOpen(false);
+    setOpenMenu(null);
+    setSearchOpen(false);
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   const transparent = isHome && atTop;
   const desktopClass = atTop
     ? transparent
@@ -190,7 +200,7 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
       )}
 
       <header ref={navRef} className={`z-40 hidden h-[90px] w-full lg:block ${desktopClass}`}>
-        <Link href="/" aria-label="Return to homepage" className={`absolute left-6 z-40 ${transparent ? "top-5" : "top-3"}`}>
+        <Link href="/" onClick={goHome} aria-label="Return to homepage" className={`absolute left-6 z-40 ${transparent ? "top-5" : "top-3"}`}>
           {transparent ? (
             <img src="/assets/logo/power-white.svg" alt="" className="h-[95px] w-[78px]" />
           ) : (
@@ -301,7 +311,7 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
       </header>
 
       <header className={`sticky top-0 z-[60] h-[60px] w-full lg:hidden ${isHome ? "bg-white" : "border-b border-lime bg-white/85"}`}>
-        <Link href="/" aria-label="Return to homepage" className="absolute top-1 left-4 z-40">
+        <Link href="/" onClick={goHome} aria-label="Return to homepage" className="absolute top-1 left-4 z-40">
           <img src="/assets/logo/power-navy.svg" alt="" className="h-[50px] w-[41px]" />
         </Link>
         <button
@@ -325,7 +335,7 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
           <div role="dialog" aria-modal="true" aria-label="Mobile Navigation" className="fixed inset-0 z-[60] overflow-y-auto">
             <div className="relative h-screen w-full overflow-y-auto bg-white">
               <div className={`relative z-[60] h-[60px] w-full ${isHome ? "" : "border-b border-lime bg-white/85"}`}>
-                <Link href="/" aria-label="Return to homepage" className="absolute top-1 left-4 z-[60]">
+                <Link href="/" onClick={goHome} aria-label="Return to homepage" className="absolute top-1 left-4 z-[60]">
                   <img src="/assets/logo/power-navy.svg" alt="" className="h-[50px] w-[41px]" />
                 </Link>
                 <button

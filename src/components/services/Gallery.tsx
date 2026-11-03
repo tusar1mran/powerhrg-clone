@@ -50,7 +50,7 @@ export default function Gallery({ title, slides }: { title: string; slides: Slid
           type="button"
           onClick={() => go(-1)}
           aria-label={`Previous ${title} photo`}
-          className="absolute top-1/2 left-3 -translate-y-1/2 text-navy hover:opacity-70 lg:left-6"
+          className="absolute top-1/2 left-3 -translate-y-1/2 text-navy lg:left-6"
         >
           <svg width="46" height="40" viewBox="0 0 46 40" fill="none" stroke="currentColor" strokeWidth="1.4">
             <path d="M45 20H2M20 1 1 20l19 19" />
@@ -60,7 +60,7 @@ export default function Gallery({ title, slides }: { title: string; slides: Slid
           type="button"
           onClick={() => go(1)}
           aria-label={`Next ${title} photo`}
-          className="absolute top-1/2 right-3 -translate-y-1/2 text-navy hover:opacity-70 lg:right-6"
+          className="absolute top-1/2 right-3 -translate-y-1/2 text-navy lg:right-6"
         >
           <svg width="46" height="40" viewBox="0 0 46 40" fill="none" stroke="currentColor" strokeWidth="1.4">
             <path d="M1 20h43M26 1l19 19-19 19" />
