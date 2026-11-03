@@ -3,7 +3,7 @@ import { processSteps } from "@/lib/content";
 
 export default function Process() {
   return (
-    <section className="bg-navy py-16 text-white">
+    <section id="process" className="bg-navy py-16 text-white">
       <Reveal className="mx-auto max-w-[1100px] px-6 text-center">
         <h2 className="text-[34px] leading-tight font-light tracking-[8px] uppercase lg:text-[48px] lg:tracking-[12px] xl:text-[63px] xl:tracking-section">
           Your vision. Our process.

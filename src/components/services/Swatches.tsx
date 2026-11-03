@@ -24,7 +24,7 @@ export default function Swatches({ title, text, swatches }: Props) {
       </Reveal>
 
       {/* Bleeds slightly wider than the text column, like the reference */}
-      <ul className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:-mx-12 lg:grid-cols-5">
+      <ul className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5 xl:-mx-12">
         {swatches.map((s, i) => (
           <li key={s.name}>
             <Reveal delay={i * 80} className="text-center">

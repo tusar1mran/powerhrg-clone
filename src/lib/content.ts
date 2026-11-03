@@ -103,11 +103,22 @@ export const news = [
   { date: "10 / 27 / 26", title: "Are Gutter Guards Worth It? 3 Things to Consider" },
 ];
 
-export const footerColumns = [
-  { heading: "Services", links: ["All Services", "Windows", "Roofing", "Siding", "Doors", "Insulation", "Solar", "Accessories"] },
-  { heading: "About", links: ["About Power", "Community", "Belonging", "News"] },
-  { heading: "Careers", links: ["Power Careers", "Openings", "Innovations", "Partner With Power"] },
-  { heading: "Support", links: ["Get Support", "Locations", "Track Your Project", "Our Process", "Bill of Rights", "Licenses and Insurance", "Warranties", "Tax Credits", "Window Sash"] },
+export const footerColumns: { heading: string; links: NavItem[] }[] = [
+  ...navMenu.filter((g) => g.label !== "Support").map((g) => ({ heading: g.label, links: g.items.filter((i) => !i.hidden) })),
+  {
+    heading: "Support",
+    links: [
+      { label: "Get Support", href: "#" },
+      { label: "Locations", href: "#" },
+      { label: "Track Your Project", href: "/services#track-project" },
+      { label: "Our Process", href: "/#process" },
+      { label: "Bill of Rights", href: "/#bill-of-rights" },
+      { label: "Licenses and Insurance", href: "#" },
+      { label: "Warranties", href: "#" },
+      { label: "Tax Credits", href: "#" },
+      { label: "Window Sash", href: "#" },
+    ],
+  },
 ];
 
 export const footerBadges = [

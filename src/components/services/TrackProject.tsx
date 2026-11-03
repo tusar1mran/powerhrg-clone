@@ -14,7 +14,7 @@ function Check() {
 
 export default function TrackProject() {
   return (
-    <section>
+    <section id="track-project">
       {/* The reference uses a blurred white-to-blue image as the section background */}
       <div className="bg-[#c9daf6] bg-cover bg-center py-14 lg:py-8" style={{ backgroundImage: `url(${trackProject.background})` }}>
         <div className="mx-auto grid max-w-[1150px] items-center gap-10 px-6 lg:grid-cols-[1fr_1.4fr]">

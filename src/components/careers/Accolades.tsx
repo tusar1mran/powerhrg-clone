@@ -45,7 +45,7 @@ export default function Accolades({ eyebrow, title, text, cta, items }: Props) {
 
         <Reveal delay={150} className="lg:order-2">
           <p className="text-[11px] font-bold tracking-[2.8px] text-[#3b6fd4] uppercase">{eyebrow}</p>
-          <h2 className="mt-4 text-[40px] leading-[1.25] font-light tracking-[8px] uppercase lg:text-[63px] lg:tracking-[10px]">
+          <h2 className="mt-4 text-[29px] leading-[1.25] font-light tracking-[2px] uppercase lg:text-[46px] lg:tracking-[5px] xl:text-[63px] xl:tracking-[10px]">
             {title.map((l) => (
               <span key={l} className="block">
                 {l}

@@ -33,7 +33,7 @@ export default function ProductIntro({ eyebrow, title, text, logo, children, fea
         <Reveal className={logo ? "grid items-center gap-10 lg:grid-cols-[1.6fr_1fr]" : ""}>
           <div>
             <p className="text-[12px] font-bold tracking-[3px] text-navy/60 uppercase lg:text-[14px] lg:tracking-[4.2px]">{eyebrow}</p>
-            <h2 className="mt-4 max-w-[1000px] text-[34px] leading-[1.25] font-light tracking-[5px] uppercase lg:text-[63px] lg:tracking-[10px]">
+            <h2 className="mt-4 max-w-[1000px] text-[29px] leading-[1.25] font-light tracking-[2px] uppercase lg:text-[46px] lg:tracking-[5px] xl:text-[63px] xl:tracking-[10px]">
               {title}
             </h2>
             {text && <p className="mt-8 max-w-[560px] text-[16px] leading-[26px] lg:text-[20px] lg:leading-[30px]">{text}</p>}

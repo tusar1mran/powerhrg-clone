@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element -- static logos and badges */
+import Link from "next/link";
 import { footerBadges, footerColumns } from "@/lib/content";
 
 const socials = [
@@ -35,10 +36,10 @@ export default function Footer() {
                 <h4 className="text-[11px] font-bold tracking-[2.8px] uppercase">{col.heading}</h4>
                 <ul className="mt-5 space-y-[18px]">
                   {col.links.map((l) => (
-                    <li key={l}>
-                      <a href="#" className="text-[14px] hover:text-lime">
-                        {l}
-                      </a>
+                    <li key={l.label}>
+                      <Link href={l.href} className="text-[14px] hover:text-lime">
+                        {l.label}
+                      </Link>
                     </li>
                   ))}
                 </ul>
