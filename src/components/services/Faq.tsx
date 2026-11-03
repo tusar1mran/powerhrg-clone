@@ -6,13 +6,13 @@ import RichText, { type Rich } from "../RichText";
 
 export type FaqItem = { q: string; a: Rich; list?: string[]; more?: Rich[] };
 export type FaqGroup = { tab: string; items: FaqItem[] };
-type Props = { faqs: FaqGroup[]; heading?: string; intro?: string; variant?: "boxed" | "plain" };
+type Props = { faqs: FaqGroup[]; heading?: string; intro?: string; variant?: "boxed" | "plain"; animate?: boolean };
 
 /**
  * Tabbed FAQ in a light-blue box. Pass a single group with an empty `tab` to get the
  * plain variant used on the accessories page: white background, no tabs, no sub-heading.
  */
-export default function Faq({ faqs, heading = "FAQs", intro, variant }: Props) {
+export default function Faq({ faqs, heading = "FAQs", intro, variant, animate = true }: Props) {
   const [tab, setTab] = useState(0);
   const [open, setOpen] = useState<number | null>(null);
   const current = faqs[tab];
@@ -22,6 +22,8 @@ export default function Faq({ faqs, heading = "FAQs", intro, variant }: Props) {
   return (
     <section className="bg-white px-0 pb-14 lg:px-6">
       <Reveal
+        speed="normal"
+        still={!animate}
         className={`mx-auto grid max-w-[1190px] gap-10 px-6 py-14 text-navy lg:grid-cols-[1fr_1.65fr] lg:px-[54px] lg:py-[74px] ${
           plain ? "" : "bg-sky-soft"
         }`}
@@ -68,7 +70,7 @@ export default function Faq({ faqs, heading = "FAQs", intro, variant }: Props) {
                     <span aria-hidden className="text-[18px] font-light">{isOpen ? "−" : "+"}</span>
                   </button>
                   {/* grid-rows trick animates height without measuring */}
-                  <div className={`grid transition-all duration-300 ${isOpen ? "grid-rows-[1fr] pb-8" : "grid-rows-[0fr]"}`}>
+                  <div className={`grid transition-all duration-[250ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${isOpen ? "grid-rows-[1fr] pb-8" : "grid-rows-[0fr]"}`}>
                     <div className="space-y-4 overflow-hidden text-[14px] leading-[24px] whitespace-pre-line">
                       <p>
                         <RichText value={item.a} />

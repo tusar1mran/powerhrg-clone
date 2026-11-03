@@ -333,7 +333,7 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
 
         {mobileOpen && (
           <div role="dialog" aria-modal="true" aria-label="Mobile Navigation" className="fixed inset-0 z-[60] overflow-y-auto">
-            <div className="relative h-screen w-full overflow-y-auto bg-white">
+            <div className="relative h-screen w-full origin-center animate-[dropdown-in_150ms_ease-out] overflow-y-auto bg-white">
               <div className={`relative z-[60] h-[60px] w-full ${isHome ? "" : "border-b border-lime bg-white/85"}`}>
                 <Link href="/" onClick={goHome} aria-label="Return to homepage" className="absolute top-1 left-4 z-[60]">
                   <img src="/assets/logo/power-navy.svg" alt="" className="h-[50px] w-[41px]" />
@@ -391,8 +391,11 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
                             <Chevron up={isOpen} />
                           </span>
                         </button>
-                        {isOpen && (
-                          <div>
+                        <div
+                          className={`grid transition-[grid-template-rows] duration-[250ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+                          inert={!isOpen}
+                        >
+                          <div className="overflow-hidden">
                             {group.items
                               .filter((item) => !item.hidden)
                               .map((item) => (
@@ -401,7 +404,7 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
                                 </Link>
                               ))}
                           </div>
-                        )}
+                        </div>
                       </div>
                     );
                   })}

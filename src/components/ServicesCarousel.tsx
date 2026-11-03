@@ -18,7 +18,7 @@ export default function ServicesCarousel() {
   return (
     <section id="services" className="relative overflow-hidden bg-white pt-[53px] pb-[80px]">
       <div
-        className="flex transition-transform duration-700 ease-out"
+        className="flex transition-transform duration-300 ease-[ease]"
         style={{ gap: `${GAP}vw`, transform: `translateX(${offset}vw)` }}
       >
         {services.map((s, i) => {
@@ -32,7 +32,7 @@ export default function ServicesCarousel() {
                 aria-label={`Show ${s.name}`}
               >
                 <Photo src={s.image} className="absolute inset-0 scale-100 transition-transform duration-700 group-hover:scale-110" />
-                <span className={`absolute inset-0 bg-white transition-opacity duration-700 ${isActive ? "opacity-0" : "opacity-60"}`} />
+                <span className={`absolute inset-0 bg-white transition-opacity duration-300 ${isActive ? "opacity-0" : "opacity-60"}`} />
                 <h3
                   className="absolute top-6 left-6 text-[28px] font-light tracking-card text-white uppercase lg:text-[47px]"
                   style={{ writingMode: "vertical-rl" }}
@@ -40,7 +40,7 @@ export default function ServicesCarousel() {
                   {s.name}
                 </h3>
               </button>
-              <div className={`mt-4 transition-opacity duration-500 ${isActive ? "opacity-100" : "opacity-30"}`}>
+              <div className={`mt-4 transition-opacity duration-300 ${isActive ? "opacity-100" : "opacity-30"}`}>
                 <a href="#" className="link-underline text-navy">
                   Explore {s.name}
                 </a>

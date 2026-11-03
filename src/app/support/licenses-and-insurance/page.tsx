@@ -19,7 +19,7 @@ export default function LicensesPage() {
       <main id="main">
         <Hero {...licensesHero} size="short" ctaHref="#content" ctaLabel="explore insurance" />
         <div id="content">
-          <Faq faqs={licenses} {...licensesIntro} variant="plain" />
+          <Faq faqs={licenses} {...licensesIntro} variant="plain" animate={false} />
         </div>
         <SplitRow variant="contained" imageSide="left" tone="pale" {...insuranceCertificate} />
         <CtaBand {...hereToHelp} variant="link" />

@@ -35,12 +35,14 @@ export default function PulseBand({ background, logo, title, paragraphs, image, 
           </Reveal>
         </div>
       </div>
-      <a href={bar.href} className="group flex items-center justify-center gap-4 px-6 py-4 text-center text-[16px] text-navy xl:text-[20px]">
-        {bar.label}
-        <span aria-hidden className="inline-block transition-transform duration-500 group-hover:translate-x-1">
-          →
-        </span>
-      </a>
+      <Reveal speed="slower">
+        <a href={bar.href} className="group flex items-center justify-center gap-4 px-6 py-4 text-center text-[16px] text-navy xl:text-[20px]">
+          {bar.label}
+          <span aria-hidden className="inline-block transition-transform duration-500 group-hover:translate-x-1">
+            →
+          </span>
+        </a>
+      </Reveal>
     </section>
   );
 }

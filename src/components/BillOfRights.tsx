@@ -41,7 +41,8 @@ export default function BillOfRights({ items = rights }: Props) {
 
         <Reveal delay={150} className="relative">
           <div
-            className="relative mx-auto flex aspect-[565/560] w-full max-w-[565px] flex-col items-center justify-start bg-[#93abd9] px-[12%] pt-[18%] text-center text-navy"
+            key={i}
+            className="relative mx-auto flex aspect-[565/560] animate-[fade-in_700ms_ease] w-full max-w-[565px] flex-col items-center justify-start bg-[#93abd9] px-[12%] pt-[18%] text-center text-navy"
             style={{ clipPath: PANEL_SHAPE }}
           >
             {/* big faint index number behind the title */}

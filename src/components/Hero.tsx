@@ -78,7 +78,7 @@ export default function Hero({
       )}
       <div className={`relative px-6 sm:px-12 lg:pl-[203px] ${size === "full" ? "pt-[180px] lg:pt-[215px]" : "pt-[150px] lg:pt-[190px]"}`}>
         <h1
-          className={`text-[40px] leading-[1.3] font-light tracking-[5px] uppercase sm:text-[56px] ${dark ? "text-navy" : "text-lime"} ${
+          className={`fade-in-up text-[40px] leading-[1.3] font-light tracking-[5px] uppercase sm:text-[56px] ${dark ? "text-navy" : "text-lime"} ${
             // the short banner (about) uses a 60px title so four lines + CTA fit in 700px
             size === "full" ? "lg:text-[76px] lg:tracking-hero" : "lg:text-[60px]"
           }`}
@@ -91,7 +91,7 @@ export default function Hero({
         </h1>
         {/* long single-paragraph subtitles (community, belonging) are 20px and wrap at ~650px on the reference */}
         <p
-          className={`mt-6 text-[18px] leading-[28px] ${dark ? "max-w-[680px] text-navy" : "text-white"} ${
+          className={`fade-in-up-delay mt-6 text-[18px] leading-[28px] ${dark ? "max-w-[680px] text-navy" : "text-white"} ${
             subtitle.length === 1 && subtitle[0].length > 110 ? "max-w-[650px] lg:text-[20px] lg:leading-[30px]" : ""
           }`}
         >
@@ -106,7 +106,7 @@ export default function Hero({
             href={button.href}
             className={
               buttonVariant === "outline"
-                ? "mt-[35px] flex w-full items-center justify-center border-4 border-white px-8 py-6 text-[14px] leading-none font-bold tracking-[0.3em] text-white uppercase transition-colors duration-150 hover:border-navy hover:bg-navy hover:text-lime sm:inline-flex sm:w-auto sm:min-w-[240px]"
+                ? "fade-in-up mt-[35px] flex w-full items-center justify-center border-4 border-white px-8 py-6 text-[14px] leading-none font-bold tracking-[0.3em] text-white uppercase transition-colors duration-150 hover:border-navy hover:bg-navy hover:text-lime sm:inline-flex sm:w-auto sm:min-w-[240px]"
                 : "mt-10 inline-block bg-lime px-6 py-4 text-[12px] font-bold tracking-[3px] text-navy uppercase transition-colors duration-150 hover:bg-navy hover:text-lime focus:bg-navy focus:text-lime lg:mt-12 lg:text-[13px] lg:tracking-[3.5px]"
             }
           >

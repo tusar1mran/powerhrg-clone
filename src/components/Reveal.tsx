@@ -2,29 +2,39 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-// Fades children up when they scroll into view, like the reference site.
-export default function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
+type Props = {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+  speed?: "normal" | "slow" | "slower";
+  still?: boolean;
+};
+
+const durations = { normal: "1s", slow: "2s", slower: "3s" };
+
+export default function Reveal({ children, className = "", speed = "slow", still = false }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.15 },
-    );
+    if (!el || still) return;
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.intersectionRatio > 0)) {
+        setVisible(true);
+        io.disconnect();
+      }
+    });
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [still]);
 
   return (
-    <div ref={ref} className={`reveal ${visible ? "is-visible" : ""} ${className}`} style={{ transitionDelay: `${delay}ms` }}>
+    <div
+      ref={ref}
+      className={`${still ? "" : "reveal"} ${visible ? "is-visible" : ""} ${className}`}
+      style={{ animationDuration: durations[speed] }}
+    >
       {children}
     </div>
   );

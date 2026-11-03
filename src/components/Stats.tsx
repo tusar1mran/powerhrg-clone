@@ -13,7 +13,7 @@ function useCountUp(target: number, start: boolean, ms = 2000) {
     const t0 = performance.now();
     const tick = (t: number) => {
       const p = Math.min((t - t0) / ms, 1);
-      setN(Math.round(target * (1 - Math.pow(1 - p, 3))));
+      setN(p === 1 ? target : Math.round((target * (1 - Math.pow(2, -10 * p)) * 1024) / 1023));
       if (p < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -37,7 +37,7 @@ export default function Stats() {
   const [start, setStart] = useState(false);
 
   useEffect(() => {
-    const io = new IntersectionObserver(([e]) => e.isIntersecting && setStart(true), { threshold: 0.4 });
+    const io = new IntersectionObserver(([e]) => e.isIntersecting && setStart(true), { rootMargin: "0px 0px -50% 0px" });
     if (ref.current) io.observe(ref.current);
     return () => io.disconnect();
   }, []);
