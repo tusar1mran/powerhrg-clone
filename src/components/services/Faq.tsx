@@ -6,16 +6,18 @@ import RichText, { type Rich } from "../RichText";
 
 export type FaqItem = { q: string; a: Rich; list?: string[]; more?: Rich[] };
 export type FaqGroup = { tab: string; items: FaqItem[] };
+type Props = { faqs: FaqGroup[]; heading?: string; intro?: string; variant?: "boxed" | "plain" };
 
 /**
  * Tabbed FAQ in a light-blue box. Pass a single group with an empty `tab` to get the
  * plain variant used on the accessories page: white background, no tabs, no sub-heading.
  */
-export default function Faq({ faqs }: { faqs: FaqGroup[] }) {
+export default function Faq({ faqs, heading = "FAQs", intro, variant }: Props) {
   const [tab, setTab] = useState(0);
   const [open, setOpen] = useState<number | null>(null);
   const current = faqs[tab];
-  const plain = faqs.length === 1 && faqs[0].tab === "";
+  const plain = variant ? variant === "plain" : faqs.length === 1 && faqs[0].tab === "";
+  const showTabs = !plain && faqs.some((f) => f.tab !== "");
 
   return (
     <section className="bg-white px-0 pb-14 lg:px-6">
@@ -25,8 +27,9 @@ export default function Faq({ faqs }: { faqs: FaqGroup[] }) {
         }`}
       >
         <div>
-          <h2 className="text-[30px] font-light tracking-card uppercase lg:text-[47px]">FAQs</h2>
-          {!plain && (
+          <h2 className="text-[30px] font-light tracking-card uppercase lg:text-[47px]">{heading}</h2>
+          {intro && <p className="mt-6 text-[16px] leading-[1.45] xl:text-[20px]">{intro}</p>}
+          {showTabs && (
             <ul role="tablist" aria-label="FAQ categories" className="mt-6 flex flex-wrap gap-4 lg:block lg:space-y-[10px]">
               {faqs.map((f, i) => (
                 <li key={f.tab}>
@@ -49,7 +52,7 @@ export default function Faq({ faqs }: { faqs: FaqGroup[] }) {
         </div>
 
         <div role={plain ? undefined : "tabpanel"}>
-          {!plain && <h3 className="mb-6 text-[30px] font-light tracking-card uppercase lg:text-[47px]">{current.tab}</h3>}
+          {!plain && current.tab && <h3 className="mb-6 text-[30px] font-light tracking-card uppercase lg:text-[47px]">{current.tab}</h3>}
           <ul className="border-b border-[#8ea9dc]">
             {current.items.map((item, i) => {
               const isOpen = open === i;

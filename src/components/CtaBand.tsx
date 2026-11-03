@@ -24,7 +24,7 @@ export default function CtaBand({ title, label, href = "#", text, tone = "sky", 
             </span>
           ))}
         </h2>
-        {text && <p className="mx-auto mt-4 max-w-[760px] text-[16px] leading-[1.45] xl:text-[20px]">{text}</p>}
+        {text && <p className="mx-auto mt-4 max-w-[760px] text-[16px] leading-[1.45] whitespace-pre-line xl:text-[20px]">{text}</p>}
         {variant === "button" ? (
           <a
             href={href}

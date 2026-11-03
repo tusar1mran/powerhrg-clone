@@ -24,6 +24,7 @@ type Props = {
   button?: { label: string; href: string };
   buttonVariant?: "lime" | "outline";
   overlay?: boolean;
+  ink?: "light" | "dark";
 };
 
 // Server component: checks the file system so a missing desktop image falls back cleanly,
@@ -42,7 +43,9 @@ export default function Hero({
   button,
   buttonVariant = "lime",
   overlay = false,
+  ink = "light",
 }: Props) {
+  const dark = ink === "dark";
   const mobile = mobileImage ?? image;
   const base = "#7ba3e6";
 
@@ -73,7 +76,7 @@ export default function Hero({
       )}
       <div className={`relative px-6 sm:px-12 lg:pl-[203px] ${size === "full" ? "pt-[180px] lg:pt-[215px]" : "pt-[150px] lg:pt-[190px]"}`}>
         <h1
-          className={`text-[40px] leading-[1.3] font-light tracking-[5px] text-lime uppercase sm:text-[56px] ${
+          className={`text-[40px] leading-[1.3] font-light tracking-[5px] uppercase sm:text-[56px] ${dark ? "text-navy" : "text-lime"} ${
             // the short banner (about) uses a 60px title so four lines + CTA fit in 700px
             size === "full" ? "lg:text-[76px] lg:tracking-hero" : "lg:text-[60px]"
           }`}
@@ -86,7 +89,7 @@ export default function Hero({
         </h1>
         {/* long single-paragraph subtitles (community, belonging) are 20px and wrap at ~650px on the reference */}
         <p
-          className={`mt-6 text-[18px] leading-[28px] text-white ${
+          className={`mt-6 text-[18px] leading-[28px] ${dark ? "max-w-[680px] text-navy" : "text-white"} ${
             subtitle.length === 1 && subtitle[0].length > 110 ? "max-w-[650px] lg:text-[20px] lg:leading-[30px]" : ""
           }`}
         >
@@ -110,7 +113,7 @@ export default function Hero({
         )}
         <a
           href={ctaHref}
-          className={`link-underline text-white ${button ? "mt-8 flex w-fit lg:mt-10" : size === "full" ? "mt-12 lg:mt-20" : "mt-8 lg:mt-10"}`}
+          className={`link-underline ${dark ? "text-navy" : "text-white"} ${button ? "mt-8 flex w-fit lg:mt-10" : size === "full" ? "mt-12 lg:mt-20" : "mt-8 lg:mt-10"}`}
         >
           {ctaLabel} <span aria-hidden>↓</span>
         </a>

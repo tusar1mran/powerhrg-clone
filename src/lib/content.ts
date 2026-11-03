@@ -109,14 +109,14 @@ export const footerColumns: { heading: string; links: NavItem[] }[] = [
     heading: "Support",
     links: [
       { label: "Get Support", href: "/support" },
-      { label: "Locations", href: "#" },
+      { label: "Locations", href: "/support/locations" },
       { label: "Track Your Project", href: "/support/project-pulse" },
-      { label: "Our Process", href: "/#process" },
+      { label: "Our Process", href: "/support/our-process" },
       { label: "Bill of Rights", href: "/support/bill-of-rights" },
-      { label: "Licenses and Insurance", href: "#" },
+      { label: "Licenses and Insurance", href: "/support/licenses-and-insurance" },
       { label: "Warranties", href: "/support/warranties" },
       { label: "Tax Credits", href: "/support/tax-credits" },
-      { label: "Window Sash", href: "#" },
+      { label: "Window Sash", href: "/sash-replacement-how-to" },
     ],
   },
 ];

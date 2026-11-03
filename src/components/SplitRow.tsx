@@ -9,9 +9,10 @@ type Props = {
   /** Which side the photo sits on. */
   imageSide: "left" | "right";
   /** Text-side tone: pale blue or white. */
-  tone: "blue" | "white" | "sky" | "navy";
-  cta?: { label: string; href?: string };
+  tone: "blue" | "white" | "sky" | "navy" | "pale";
+  cta?: { label: string; href?: string; file?: boolean };
   eyebrow?: string;
+  badge?: string;
   bullets?: string[];
   bulletsLabel?: string;
   capsBullets?: boolean;
@@ -35,16 +36,25 @@ export default function SplitRow({
   cta,
   variant,
   eyebrow,
+  badge,
   bullets,
   bulletsLabel,
   capsBullets = false,
   bgImage,
 }: Props) {
-  const bg = { blue: "bg-[#edf3fd]", white: "bg-white", sky: "bg-sky-soft", navy: "bg-navy" }[tone];
+  const bg = { blue: "bg-[#edf3fd]", white: "bg-white", sky: "bg-sky-soft", navy: "bg-navy", pale: "bg-sky/20" }[tone];
   const ink = tone === "navy" ? "text-white" : "text-navy";
 
   const copy = (
     <Reveal className={`max-w-[420px] ${ink}`}>
+      {badge && (
+        <div
+          className="relative mb-[25px] flex h-[60px] w-[50px] items-center justify-center bg-contain bg-center bg-no-repeat"
+          style={{ backgroundImage: "url(/assets/support/sash/number-bg.png)" }}
+        >
+          <span className="text-[18px] font-bold">{badge}</span>
+        </div>
+      )}
       {eyebrow && <p className="mb-3 text-[11px] font-bold tracking-[2.8px] uppercase">{eyebrow}</p>}
       <h2 className="text-[30px] leading-[1.3] font-light tracking-[4px] uppercase lg:text-[47px] lg:tracking-card">
         {title.map((l) => (
@@ -75,8 +85,15 @@ export default function SplitRow({
         </ul>
       )}
       {cta && (
-        <a href={cta.href ?? "#"} className="link-underline mt-6">
+        <a href={cta.href ?? "#"} className="link-underline relative mt-6">
           {cta.label}
+          {cta.file && (
+            <span
+              aria-hidden
+              className="absolute top-[40%] -right-6 h-3 w-3 -translate-y-1/2 bg-contain bg-no-repeat"
+              style={{ backgroundImage: "url(/assets/support/warranties/open-file-icon.png)" }}
+            />
+          )}
         </a>
       )}
     </Reveal>

@@ -95,5 +95,20 @@ Still missing:
 |---|---|
 | support/bill-of-rights/video-poster.jpg | (Vimeo 1024746868 - optional still) |
 | support/project-pulse/video-poster.jpg | (Vimeo 944556647 - optional still) |
+| support/locations/map.png | (interactive US map plugin - a screenshot of the map) |
+| support/our-process/free-estimate.jpg | free-estimate.jpg (CSS background, not in the save) |
+| support/our-process/consult.png | consult.png (CSS background, not in the save) |
+| support/our-process/production.jpg | production.jpg (CSS background, not in the save) |
+| support/our-process/install.jpg | install.jpg (CSS background, not in the save) |
+| support/sash/number-bg.png | number_bg.png (step number background, theme image) |
+| support/sash/video-poster.jpg | (Vimeo 896334981 - optional still) |
 
-Not saved yet (pages not built): /support/locations, /support/our-process, /support/licenses-and-insurance, /sash-replacement-how-to.
+## /support/locations, /support/our-process, /support/licenses-and-insurance, /sash-replacement-how-to
+
+support/locations: offices/<city>.jpg|jpeg from the office photos (default.jpeg = EXP25_JAX_OfficePhotography_5052, used by cities
+without their own photo), services.png = Rectangle-93.png, warranties.jpg = page-link-warranties.jpg, icons/phone|fax|map.svg (inline SVGs).
+support/our-process: hero.jpg = our_process_hero.jpg, phone.png, project-pulse-logo.svg = PROJECT-PULSE.svg,
+icons/light-check|dark-check|step-2|step-3|step-4.svg.
+support/licenses: hero.jpg = LICENSE-AND-INURANCE-HERO-scaled.jpg, hero-mobile.jpg = LICENSE-AND-INSURANCE-HERO-M-768x975.jpg,
+certificate.png = Rectangle-110.png.
+support/sash: hero.png = SASH_D-2.png, hero-mobile.png = WINDOWS-M-2-768x1173.png, step-1…6.jpg = STEP-1.jpg, STEP-2…6-scaled.jpg.

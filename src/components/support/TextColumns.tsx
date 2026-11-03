@@ -7,6 +7,7 @@ export type TextBlock =
   | { h3: string[]; lead?: boolean }
   | { p: Rich }
   | { b: string }
+  | { label: string }
   | { list: string[] }
   | { link: RichLink; file?: boolean }
   | { video: { title: string; poster: string; aspect?: string } };
@@ -16,6 +17,7 @@ type Props = {
   id?: string;
   padTop?: boolean;
   padBottom?: boolean;
+  centerFirst?: boolean;
 };
 
 const inlineLink = "text-[14px] font-bold tracking-[0.3em] uppercase hover:underline";
@@ -46,9 +48,12 @@ function Block({ block }: { block: TextBlock }) {
   if ("b" in block) {
     return <p className="mb-5 text-[16px] leading-[1.45] font-bold xl:text-[20px]">{block.b}</p>;
   }
+  if ("label" in block) {
+    return <p className="mb-5 text-[16px] leading-[1.45] font-bold tracking-[5px] xl:text-[20px]">{block.label}</p>;
+  }
   if ("list" in block) {
     return (
-      <ul className="mb-4 list-outside list-disc px-4 text-[16px] leading-[1.45] xl:text-[20px]">
+      <ul className="mb-6 list-outside list-disc space-y-3 px-4 text-[16px] leading-[1.45] xl:text-[20px]">
         {block.list.map((l) => (
           <li key={l}>{l}</li>
         ))}
@@ -70,12 +75,12 @@ function Block({ block }: { block: TextBlock }) {
   return <VideoPoster title={block.video.title} poster={block.video.poster} className={block.video.aspect ?? "aspect-video"} />;
 }
 
-export default function TextColumns({ columns, id, padTop = false, padBottom = false }: Props) {
+export default function TextColumns({ columns, id, padTop = false, padBottom = false, centerFirst = false }: Props) {
   return (
     <section id={id} className={`bg-white py-12 text-navy ${padTop ? "lg:pt-36" : ""} ${padBottom ? "lg:pb-36" : ""}`}>
       <div className="mx-auto grid max-w-[1150px] gap-10 px-6 lg:grid-cols-2">
         {columns.map((col, i) => (
-          <Reveal key={i} delay={i * 150}>
+          <Reveal key={i} delay={i * 150} className={centerFirst && i === 0 ? "flex flex-col justify-center" : ""}>
             {col.map((block, j) => (
               <Block key={j} block={block} />
             ))}
