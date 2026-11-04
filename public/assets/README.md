@@ -17,7 +17,7 @@ to the "Save as" name and drop it into this folder. Until then the slot shows a 
 
 | Folder | Contents | Source file names |
 |---|---|---|
-| logo/ | power-white.svg, power-navy.svg (header), power-lime.svg (footer), pledge1.svg | inline SVGs saved as "default (20/21/…).svg" |
+| logo/ | shah-crew-white.svg, shah-crew-navy.svg (desktop header), shah-crew-icon-navy.svg (mobile header), power-white.svg, power-navy.svg (old header, unused), power-lime.svg (footer), pledge1.svg | shah-crew-*: original logo built by design/logo/build_logo.py, wordmark in Jost (OFL) outlined to paths; power-*: inline SVGs saved as "default (20/21/…).svg" |
 | social/ | youtube, linkedin, instagram, tiktok, facebook (.svg) | footer social icons |
 | icons/ | feature icons (ENERGY.svg, SECURE.svg … REFLECTIVE.png) | same names on the reference |
 | awards/ | angi.png, bbb.png, google.svg, bobvila.png, energy.svg | SSA-2025_800px.png, webnus-bbb-share-p.png, Google.svg, 2025-bob-vila-editors-choice-award2.png, Energy-Savings.svg |

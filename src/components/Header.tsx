@@ -19,8 +19,8 @@ const ctaClass =
 const topSearches = [
   { label: "Get a Free Quote", href: "#" },
   { label: "View All Services", href: "/services" },
-  { label: "About Power", href: "/about" },
-  { label: "Power Careers", href: "/careers" },
+  { label: "About Shah & Crew", href: "/about" },
+  { label: "Shah & Crew Careers", href: "/careers" },
   { label: "Get Support", href: "/support" },
 ];
 
@@ -200,11 +200,16 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
       )}
 
       <header ref={navRef} className={`z-40 hidden h-[90px] w-full lg:block ${desktopClass}`}>
-        <Link href="/" onClick={goHome} aria-label="Return to homepage" className={`absolute left-6 z-40 ${transparent ? "top-5" : "top-3"}`}>
+        <Link
+          href="/"
+          onClick={goHome}
+          aria-label="Return to homepage"
+          className={`absolute left-6 z-40 ${transparent ? "top-[17px]" : "top-[21px]"}`}
+        >
           {transparent ? (
-            <img src="/assets/logo/power-white.svg" alt="" className="h-[95px] w-[78px]" />
+            <img src="/assets/logo/shah-crew-white.svg" alt="" width={150} height={56} className="h-[56px] w-[150px]" />
           ) : (
-            <img src="/assets/logo/power-navy.svg" alt="" className="h-[67px] w-[56px] transition-all" />
+            <img src="/assets/logo/shah-crew-navy.svg" alt="" width={128} height={48} className="h-[48px] w-[128px] transition-all" />
           )}
         </Link>
 
@@ -311,8 +316,8 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
       </header>
 
       <header className={`sticky top-0 z-[60] h-[60px] w-full lg:hidden ${isHome ? "bg-white" : "border-b border-lime bg-white/85"}`}>
-        <Link href="/" onClick={goHome} aria-label="Return to homepage" className="absolute top-1 left-4 z-40">
-          <img src="/assets/logo/power-navy.svg" alt="" className="h-[50px] w-[41px]" />
+        <Link href="/" onClick={goHome} aria-label="Return to homepage" className="absolute top-2 left-4 z-40">
+          <img src="/assets/logo/shah-crew-icon-navy.svg" alt="" width={40} height={44} className="h-[44px] w-[40px]" />
         </Link>
         <button
           type="button"
@@ -335,8 +340,8 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
           <div role="dialog" aria-modal="true" aria-label="Mobile Navigation" className="fixed inset-0 z-[60] overflow-y-auto">
             <div className="relative h-screen w-full origin-center animate-[dropdown-in_150ms_ease-out] overflow-y-auto bg-white">
               <div className={`relative z-[60] h-[60px] w-full ${isHome ? "" : "border-b border-lime bg-white/85"}`}>
-                <Link href="/" onClick={goHome} aria-label="Return to homepage" className="absolute top-1 left-4 z-[60]">
-                  <img src="/assets/logo/power-navy.svg" alt="" className="h-[50px] w-[41px]" />
+                <Link href="/" onClick={goHome} aria-label="Return to homepage" className="absolute top-2 left-4 z-[60]">
+                  <img src="/assets/logo/shah-crew-icon-navy.svg" alt="" width={40} height={44} className="h-[44px] w-[40px]" />
                 </Link>
                 <button
                   type="button"

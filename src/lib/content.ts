@@ -23,7 +23,7 @@ export const navMenu: NavGroup[] = [
   {
     label: "About",
     items: [
-      { label: "About Power", href: "/about" },
+      { label: "About Shah & Crew", href: "/about" },
       { label: "Community", href: "/about/community" },
       { label: "Belonging", href: "/about/belonging" },
       { label: "News", href: "/about/news" },
@@ -32,10 +32,10 @@ export const navMenu: NavGroup[] = [
   {
     label: "Careers",
     items: [
-      { label: "Power Careers", href: "/careers" },
+      { label: "Shah & Crew Careers", href: "/careers" },
       { label: "Openings", href: "/careers/openings" },
       { label: "Innovations", href: "/careers/innovations" },
-      { label: "Partner With Power", href: "/careers/partner-with-power" },
+      { label: "Partner With Us", href: "/careers/partner-with-power" },
     ],
   },
   {
