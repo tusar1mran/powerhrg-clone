@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Arrow from "./Arrow";
 import Photo from "./Photo";
@@ -68,9 +69,9 @@ export default function ServicesCarousel() {
                 </h3>
               </button>
               <div className={`mt-4 ${animate ? "transition-opacity duration-300" : ""} ${isActive ? "opacity-100" : "opacity-30"}`}>
-                <a href="#" className="link-underline text-navy" tabIndex={clone ? -1 : undefined}>
-                  Explore {s.name}
-                </a>
+                <Link href={s.href} className="link-underline text-navy" tabIndex={clone ? -1 : undefined}>
+                  Explore {s.name.toLowerCase()}
+                </Link>
                 <p className="mt-5 max-w-[560px] text-[16px] text-navy">{s.text}</p>
               </div>
             </div>

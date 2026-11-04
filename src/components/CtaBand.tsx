@@ -1,6 +1,8 @@
 import Reveal from "./Reveal";
 
 type Props = {
+  /** Anchor id, so other pages can link to this band (e.g. /about#service-area). */
+  id?: string;
   title: string[];
   label: string;
   href?: string;
@@ -9,13 +11,13 @@ type Props = {
   variant?: "button" | "link";
 };
 
-export default function CtaBand({ title, label, href = "#", text, tone = "sky", variant = "button" }: Props) {
+export default function CtaBand({ id, title, label, href = "#", text, tone = "sky", variant = "button" }: Props) {
   const bg = { sky: "bg-sky text-navy", white: "bg-white text-navy", navy: "bg-navy text-white" }[tone];
   const button =
     tone === "navy" ? "bg-lime text-black hover:bg-sky focus:bg-sky" : "bg-navy text-white hover:bg-lime hover:text-black focus:bg-lime focus:text-black";
 
   return (
-    <section className={`${bg} px-6 py-20 text-center lg:py-24 ${text ? "xl:py-36" : ""}`}>
+    <section id={id} className={`${bg} scroll-mt-24 px-6 py-20 text-center lg:py-24 ${text ? "xl:py-36" : ""}`}>
       <Reveal>
         <h2 className="text-[30px] leading-[1.3] font-light tracking-[5px] uppercase lg:text-[63px] lg:tracking-[10px]">
           {title.map((l) => (

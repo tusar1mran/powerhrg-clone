@@ -2,13 +2,23 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
-import Gallery from "@/components/services/Gallery";
-import Partners from "@/components/services/Partners";
+import CtaBand from "@/components/CtaBand";
+import ProductIntro from "@/components/services/ProductIntro";
+import Guarantee from "@/components/services/Guarantee";
 import Faq from "@/components/services/Faq";
-import { accessoriesFaqs, accessoriesHero, accessoriesPartners, accessoryGalleries } from "@/lib/accessories-content";
+import {
+  accessoriesCta,
+  accessoriesFaqs,
+  accessoriesFeatures,
+  accessoriesGuarantee,
+  accessoriesHero,
+  accessoriesIntro,
+} from "@/lib/accessories-content";
 
 export const metadata: Metadata = {
-  title: "Accessories (study clone)",
+  title: "Exterior Accessories",
+  description:
+    "Gutters, gutter guards, soffit and fascia, trim capping, shutters, storm doors, screens and attic vents, installed alone or with a larger project.",
 };
 
 export default function AccessoriesPage() {
@@ -17,12 +27,9 @@ export default function AccessoriesPage() {
       <Header transparentAtTop={false} />
       <main id="main">
         <Hero {...accessoriesHero} ctaHref="#product" ctaLabel="Explore accessories" />
-        <div id="product">
-          {accessoryGalleries.map((g) => (
-            <Gallery key={g.title} title={g.title} slides={g.slides} />
-          ))}
-        </div>
-        <Partners tone="white" partners={accessoriesPartners} />
+        <ProductIntro {...accessoriesIntro} features={accessoriesFeatures} />
+        <Guarantee {...accessoriesGuarantee} />
+        <CtaBand {...accessoriesCta} />
         <Faq faqs={accessoriesFaqs} />
       </main>
       <Footer />

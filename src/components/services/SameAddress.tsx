@@ -5,7 +5,7 @@ type Props = {
   title?: string[];
   text?: string;
   image?: string;
-  /** "tall" = /services "Same address"; "short" = /about "The unexpected ally". */
+  /** "tall" = /services "Same house"; "short" = /about story band. */
   size?: "tall" | "short";
   /** Body copy alignment: left on /services, centred on /about. */
   align?: "left" | "center";
@@ -13,7 +13,7 @@ type Props = {
   light?: boolean;
 };
 
-// Full-bleed sky photo with the house at the bottom, lime heading and white copy near the top.
+// Full-bleed sky photo with houses at the bottom, lime heading and white copy near the top.
 export default function SameAddress({
   title = sameAddress.title,
   text = sameAddress.text,
@@ -22,8 +22,7 @@ export default function SameAddress({
   align = "left",
   light = false,
 }: Props) {
-  // "short" grows with the viewport like the reference (660px at 1166px wide, 814px at 1895px wide),
-  // which keeps the house roof below the copy at every desktop width.
+  // "short" grows with the viewport, which keeps the rooflines below the copy at every desktop width.
   const height = size === "tall" ? "min-h-[760px] lg:min-h-[1000px]" : "min-h-[560px] lg:min-h-[calc(414px+21.1vw)]";
   const pad = size === "tall" ? "pt-24 lg:pt-32" : "pt-20 lg:pt-32";
 

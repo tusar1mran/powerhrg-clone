@@ -1,16 +1,15 @@
 @import "tailwindcss";
 
 /*
-  Design tokens taken from the reference site (computed styles in the browser).
-  Original font is "Centra No1" (commercial licence) - Jost is a free, similar geometric sans.
+  Shah & Crew design tokens. The type is Jost, a free geometric sans (SIL OFL) that also sets the logo wordmark.
 */
 @theme {
-  --color-navy: #102f48;       /* blue-800: headings, footer, process block */
-  --color-navy-700: #2c4760;   /* bill of rights background */
-  --color-lime: #ddfe5c;       /* hero title, CTA button, accents */
-  --color-sky: #a5c1f5;        /* blue-200: news section */
-  --color-sky-soft: #e4ecfc;   /* blue-200 at 40%: awards section */
-  --color-slate: #c5cbd3;      /* process block while fading in */
+  --color-navy: #102f48;       /* headings, footer, process band, logo */
+  --color-navy-700: #2c4760;   /* "Our promise" background */
+  --color-lime: #ddfe5c;       /* hero title, CTA button, accents, logo roof */
+  --color-sky: #a5c1f5;        /* promise panel, CTA bands */
+  --color-sky-soft: #e4ecfc;   /* trust points, FAQ box, contact cards */
+  --color-slate: #c5cbd3;      /* photo placeholder while loading */
   --color-ink: #1a1a1a;        /* body copy */
 
   --font-sans: var(--font-jost), -apple-system, BlinkMacSystemFont, sans-serif;

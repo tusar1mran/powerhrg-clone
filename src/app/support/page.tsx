@@ -1,32 +1,33 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Process from "@/components/Process";
 import SplitRow from "@/components/SplitRow";
-import BillOfRights from "@/components/BillOfRights";
 import Faq from "@/components/services/Faq";
-import TrackProject from "@/components/services/TrackProject";
 import PageIntro from "@/components/support/PageIntro";
+import ContactOptions from "@/components/support/ContactOptions";
 import ContactForm from "@/components/support/ContactForm";
-import { contactForm, fullRights, supportFaqs, supportIntro, supportLinks } from "@/lib/support-content";
+import { processSection } from "@/lib/content";
+import { contactForm, contactOptions, licenses, supportFaqs, supportIntro, warranty } from "@/lib/support-content";
 
 export const metadata: Metadata = {
-  title: "Customer Support and Service (study clone)",
+  title: "Support & Free Quotes",
+  description:
+    "Book a free estimate, see how a project works, and find warranty, license and insurance details for Shah & Crew.",
 };
 
+// One page for everything "Support": contact, FAQs, process, warranty, licenses and the quote form.
 export default function SupportPage() {
   return (
     <>
       <Header transparentAtTop={false} />
       <main id="main">
         <PageIntro {...supportIntro} />
-        <div id="content">
-          <Faq faqs={supportFaqs} />
-        </div>
-        <TrackProject />
-        {supportLinks.map((row) => (
-          <SplitRow key={row.title[0]} variant="contained" imageSide="left" {...row} />
-        ))}
-        <BillOfRights items={fullRights} />
+        <ContactOptions {...contactOptions} />
+        <Faq faqs={supportFaqs} />
+        <Process {...processSection} cta={{ label: "Get a free quote", href: "#quote" }} />
+        <SplitRow variant="contained" {...warranty} />
+        <SplitRow variant="contained" {...licenses} />
         <ContactForm {...contactForm} />
       </main>
       <Footer />

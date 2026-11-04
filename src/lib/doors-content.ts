@@ -1,60 +1,146 @@
-// Copy and image paths for /services/doors. Images go in /public/assets/doors/.
+// Copy and image paths for /services/doors. Photos are in /public/assets/photos (see public/assets/CREDITS.md).
 import type { FaqGroup } from "@/components/services/Faq";
-import type { FeatureIcon } from "@/components/services/FeatureIcons";
-import { powerGuarantee } from "./services-content";
+import type { Feature } from "@/components/services/FeatureIcons";
+import { links } from "./links";
+import { guarantee } from "./services-content";
 
 export const doorsHero = {
-  title: ["Doors that", "make a grand", "entrance"],
-  subtitle: ["Elevate your entry with a front door that says so much more."],
-  image: "/assets/doors/hero.png",
+  title: ["Doors that", "close tight"],
+  subtitle: ["Entry, storm and patio doors,", "fitted and adjusted until they swing true and seal."],
+  image: "/assets/photos/doors-hero.jpg",
+  overlay: true,
 };
 
 export const doorsIntro = {
-  eyebrow: "Power Freedom Series",
-  title: "Bank vault security. Timeless beauty.",
-  text: "The POWER Freedom Series is our line of energy-efficient, entryway doors made with the utmost attention to design, security, and durability. Created in partnership with ProVia, a manufacturer renowned for their mix of modern technology and old-world craftsmanship.",
+  eyebrow: "Door replacement",
+  title: "A door should open easily and seal every time",
+  text: "Doors get used more than anything else on the outside of the house. We help you pick an entry, storm or patio door that suits your home, then set it plumb and level, seal it to the wall and adjust the hardware until it latches without a shove.",
 };
 
-export const doorsFeatures: { icon: FeatureIcon; title: string; text: string }[] = [
-  { icon: "energy", title: "Energy-efficient", text: "Highly insulated foam-filled core, premium weather stripping, Heat Shield glass" },
-  { icon: "security", title: "Secure", text: "20-gauge steel-plated slab, premium Schlage lock, optional electronic lock keypad" },
-  { icon: "durable", title: "Durable", text: "Warp-free slab, premium Schlage hardware, waterproof Frame Saver frame" },
-  { icon: "lowMaintenance", title: "Low-maintenance", text: "Oven-cured and finished, galvanized steel, installed to perfection" },
-  { icon: "waterproof", title: "Waterproof", text: "Rust-proof galvanized steel coat, waterproof Frame Saver frame" },
-  { icon: "curb", title: "Curb appeal", text: "Premium 5-step finishing process, wide variety of styles, colors, and options" },
-  { icon: "installers", title: "Highly-skilled installers", text: "Installation specialists trained in local codes and regulations" },
-  { icon: "warranty", title: "Superior warranties", text: "Transferable manufacturer warranty, POWER’s limited lifetime labor warranty" },
+export const doorsFeatures: Feature[] = [
+  {
+    icon: "style",
+    title: "Fiberglass or steel",
+    text: "Fiberglass resists dents and can look like wood. Steel is strong and affordable. Both come in many panel and glass styles.",
+  },
+  {
+    icon: "curb",
+    title: "Color and finish",
+    text: "Painted colors or wood-look stains, with options for sidelites and transoms to bring light into the entry.",
+  },
+  {
+    icon: "lock",
+    title: "Locks and hardware",
+    text: "Deadbolt and multipoint lock options, with handlesets in several finishes to match the rest of the house.",
+  },
+  {
+    icon: "comfort",
+    title: "Weatherstripping",
+    text: "New weatherstripping and an adjustable threshold that close the gaps where drafts and water get in.",
+  },
+  {
+    icon: "energy",
+    title: "Insulated options",
+    text: "Insulated door cores and glass, including ENERGY STAR certified options for your climate region.",
+  },
+  {
+    icon: "weather",
+    title: "Storm doors",
+    text: "A storm door adds a layer against wind and rain, and many let you swap in a screen for a breeze in warm weather.",
+  },
+  {
+    icon: "sun",
+    title: "Patio doors",
+    text: "Sliding doors that save floor space, or hinged doors that open wide. Both bring more daylight into the room.",
+  },
+  {
+    icon: "measure",
+    title: "Sized to the opening",
+    text: "We measure the rough opening and the existing frame so the new door fits without oversized gaps or shims.",
+  },
+  {
+    icon: "installers",
+    title: "Set and adjusted",
+    text: "Your crew lead checks the swing, latch and seal before we leave, and shows you how to adjust the threshold.",
+  },
 ];
 
-export const doorsBeforeAfter = { before: "/assets/doors/before.png", after: "/assets/doors/after.png" };
-export const doorsGuarantee = powerGuarantee("/assets/shared/guarantee.jpg");
+export const doorsGuarantee = guarantee("/assets/photos/doors-card.jpg");
+
+export const doorsCta = {
+  title: ["Sticking, drafty", "or worn out?"],
+  text: "We’ll measure your doors, show you options and send a written quote. No charge, no pressure.",
+  label: "Get a free quote",
+  href: links.quote,
+  tone: "sky" as const,
+};
 
 export const doorsFaqs: FaqGroup[] = [
   {
     tab: "General",
     items: [
-      { q: "Are POWER doors energy-efficient?", a: "Our POWER Freedom Series doors are designed with insulated foam cores and Heat Shield glass to minimize drafts and energy loss. Many models meet or exceed ENERGY STAR® standards. Additionally, POWER’s sliding glass doors are built with tempered insulated glass, helping reduce utility bills and improve comfort year-round." },
-      { q: "Can POWER match doors to the style and color of my home?", a: "Yes — POWER offers a wide selection of door styles, colors, glass inserts, and hardware options that can be combined in thousands of ways to complement your home’s design." },
-      { q: "Can you install multiple doors in a single project?", a: "Yes, our teams can handle single-door or multi-door installations in one project, coordinating all aspects to guarantee a precise fit and efficient scheduling. Many homeowners choose to upgrade their windows, siding, or roofing along with their doors for a complete exterior transformation." },
-      { q: "Does POWER offer sliding glass doors?", a: "Yes! POWER offers premium sliding glass doors designed for beauty, durability, and energy efficiency. Built with tempered insulated glass, they come in customizable two- or three-panel configurations that can open from either side. Made from 100% virgin vinyl with reinforced mounting points, our doors provide long-lasting strength and are virtually maintenance-free." },
-      { q: "What type of front door is most secure?", a: "Steel and reinforced composite entry doors generally provide the strongest combination of impact resistance and forced-entry protection. Security also depends on the frame, deadbolt, strike plate, hinges, glass placement, and installation — not just the door material. POWER’s steel-composite entry doors use reinforced construction and premium-grade hardware to support long-term security and performance." },
-      { q: "How long do entry doors last?", a: "Entry doors typically last 20 to 30 years or longer, depending on weather exposure, daily use, installation quality, and maintenance. Choosing a professionally installed door and addressing worn seals, hardware, or finishes can help extend its lifespan." },
+      {
+        q: "How do I know my door needs replacing?",
+        a: "Daylight or drafts around the edges, a door that sticks or has to be forced to latch, rot at the bottom of the frame, dents or cracks in the slab, and fogged glass are the usual signs.",
+      },
+      {
+        q: "Should I choose fiberglass or steel?",
+        a: "Fiberglass resists dents, rust and swelling, and it can be stained to look like wood. Steel is strong, secure and usually costs less, but it can dent and needs its finish maintained to prevent rust.",
+      },
+      {
+        q: "Do I need a storm door?",
+        a: "Not every home needs one. A storm door protects your entry door from the weather and lets you use a screen in warm months. On doors that get strong direct sun, a storm door can trap heat, so we’ll talk about where it makes sense.",
+      },
+      {
+        q: "Sliding or hinged patio door?",
+        a: "Sliding doors don’t swing into the room, so they work well where space is tight. Hinged doors open wider and have a more traditional look. We’ll talk through how you use the space.",
+      },
+      {
+        q: "What is a multipoint lock?",
+        a: "A multipoint lock latches the door to the frame at several points along its edge with one turn of the handle or key, instead of just at the deadbolt. It can help the door seal evenly and resist being forced.",
+      },
     ],
   },
   {
     tab: "Process",
     items: [
-      { q: "What type of doors does POWER offer?", a: "POWER primarily specializes in energy-efficient, steel composite entry doors designed for long-lasting durability, superior security, and low maintenance. Each door is built with advanced foam insulation that maximizes energy efficiency and premium-grade hardware that delivers reliable performance and lasting style. The POWER Freedom Series also offers a wide range of styles, colors, and hardware options to perfectly balance form and function." },
-      { q: "How long does a door installation typically take?", a: "Most door installations are completed within a few hours. The exact timeline can vary based on the complexity of the project and the design of your home’s entryway." },
-      { q: "What’s the door installation process like?", a: "While timelines vary, your project will include a pre-install inspection, precise installation by trained professionals, and seamless integration into your home’s structure. POWER-trained installers ensure local code compliance and a quality finish." },
-      { q: "What benefits does the POWER Freedom Series offer?", a: "POWER Freedom Series entry doors are crafted in partnership with ProVia. It combines energy-efficiency, superior security, and aesthetic appeal through features like insulated foam cores, Heat Shield glass, steel-plated slabs, and durable, low-maintenance finishes." },
+      {
+        q: "How long does a door installation take?",
+        a: "An entry door is usually installed in a day. Patio doors and doors with sidelites can take longer, especially if we find damage in the opening. Your written quote includes an expected schedule.",
+      },
+      {
+        q: "Do you replace the frame too?",
+        a: "Usually, yes. Most replacements are prehung units that include a new frame, so the door and frame are made to work together. We’ll check the opening for rot and repair it before the new unit goes in.",
+      },
+      {
+        q: "What if my door is an unusual size?",
+        a: "Many doors can be ordered in custom sizes. We’ll measure the opening at the estimate and tell you whether a standard size will fit or whether the opening needs to be adjusted.",
+      },
+      {
+        q: "Will my house be open during the install?",
+        a: "Only for part of the day. We remove the old door once the new one is on site and ready, and the opening is secured before the crew leaves.",
+      },
     ],
   },
   {
-    tab: "Financing & Warranties",
+    tab: "Cost & Warranty",
     items: [
-      { q: "What warranties come with door installation?", a: "Every door installation comes with a manufacturer’s warranty for the product and POWER’s limited lifetime labor warranty, so your door is covered for both materials and workmanship." },
-      { q: "Can new doors increase my home’s value?", a: "Yes, entry door replacements are consistently ranked among the top remodeling projects for return on investment, boosting both curb appeal and resale value." },
+      {
+        q: "What affects the cost of a new door?",
+        a: "The material, style and glass, sidelites or transoms, the hardware you choose, and any repairs needed in the opening.",
+      },
+      {
+        q: "Does a more expensive door make my home more secure?",
+        a: "The slab is only part of it. A solid frame, a reinforced strike plate and long screws that reach the wall framing matter just as much. We check those details on every door we install, whichever door you choose.",
+      },
+      {
+        q: "What warranty comes with my door?",
+        a: [
+          "The door manufacturer’s warranty covers the product, and our written workmanship warranty covers the installation. ",
+          { label: "How our warranty works", href: links.warranty },
+          ".",
+        ],
+      },
     ],
   },
 ];

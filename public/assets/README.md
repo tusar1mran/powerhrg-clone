@@ -1,95 +1,16 @@
 # Image assets
 
-Images come from the reference pages saved with "Save page as" (C:\Users\imran\Downloads\*Power Home Remodeling*).
-File names were matched to the live page DOM, so each image sits where it does on powerhrg.com.
-These images, logos and badges belong to their owners - keep this project local, for study only.
-
-## Still missing
-
-Save each file from the live page (right-click -> Save image as, or DevTools -> Network -> Img), rename it
-to the "Save as" name and drop it into this folder. Until then the slot shows a plain colour block.
-
-| Save as (in public/assets) | File name on powerhrg.com | Page / section |
-|---|---|---|
-| services-page/project-pulse.jpg | (Vimeo video, no image file) | "Track your project" phone - optional still image |
-
-## In place
-
-| Folder | Contents | Source file names |
-|---|---|---|
-| logo/ | shah-crew-white.svg, shah-crew-navy.svg (desktop header), shah-crew-icon-navy.svg (mobile header), power-white.svg, power-navy.svg (old header, unused), power-lime.svg (footer), pledge1.svg | shah-crew-*: original logo built by design/logo/build_logo.py, wordmark in Jost (OFL) outlined to paths; power-*: inline SVGs saved as "default (20/21/…).svg" |
-| social/ | youtube, linkedin, instagram, tiktok, facebook (.svg) | footer social icons |
-| icons/ | feature icons (ENERGY.svg, SECURE.svg … REFLECTIVE.png) | same names on the reference |
-| awards/ | angi.png, bbb.png, google.svg, bobvila.png, energy.svg | SSA-2025_800px.png, webnus-bbb-share-p.png, Google.svg, 2025-bob-vila-editors-choice-award2.png, Energy-Savings.svg |
-| footer/ | angi, bbb, bobvila, best-place-to-work, top-100 (.jpg) | angi-super-service-2025, bbb-a-plus-rating, bobvila_logo, glassdoor-best-places-to-work, fortune-100 |
-| shared/ | guarantee.jpg, pulse-bg.png, pulse-logo.png | Rectangle-109.jpg, Screenshot-2023-06-07-at-8.59-1-1.png, pulse-logo.png |
-| home/ | hero-mobile.jpg | homepage_hero_mobile.jpg |
-| people/ | careers.jpg | Rectangle-5.jpg |
-| services-page/partners/ | gaf, pella, promaterials, provia, westlake, certainteed (.svg) | partner_*.svg, patern_pella.svg, Certainteed_logo_Pantone.svg |
-| windows/ | hero-mobile.png, before.jpg, after.jpg | WINDOWS-M-2.png, Window-Before.jpg, Window-After.jpg |
-| roofing/ | hero.png, hero-mobile.png, gaf-logo.png, gaf-premium-badge.svg, before.png, after.png, swatches/*.png | ROOFING-D-1, ROOFING-M, gaf-logo-svg, Premium-System-Professional-1, Rectangle-135/136, Shingles_* |
-| siding/ | hero.jpg, hero-mobile.jpg, after.png | siding-D, siding-M, Rectangle-138 |
-| doors/ | hero.png, after.png | DOORS-D.png, Rectangle-132.png |
-| insulation/ | hero.jpg, hero-mobile.jpg, gallery/1-7.jpg | insulation-D/M; gallery in DOM order: TPA_…9254, 9258, 9259, INSULATION, CHI_…024, 049, 057 |
-| accessories/ | hero.jpg, hero-mobile.jpg, window/1-4, door/1-8, siding/1-6, roofing/1-4 | Accessories-D/M; galleries in DOM order (see src/lib/accessories-content.ts) |
-
-## /about, /about/community, /about/belonging, /about/news
-
-All in place from the "Save page as" zips. Each path in src/lib/about-content.ts, community-content.ts,
-belonging-content.ts and news-content.ts has the original file name in a comment next to it.
-
-- Still missing: community/video-poster.jpg - the reference plays a Vimeo video there (optional still image).
-- Extra from the zips: community/pledge1-band.svg (white Pledge 1% mark) and community/open-file-icon.png.
-
-
-## /careers, /careers/innovations, /careers/partner-with-power, /careers/openings
-
-Careers, Innovations and Partner images are in place from the "Save page as" zips
-(careers/, innovations/, partner/ - accolade logos keep their original file names).
-Mapped from the live DOM: careers/technology.png = Screenshot-2023-06-07-at-8.59-15.png,
-careers/development.png = DPCA_PHL_36-74271_072-1.png, innovations/nitro.jpg = nitro-create.jpg,
-innovations/nitro-bg.png = NITRO-BG-03.png, innovations/tim.jpg = 4096-2731-max-scaled.jpg,
-partner/icons: great-pay = Group-31494.png, reliable-work = Group-3.png, vital-support = Group-1-2.png.
-
-Still missing:
-
-| Save as (in public/assets) | File name on powerhrg.com |
+| Folder | Contents |
 |---|---|
-| innovations/video-poster.jpg | (Vimeo video - optional still) |
-| partner/video-poster.jpg | (Vimeo video - optional still) |
+| logo/ | `shah-crew-white.svg` (desktop header over photos, footer), `shah-crew-navy.svg` (desktop header on light backgrounds), `shah-crew-icon-navy.svg` (mobile header). Built by `design/logo/build_logo.py`; the wordmark is Jost (SIL OFL) outlined to paths. |
+| photos/ | Stock photos used across the site. Sources and licences are listed in `CREDITS.md`. |
 
-## /support, /support/tax-credits, /support/warranties, /support/bill-of-rights, /support/project-pulse
+The favicon (`src/app/icon.svg`) and Apple touch icon (`src/app/apple-icon.png`) are made from the logo icon.
 
-All in place from the "Save page as" folders in C:\Users\imran\Downloads\Support (support/).
-support/home: licenses.jpg = page-link-licenses.jpg, tax-credits.png = Rectangle-1101.png, warranties.jpg = Rectangle-109.jpg.
-support/tax-credits: hero.png = Rectangle-110.png, hero-mobile.jpg = TAX-CREDITS-IMG-768x1174.jpg.
-support/bill-of-rights: hero.png = Rectangle-3.png, licenses.png = Rectangle-93.png, warranties.jpg = page-link-warranties.jpg,
-numbers/1-10.svg = Group-608 … Group-617.svg, slides/1-10.svg = BOR-1 … BOR-10 (slider numerals).
-support/project-pulse: hero.png = Hero_Desktop-1.png, hero-mobile.png = Hero_Mobile.png, view-projects.png = View-Projects-3.png,
-track-appointments.png = track-appointments-phone-mockup-e1773927209819.png, manage-documents.png = Manage-Documents_3.png,
-good-housekeeping.jpg = 7c2b1f837470ae397a6e1bb6034e10bdf2491495-1.jpg, ruby-central.jpg = Rectangle-5.jpg.
-support/warranties: hero.png = Rectangle-109.png, open-file-icon.png = open_file_icon.png.
+## Replacing stock photos
 
-Still missing:
+The photos in `photos/` are licensed stock images, not Shah & Crew projects. Replace them with your own
+project photos as they become available. Keep the same file names and roughly the same proportions
+(landscape, at least 1600px wide; heroes 2000–2400px wide), and remove each replaced row from `CREDITS.md`.
 
-| Save as (in public/assets) | File name on powerhrg.com |
-|---|---|
-| support/bill-of-rights/video-poster.jpg | (Vimeo 1024746868 - optional still) |
-| support/project-pulse/video-poster.jpg | (Vimeo 944556647 - optional still) |
-| support/locations/map.png | (interactive US map plugin - a screenshot of the map) |
-| support/our-process/free-estimate.jpg | free-estimate.jpg (CSS background, not in the save) |
-| support/our-process/consult.png | consult.png (CSS background, not in the save) |
-| support/our-process/production.jpg | production.jpg (CSS background, not in the save) |
-| support/our-process/install.jpg | install.jpg (CSS background, not in the save) |
-| support/sash/number-bg.png | number_bg.png (step number background, theme image) |
-| support/sash/video-poster.jpg | (Vimeo 896334981 - optional still) |
-
-## /support/locations, /support/our-process, /support/licenses-and-insurance, /sash-replacement-how-to
-
-support/locations: offices/<city>.jpg|jpeg from the office photos (default.jpeg = EXP25_JAX_OfficePhotography_5052, used by cities
-without their own photo), services.png = Rectangle-93.png, warranties.jpg = page-link-warranties.jpg, icons/phone|fax|map.svg (inline SVGs).
-support/our-process: hero.jpg = our_process_hero.jpg, phone.png, project-pulse-logo.svg = PROJECT-PULSE.svg,
-icons/light-check|dark-check|step-2|step-3|step-4.svg.
-support/licenses: hero.jpg = LICENSE-AND-INURANCE-HERO-scaled.jpg, hero-mobile.jpg = LICENSE-AND-INSURANCE-HERO-M-768x975.jpg,
-certificate.png = Rectangle-110.png.
-support/sash: hero.png = SASH_D-2.png, hero-mobile.png = WINDOWS-M-2-768x1173.png, step-1…6.jpg = STEP-1.jpg, STEP-2…6-scaled.jpg.
+Only show your own work in anything that suggests it is "our work" (galleries, before/after comparisons).

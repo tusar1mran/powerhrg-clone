@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
+import CtaBand from "@/components/CtaBand";
 import ProductIntro from "@/components/services/ProductIntro";
-import BeforeAfter from "@/components/services/BeforeAfter";
-import TrackProject from "@/components/services/TrackProject";
 import Guarantee from "@/components/services/Guarantee";
 import Faq from "@/components/services/Faq";
 import {
-  sidingBeforeAfter,
+  sidingCta,
   sidingFaqs,
   sidingFeatures,
   sidingGuarantee,
@@ -17,7 +16,9 @@ import {
 } from "@/lib/siding-content";
 
 export const metadata: Metadata = {
-  title: "Siding (study clone)",
+  title: "Siding Replacement",
+  description:
+    "Vinyl, insulated vinyl and fiber cement siding installed over new house wrap, with flashed openings and new trim, soffit and fascia.",
 };
 
 export default function SidingPage() {
@@ -27,9 +28,8 @@ export default function SidingPage() {
       <main id="main">
         <Hero {...sidingHero} ctaHref="#product" ctaLabel="Explore siding" />
         <ProductIntro {...sidingIntro} features={sidingFeatures} />
-        <BeforeAfter {...sidingBeforeAfter} />
-        <TrackProject />
         <Guarantee {...sidingGuarantee} />
+        <CtaBand {...sidingCta} />
         <Faq faqs={sidingFaqs} />
       </main>
       <Footer />

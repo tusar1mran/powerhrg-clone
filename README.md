@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Shah & Crew website
 
-## Getting Started
+Marketing site for Shah & Crew, an exterior home renovation company (windows, roofing, siding, doors, insulation and accessories).
 
-First, run the development server:
+Built with Next.js 16 (App Router, Cache Components), React 19, Tailwind CSS 4, zod and React Hook Form.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+cp .env.example .env.local   # then fill in the values
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | What it does |
+|---|---|
+| `pnpm dev` | Development server |
+| `pnpm build` | Production build |
+| `pnpm start` | Serve the production build |
+| `pnpm lint` | ESLint |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Where things live
 
-## Learn More
+| Path | Contents |
+|---|---|
+| `src/lib/site.ts` | Business details: name, phone, email, address, hours, license, insurance, service area, social links |
+| `src/lib/links.ts` | Internal routes and section anchors |
+| `src/lib/*-content.ts` | Page copy (one file per page) |
+| `src/lib/contact/` | Quote form schema (zod), Server Action and email delivery |
+| `src/components/` | Presentational components |
+| `public/assets/` | Logo and photos (see `public/assets/README.md` and `CREDITS.md`) |
+| `design/` | Logo build script and logo concepts |
 
-To learn more about Next.js, take a look at the following resources:
+## Quote form
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The form on `/support#quote` is validated in the browser and again in a Server Action, then emailed as plain text
+through the [Resend](https://resend.com) API. Set `RESEND_API_KEY`, `CONTACT_TO_EMAIL` and `CONTACT_FROM_EMAIL`
+(see `.env.example`). Without them, the form shows an error asking the visitor to call or email instead.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Spam protection is a hidden honeypot field. If spam becomes a problem, add rate limiting at the hosting layer
+or a CAPTCHA such as Cloudflare Turnstile.
 
-## Deploy on Vercel
+## Before launch
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ ] Replace every value marked `PLACEHOLDER` in `src/lib/site.ts` (phone, email, address, hours, license, insurance, service area, legal name).
+- [ ] Add the state license lookup URL (`site.license.lookupUrl`) so homeowners can verify the license.
+- [ ] Set the environment variables from `.env.example` in production, and send a test quote request.
+- [ ] Have an attorney review `src/lib/legal-content.ts` (Terms of Service and Privacy Notice).
+- [ ] Confirm the commitments in the copy match how the business runs: written workmanship warranty, final payment after the walk-through, reply within one business day, permits pulled, own crew (no subcontractors).
+- [ ] Replace stock photos with your own project photos as they become available.

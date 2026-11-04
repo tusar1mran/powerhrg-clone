@@ -1,47 +1,70 @@
-/* eslint-disable @next/next/no-img-element -- small static SVG icons; next/image adds nothing here */
+import {
+  BadgeCheck,
+  BrushCleaning,
+  CloudRain,
+  Droplets,
+  Fan,
+  HardHat,
+  House,
+  Layers,
+  Leaf,
+  LockKeyhole,
+  Palette,
+  Ruler,
+  ShieldCheck,
+  Sparkles,
+  Sun,
+  Thermometer,
+  VolumeX,
+  Wind,
+  type LucideIcon,
+} from "lucide-react";
 
-// Feature icons are the reference site's own files, saved in /public/assets/icons.
+// Feature icons for the service pages, drawn with lucide-react (ISC licence).
 export type FeatureIcon =
   | "energy"
   | "security"
-  | "durable"
+  | "lock"
   | "curb"
+  | "style"
   | "warranty"
   | "noise"
   | "installers"
-  | "stain"
-  | "comfort"
-  | "waterproof"
+  | "weather"
   | "wind"
-  | "warp"
   | "water"
-  | "insect"
+  | "sun"
   | "lowMaintenance"
-  | "blownIn"
-  | "reflective"
-  | "antiFungal";
+  | "comfort"
+  | "ventilation"
+  | "insulation"
+  | "measure"
+  | "cleanup";
 
-const files: Record<FeatureIcon, string> = {
-  energy: "ENERGY.svg",
-  security: "SECURE.svg",
-  durable: "DURABLE-ROOFING.svg",
-  curb: "CURB-APPEAL.svg",
-  warranty: "WARRANTIES.svg",
-  noise: "NOISE-REDUCING.svg",
-  installers: "INSTALLERS.svg",
-  stain: "SHINGLES.svg",
-  comfort: "COMFORT.svg",
-  waterproof: "WATERPROOF.svg",
-  wind: "WIND-RESISTANT.svg",
-  warp: "WARP-RESISTANT.svg",
-  water: "WATERPROOF.svg", // siding "Water-resistant" uses the same icon on the reference
-  insect: "ANTI-INSECT.svg",
-  lowMaintenance: "LOW-MAINTENANCE.svg",
-  blownIn: "BLOWN-INSULATION.svg",
-  reflective: "REFLECTIVE.png",
-  antiFungal: "ANTI-FUNGAL.svg",
+const icons: Record<FeatureIcon, LucideIcon> = {
+  energy: Leaf,
+  security: ShieldCheck,
+  lock: LockKeyhole,
+  curb: House,
+  style: Palette,
+  warranty: BadgeCheck,
+  noise: VolumeX,
+  installers: HardHat,
+  weather: CloudRain,
+  wind: Wind,
+  water: Droplets,
+  sun: Sun,
+  lowMaintenance: Sparkles,
+  comfort: Thermometer,
+  ventilation: Fan,
+  insulation: Layers,
+  measure: Ruler,
+  cleanup: BrushCleaning,
 };
 
+export type Feature = { icon: FeatureIcon; title: string; text: string };
+
 export default function FeatureIconSvg({ name, className = "" }: { name: FeatureIcon; className?: string }) {
-  return <img src={`/assets/icons/${files[name]}`} alt="" aria-hidden className={`object-contain ${className}`} />;
+  const Icon = icons[name];
+  return <Icon aria-hidden strokeWidth={1.5} className={`text-navy ${className}`} />;
 }

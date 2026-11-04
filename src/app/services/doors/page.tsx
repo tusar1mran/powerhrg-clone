@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
+import CtaBand from "@/components/CtaBand";
 import ProductIntro from "@/components/services/ProductIntro";
-import BeforeAfter from "@/components/services/BeforeAfter";
-import TrackProject from "@/components/services/TrackProject";
 import Guarantee from "@/components/services/Guarantee";
 import Faq from "@/components/services/Faq";
 import {
-  doorsBeforeAfter,
+  doorsCta,
   doorsFaqs,
   doorsFeatures,
   doorsGuarantee,
@@ -17,7 +16,9 @@ import {
 } from "@/lib/doors-content";
 
 export const metadata: Metadata = {
-  title: "Doors (study clone)",
+  title: "Entry & Patio Doors",
+  description:
+    "Fiberglass and steel entry doors, storm doors, and sliding or hinged patio doors, fitted, sealed and adjusted by a licensed, insured crew.",
 };
 
 export default function DoorsPage() {
@@ -27,9 +28,8 @@ export default function DoorsPage() {
       <main id="main">
         <Hero {...doorsHero} ctaHref="#product" ctaLabel="Explore doors" />
         <ProductIntro {...doorsIntro} features={doorsFeatures} />
-        <BeforeAfter {...doorsBeforeAfter} />
-        <TrackProject />
         <Guarantee {...doorsGuarantee} />
+        <CtaBand {...doorsCta} />
         <Faq faqs={doorsFaqs} />
       </main>
       <Footer />

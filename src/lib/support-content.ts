@@ -1,211 +1,148 @@
+// Copy and image paths for /support. Photos are in /public/assets/photos (see public/assets/CREDITS.md).
+// Section ids here must match the anchors in links.ts (#process, #warranty, #licenses, #quote).
 import type { FaqGroup } from "@/components/services/Faq";
+import { links } from "./links";
+import { site } from "./site";
 
 export const supportIntro = {
   title: "How can we help?",
-  text: "Browse support topics, dive into FAQs, or contact us with any issue.",
+  text: "Find answers about estimates, scheduling, warranty and service, or send us a message and a real person will get back to you.",
+};
+
+export const contactOptions = {
+  phone: { title: "Call us", text: site.hours.join(" · ") },
+  email: { title: "Email us", text: "We reply within one business day." },
+  quote: { title: "Request a quote", text: "Tell us about your project and we’ll set up a free estimate.", label: "Start here" },
 };
 
 export const supportFaqs: FaqGroup[] = [
   {
-    tab: "General",
+    tab: "Estimates",
     items: [
       {
-        q: "How do I know if POWER operates in my neighborhood?",
+        q: "How do I book a free estimate?",
         a: [
-          "Use our ",
-          { label: "Locations", href: "/support/locations" },
-          " map or enter your ZIP code above the toolbar to see if your home is in one of our service areas.",
+          { label: "Fill out the form", href: links.quote },
+          ` below or call us at ${site.phone.display}. We’ll confirm a time that works for you, usually within one business day.`,
         ],
       },
       {
-        q: "Why do both homeowners need to be present when signing on to a project?",
-        a: "Because your home is a shared investment, we want to make sure all decision-makers are present when finalizing a project. This ensures that both homeowners understand the scope of work, the design and product choices, the financial details, and the warranty coverage. Having everyone involved from the start helps avoid miscommunication and keeps the project moving smoothly.",
+        q: "What happens during the estimate?",
+        a: "We look at the area you’re concerned about, take measurements and photos, check for hidden problems like rot or leaks, and talk through product options. Most visits take about an hour. You’ll get a written, itemized quote afterward.",
       },
       {
-        q: "How does POWER protect my information?",
+        q: "Do all owners need to be there?",
+        a: "We recommend it. It means everyone hears the same information and can ask their own questions, and nobody has to relay details secondhand. If that isn’t possible, we can go over the quote again by phone.",
+      },
+      {
+        q: "How long is my quote good for?",
+        a: "The expiration date is printed on your quote. Material prices change, so after that date we’ll confirm the price before we schedule the work.",
+      },
+    ],
+  },
+  {
+    tab: "Your project",
+    items: [
+      {
+        q: "What happens after I sign?",
         a: [
-          "We use industry-standard security protocols and never sell your information. For details on how data is handled, read our ",
-          { label: "Privacy Policy", href: "/privacy-notice" },
-          " or ",
-          { label: "Customer Bill of Rights", href: "/support/bill-of-rights" },
+          "We order your materials, pull any permits, and schedule your installation. Your crew lead confirms the date and what to expect before work starts. ",
+          { label: "See each step", href: links.process },
           ".",
         ],
       },
       {
-        q: "Where can I find your licenses and insurance information?",
+        q: "Who do I call with questions during the job?",
+        a: `Your crew lead, who is on site for the job. You can also reach the office at ${site.phone.display} or ${site.email}.`,
+      },
+      {
+        q: "What if the weather changes the schedule?",
+        a: "Some work, roofing especially, can’t be done safely in rain, high wind or extreme cold. If we need to move a date, we’ll call you as early as we can, and we’ll never leave your home open to the weather overnight.",
+      },
+      {
+        q: "Can I cancel my contract?",
+        a: "Your contract explains your right to cancel, including the time limit set by law for home improvement contracts signed at your home. If you want to cancel, contact us in writing as described in your contract.",
+      },
+    ],
+  },
+  {
+    tab: "Warranty & service",
+    items: [
+      {
+        q: "What does the warranty cover?",
         a: [
-          "We’re proud to operate transparently. You can view all current state and local contractor licenses, as well as insurance details, under ",
-          { label: "Licenses and Insurance", href: "/support/licenses-and-insurance" },
+          "Products are covered by their manufacturers’ warranties. Our installation is covered by our written workmanship warranty. ",
+          { label: "How our warranty works", href: links.warranty },
           ".",
         ],
       },
       {
-        q: "How can I cancel my contract with POWER?",
-        a: "You can cancel your contract with POWER – without penalty or obligation – within three business days of the transaction. Full cancellation policy details can be found in your Custom Remodeling and Improvement Agreement in the Project Pulse app.",
-        more: ["If you have any questions or concerns, call customer support at (888) 736-6335 (dial 2)."],
+        q: "How do I request service?",
+        a: `Call us at ${site.phone.display} or email ${site.email} with your name, address and a short description. Photos help. We’ll schedule a visit, and if it’s covered there’s no charge.`,
       },
-    ],
-  },
-  {
-    tab: "Contact",
-    items: [
       {
-        q: "How can I contact POWER?",
+        q: "Is my information kept private?",
         a: [
-          "For appointments and project support, call 888-736-6335 (Dial 2). For scheduling, use 888-736-6335 (Dial 1). Media inquiries can be directed to ",
-          { label: "mediarelations@powerhrg.com", href: "#" },
-        ],
-      },
-      {
-        q: "Where is POWER located?",
-        a: "Power Home Remodeling’s corporate office in Chester, PA is located at:",
-        more: [
-          ["2501 Seaport Drive\nFourth Floor\nChester, PA 19013\n", { label: "Maps & Directions", href: "#" }],
-          "Toll-free: 888-736-6335\nPhone: 610-874-5000\nFax: 610-874-5030",
-          [
-            "POWER also operates in the following ",
-            { label: "locations", href: "/support/locations" },
-            ": Philadelphia, Boston, New Jersey, Long Island, Connecticut, Maryland, Atlanta, Charlotte, Chicago, Austin, Dallas, Houston, Jacksonville, Tampa, Fort Lauderdale, Denver, Detroit, Nashville, Cincinnati, Columbus, Phoenix, Pittsburgh, Orlando, Las Vegas, Oklahoma City,San Antonio, and Raleigh-Durham.",
-          ],
-        ],
-      },
-      {
-        q: "What should I do if I have questions during my project?",
-        a: "Your project team is your primary point of contact throughout the remodeling process. They can provide project updates, answer questions, and help address any concerns before, during, and after installation.",
-      },
-    ],
-  },
-  {
-    tab: "Scheduling",
-    items: [
-      {
-        q: "How do I schedule a free in-home estimate with POWER?",
-        a: [
-          "Scheduling is simple. You can request a free in-home estimate online through our ",
-          { label: "website", href: "#" },
-          " or by calling our scheduling team at 888-736-6335 (dial 1). A POWER representative will work with you to find a convenient time for a Remodeling Consultant to meet you at your home to review options, answer questions, and provide a no-obligation estimate.",
-        ],
-      },
-      {
-        q: "How do I schedule a service appointment with POWER?",
-        a: "To schedule a service appointment, call our Customer Service and Support line at 888-736-6335 (Dial 2). A member of our Service team will assist you with setting up a convenient time, reviewing warranty coverage, and ensuring your project needs are taken care of quickly.",
-      },
-      {
-        q: "How do I cancel an appointment with POWER?",
-        a: "To cancel or reschedule your appointment for a free estimate, call our scheduling department at 888-736-6335 (dial 1). To cancel or reschedule your installation or service appointment, call our customer support line at 888-736-6335 (dial 2).",
-      },
-      {
-        q: "What happens after I sign my contract?",
-        a: "Once your contract is signed, POWER begins preparing your project for installation. Your team coordinates scheduling, orders your custom products, and manages the next steps leading up to installation. Throughout the process, you’ll receive updates and can track your project’s progress through Project Pulse.",
-      },
-    ],
-  },
-  {
-    tab: "Financing & Warranties",
-    items: [
-      {
-        q: "Where can I find information on warranties?",
-        a: ["You can view full details on product and labor coverage on our ", { label: "Warranties page", href: "/support/warranties" }, "."],
-      },
-      {
-        q: "Can I finance my project with POWER?",
-        a: "Yes, POWER offers paperless financing that is approved in the home. We have a variety of lending partners and many customers take advantage of our easy monthly installment options. For questions about financing and payment, call 888-736-6335 (Dial 1 when prompted).",
-      },
-      {
-        q: "How do I receive tax credits?",
-        a: [
-          "Check the ",
-          { label: "Tax Credits", href: "/support/tax-credits" },
-          " page for the latest federal and local incentives — and talk with your tax advisor to maximize benefits.",
+          "We use your information to respond to you and do your project, and we never sell it. ",
+          { label: "Read our Privacy Notice", href: links.privacy },
+          ".",
         ],
       },
     ],
   },
 ];
 
-export const supportLinks = [
-  {
-    title: ["Licenses & Insurance"],
-    paragraphs: [
-      "As the nation’s largest full-service, exterior home remodeler, we don’t just offer services that meet your needs, we offer experiences that exceed your expectations.",
-      "With our high-performance products, professional installation experts, and relentless commitment to customer service—the possibilities are yours to imagine.",
-    ],
-    image: "/assets/support/home/licenses.jpg",
-    imageAlt: "power siding",
-    cta: { label: "View Licenses & Insurance", href: "/support/licenses-and-insurance" },
-    tone: "white" as const,
-  },
-  {
-    title: ["Energy Tax Credits"],
-    paragraphs: [
-      "Taxpayers who upgrade their homes to make use of renewable energy and energy-efficient products may be eligible for tax credits to offset some of the costs.",
-      "Use the link below to access resources that will assist you with understanding and claiming the tax credit.",
-    ],
-    image: "/assets/support/home/tax-credits.png",
-    imageAlt: "POWER solar panels",
-    cta: { label: "View Energy Tax Credits", href: "/support/tax-credits" },
-    tone: "sky" as const,
-  },
-  {
-    title: ["Warranties"],
-    paragraphs: [
-      "At Power Home Remodeling, we have chosen to partner with some of the most highly regarded manufacturers in the business.",
-      "As a result, we confidently stand behind our products and services with warranties that are among the best in the industry.",
-    ],
-    image: "/assets/support/home/warranties.jpg",
-    imageAlt: "Residential Home",
-    cta: { label: "View Warranties", href: "/support/warranties" },
-    tone: "white" as const,
-  },
-];
-
-export const fullRights = [
-  { title: "Customer First", text: "We will treat you as a customer from the first moment we speak — whether you purchase our services or not." },
-  { title: "Ownership", text: "You are in charge in your home. So we will only enter your home when invited and only stay as long as we are welcome." },
-  {
-    title: "Safety",
-    text: "You deserve to feel safe. So we will only send people of honor and integrity to your home. They will act courteously and be professionally attired. And they will treat you with the respect every homeowner deserves.",
-  },
-  {
-    title: "Allocation",
-    text: "Your home is precious, so we will always allocate the time necessary to do things right. No corner cutting from our first meeting to the completion of your project.",
-  },
-  {
-    title: "Respect",
-    text: "Because we respect all homeowners, we will never agree to a project without all owners and relevant parties present, so that you are all fully informed of our services and know what to expect.",
-  },
-  {
-    title: "Punctual",
-    text: "We will always treat your time with respect. You have the right to expect appointments and installations will be finished on time. If any issues or concerns arise, we will respond promptly. And that response will be from a fully trained POWER employee, not an overseas call center.",
-  },
-  {
-    title: "Fair",
-    text: "You deserve to know that your home-renovation partner will never exploit you. So our pricing will always be “blind” — our price will never vary based on age, race, income, the value of your home, or any other social variables.",
-  },
-  {
-    title: "Privacy",
-    text: "You deserve privacy for your personal information. So we will use best-practice data-security systems to protect the privacy of your personal information. And we will never sell your data to anyone.",
-  },
-  {
-    title: "Quality",
-    text: "Quality home renovations are complex. So we will only bring properly trained experts to your home. We will carry all the necessary insurance and other business safeguards. And we will make sure our work fully complies with all ordinances.",
-  },
-  {
-    title: "Lifetime Guarantee",
-    text: "You deserve to feel great about the investments you make in your home. If there is a mistake, we will be there to make it right. Not just at the time of your project but for the life of your home.",
-  },
-];
-
-export const contactForm = {
-  title: "Have more questions? email us",
-  reasons: ["Customer Support", "Appointment Schedule / Reschedule", "Employment Opportunity", "Financing and Payment Questions", "Media Inquiries"],
-  consent: "Keep me updated on my inquiry as well as news, open positions, expansion, products, and all things Power Home Remodeling via emails!",
-  submit: "Send",
+export const warranty = {
+  id: "warranty",
+  eyebrow: "Warranty",
+  title: ["Two layers", "of coverage"],
+  paragraphs: [
+    "Every job is covered twice. The products we install carry their manufacturers’ warranties, and our installation is covered by our written workmanship warranty.",
+    "You get copies of both with your project paperwork. If something we installed isn’t working as it should, call us and we’ll come back to look at it.",
+  ],
+  bulletsLabel: "To make a warranty claim:",
+  bullets: [
+    `Call ${site.phone.display} or email ${site.email}`,
+    "Tell us your address and what you’re seeing; photos help",
+    "We schedule a visit and explain what’s covered before any work",
+  ],
+  image: "/assets/photos/card-warranty.jpg",
+  imageAlt: "Finished house exterior",
+  imageSide: "left" as const,
+  tone: "white" as const,
 };
 
-export const hereToHelp = {
-  title: ["Here to help"],
-  text: "POWER assistance, answers, and advice. Browse support topics, dive into our FAQs, and get tailored support for any issues.",
-  label: "Get Support",
-  href: "/support",
+export const licenses = {
+  id: "licenses",
+  eyebrow: "Licenses & insurance",
+  title: ["Licensed,", "insured,", "permitted"],
+  paragraphs: [
+    "Hiring a licensed and insured contractor protects you if something goes wrong. We’re happy to show you the paperwork before you sign anything.",
+  ],
+  bullets: [
+    `${site.license.state} ${site.license.type} license: ${site.license.number}`,
+    site.insurance,
+    "Certificate of insurance available on request",
+    "Building permits pulled and inspections scheduled for the work that requires them",
+  ],
+  cta: site.license.lookupUrl
+    ? { label: "Verify our license", href: site.license.lookupUrl, external: true }
+    : { label: "Ask for our certificate", href: links.quote },
+  image: "/assets/photos/card-licenses.jpg",
+  imageAlt: "Signing paperwork on a clipboard",
+  imageSide: "right" as const,
+  tone: "sky" as const,
+};
+
+export const contactForm = {
+  id: "quote",
+  title: "Get a free quote",
+  intro: "Tell us a little about your home and what you need. We’ll get back to you within one business day to set up a time.",
+  consent:
+    "I agree that Shah & Crew may contact me by phone, text or email about this request. Message and data rates may apply. Consent is not a condition of purchase. Reply STOP to opt out of texts.",
+  submit: "Send request",
+  success: {
+    title: "Thanks, we’ve got it",
+    text: "Your request is on its way to our office. We’ll be in touch within one business day.",
+  },
 };

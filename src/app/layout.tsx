@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Jost } from "next/font/google";
 import "./globals.css";
+import { site } from "@/lib/site";
 
 const jost = Jost({
   variable: "--font-jost",
@@ -9,8 +10,20 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "Power Home Remodeling clone (study project)",
-  description: "Local UI study of powerhrg.com - not for deployment.",
+  metadataBase: new URL(site.url),
+  title: {
+    default: `${site.name} | ${site.tagline}`,
+    template: `%s | ${site.name}`,
+  },
+  description: site.description,
+  applicationName: site.name,
+  openGraph: {
+    type: "website",
+    siteName: site.name,
+    title: `${site.name} | ${site.tagline}`,
+    description: site.description,
+    images: [{ url: "/assets/photos/home-hero.jpg", width: 2400, height: 1600, alt: "Suburban home exterior" }],
+  },
 };
 
 export const viewport: Viewport = {

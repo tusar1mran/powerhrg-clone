@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
-import { navMenu } from "@/lib/content";
+import { headerCta, isNavGroup, navMenu, searchIndex, serviceAreaBar, topSearches } from "@/lib/content";
 
 type Props = {
   transparentAtTop?: boolean;
@@ -16,13 +16,7 @@ const BAR_HEIGHT = 48;
 const ctaClass =
   "absolute top-0 z-50 px-8 py-0 text-[14px] font-bold tracking-[0.3em] whitespace-nowrap text-navy uppercase antialiased transition-colors duration-150 bg-lime hover:bg-navy hover:text-lime focus:bg-navy focus:text-lime";
 
-const topSearches = [
-  { label: "Get a Free Quote", href: "#" },
-  { label: "View All Services", href: "/services" },
-  { label: "About Shah & Crew", href: "/about" },
-  { label: "Shah & Crew Careers", href: "/careers" },
-  { label: "Get Support", href: "/support" },
-];
+const navLabelClass = "group mb-0 flex h-full items-center px-6 text-[14px] leading-[18.2px] font-bold uppercase";
 
 function Arrow({ className = "" }: { className?: string }) {
   return (
@@ -55,9 +49,7 @@ function useSearch(query: string) {
   return useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return [];
-    return navMenu
-      .flatMap((g) => g.items.filter((i) => !i.hidden))
-      .filter((i) => i.label.toLowerCase().includes(q));
+    return searchIndex.filter((i) => i.label.toLowerCase().includes(q));
   }, [query]);
 }
 
@@ -86,7 +78,7 @@ function SearchResults({ query, onPick, mobile = false }: { query: string; onPic
   );
 }
 
-export default function Header({ transparentAtTop = true, cta = { label: "Get A Free Quote", href: "#" } }: Props) {
+export default function Header({ transparentAtTop = true, cta = headerCta }: Props) {
   const isHome = transparentAtTop;
   const [barOpen, setBarOpen] = useState(true);
   const [atTop, setAtTop] = useState(true);
@@ -175,11 +167,10 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
       {barOpen && (
         <div id="services-bar" className="relative z-30 flex w-full items-center justify-center bg-navy py-3 text-center text-white lg:h-12 lg:py-0">
           <p className="m-0 pr-11 pl-1 text-[15px] leading-[1.5]">
-            <span>Your zipcode (00000) is not in our coverage area.</span> Click{" "}
-            <a href="/support/locations" className="underline">
-              here
-            </a>{" "}
-            to view a different location.
+            <span>{serviceAreaBar.text}</span>{" "}
+            <Link href={serviceAreaBar.link.href} className="underline">
+              {serviceAreaBar.link.label}
+            </Link>
           </p>
           <button type="button" aria-label="Close" onClick={() => setBarOpen(false)} className="absolute top-0 right-0 h-10 w-10 lg:h-12 lg:w-12">
             <svg
@@ -215,7 +206,22 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
 
         <div className="mx-auto w-full px-5 sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1280px] 3xl:max-w-[1728px]">
           <nav aria-label="Main" className="flex h-[90px] items-center justify-center">
-            {navMenu.map((group) => {
+            {navMenu.map((entry) => {
+              if (!isNavGroup(entry)) {
+                const active = pathname === entry.href || pathname.startsWith(`${entry.href}/`);
+                return (
+                  <div key={entry.label} className="relative h-full">
+                    <Link href={entry.href} aria-current={active ? "page" : undefined} className={navLabelClass}>
+                      <span
+                        className={`w-[calc(100%-0.3em)] border-b-2 tracking-[0.3rem] ${active ? "border-b-lime" : "border-transparent group-hover:border-b-lime"}`}
+                      >
+                        {entry.label}
+                      </span>
+                    </Link>
+                  </div>
+                );
+              }
+              const group = entry;
               const isOpen = openMenu === group.label;
               const id = `dropdown-${group.label.toLowerCase()}`;
               return (
@@ -228,7 +234,7 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
                       setSearchOpen(false);
                       setOpenMenu(isOpen ? null : group.label);
                     }}
-                    className="group mb-0 flex h-full items-center px-6 text-[14px] leading-[18.2px] font-bold uppercase"
+                    className={navLabelClass}
                   >
                     <span
                       className={`w-[calc(100%-0.3em)] border-b-2 tracking-[0.3rem] ${isOpen ? "border-b-lime" : "border-transparent group-hover:border-b-lime"}`}
@@ -238,20 +244,18 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
                   </button>
                   {isOpen && (
                     <div id={id} className="absolute top-[50px] left-0 mt-[6px] min-w-[300px] origin-top-left animate-[dropdown-in_150ms_ease-out] bg-white text-navy shadow">
-                      {group.items
-                        .filter((item) => !item.hidden)
-                        .map((item) => (
-                          <div key={item.href} className="group relative">
-                            <Link
-                              href={item.href}
-                              onClick={() => setOpenMenu(null)}
-                              className="flex justify-between pt-[18px] pr-6 pb-[18px] pl-5 text-[20px] leading-[26px] font-normal whitespace-nowrap transition-[padding] group-hover:bg-lime"
-                            >
-                              <span className="inline-block">{item.label}</span>
-                              <Arrow className="absolute top-6 right-8 opacity-0 transition-[right,opacity] duration-500 group-hover:right-6 group-hover:opacity-100" />
-                            </Link>
-                          </div>
-                        ))}
+                      {group.items.map((item) => (
+                        <div key={item.href} className="group relative">
+                          <Link
+                            href={item.href}
+                            onClick={() => setOpenMenu(null)}
+                            className="flex justify-between pt-[18px] pr-6 pb-[18px] pl-5 text-[20px] leading-[26px] font-normal whitespace-nowrap transition-[padding] group-hover:bg-lime"
+                          >
+                            <span className="inline-block">{item.label}</span>
+                            <Arrow className="absolute top-6 right-8 opacity-0 transition-[right,opacity] duration-500 group-hover:right-6 group-hover:opacity-100" />
+                          </Link>
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -267,7 +271,7 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
                   setSearchOpen((v) => !v);
                   setTimeout(() => searchRef.current?.focus(), 0);
                 }}
-                className="group mb-0 flex h-full items-center px-6 text-[14px] leading-[18.2px] font-bold uppercase"
+                className={navLabelClass}
               >
                 <SearchIcon />
               </button>
@@ -381,7 +385,20 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
                 )}
 
                 <div>
-                  {navMenu.map((group) => {
+                  {navMenu.map((entry) => {
+                    if (!isNavGroup(entry)) {
+                      return (
+                        <Link
+                          key={entry.label}
+                          href={entry.href}
+                          onClick={() => setMobileOpen(false)}
+                          className="relative block w-full py-5 text-left text-[20px] leading-7 tracking-[0.2em] text-navy uppercase"
+                        >
+                          {entry.label}
+                        </Link>
+                      );
+                    }
+                    const group = entry;
                     const isOpen = mobileGroup === group.label;
                     return (
                       <div key={group.label}>
@@ -401,13 +418,11 @@ export default function Header({ transparentAtTop = true, cta = { label: "Get A 
                           inert={!isOpen}
                         >
                           <div className="overflow-hidden">
-                            {group.items
-                              .filter((item) => !item.hidden)
-                              .map((item) => (
-                                <Link key={item.href} href={item.href} className="mb-0 block py-2 text-navy">
-                                  <span className="inline-block">{item.label}</span>
-                                </Link>
-                              ))}
+                            {group.items.map((item) => (
+                              <Link key={item.href} href={item.href} className="mb-0 block py-2 text-navy">
+                                <span className="inline-block">{item.label}</span>
+                              </Link>
+                            ))}
                           </div>
                         </div>
                       </div>

@@ -2,22 +2,23 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
+import CtaBand from "@/components/CtaBand";
 import ProductIntro from "@/components/services/ProductIntro";
-import Gallery from "@/components/services/Gallery";
-import TrackProject from "@/components/services/TrackProject";
 import Guarantee from "@/components/services/Guarantee";
 import Faq from "@/components/services/Faq";
 import {
+  insulationCta,
   insulationFaqs,
   insulationFeatures,
-  insulationGallery,
   insulationGuarantee,
   insulationHero,
   insulationIntro,
 } from "@/lib/insulation-content";
 
 export const metadata: Metadata = {
-  title: "Insulation (study clone)",
+  title: "Attic Insulation",
+  description:
+    "Attic air sealing and blown-in fiberglass or cellulose insulation, installed to the level recommended for your climate zone and local code.",
 };
 
 export default function InsulationPage() {
@@ -27,10 +28,8 @@ export default function InsulationPage() {
       <main id="main">
         <Hero {...insulationHero} ctaHref="#product" ctaLabel="Explore insulation" />
         <ProductIntro {...insulationIntro} features={insulationFeatures} />
-        {/* This page uses a photo gallery instead of the before/after slider */}
-        <Gallery title="Our work shows" slides={insulationGallery} />
-        <TrackProject />
         <Guarantee {...insulationGuarantee} />
+        <CtaBand {...insulationCta} />
         <Faq faqs={insulationFaqs} />
       </main>
       <Footer />

@@ -6,12 +6,12 @@ export type ImageCard = { title: string; image: string; text: string; cta: strin
 type Props = {
   heading: string;
   cards: ImageCard[];
-  /** Vertical white title over the photo. The community page's cards have none. */
+  /** Vertical white title over the photo. */
   verticalTitle?: boolean;
   tone?: "white" | "sky";
 };
 
-// Two photo cards - "Power is our people", "Reasons to relax", "Improvement never ends".
+// Two photo cards - "Reasons to relax" on /services, "Where to next" on the homepage.
 export default function ImageCardPair({ heading, cards, verticalTitle = true, tone = "white" }: Props) {
   return (
     <section className={`${tone === "sky" ? "bg-sky-soft" : "bg-white"} py-20 lg:py-24`}>

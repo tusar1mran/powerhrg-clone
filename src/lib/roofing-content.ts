@@ -1,91 +1,159 @@
-// Copy and image paths for /services/roofing. Images go in /public/assets/roofing/.
+// Copy and image paths for /services/roofing. Photos are in /public/assets/photos (see public/assets/CREDITS.md).
 import type { FaqGroup } from "@/components/services/Faq";
-import type { FeatureIcon } from "@/components/services/FeatureIcons";
+import type { Feature } from "@/components/services/FeatureIcons";
+import { links } from "./links";
+import { guarantee } from "./services-content";
+import { site } from "./site";
 
 export const roofingHero = {
-  title: ["Roofing that", "reaches new", "heights"],
-  subtitle: ["Protect your investment with our state-of-the-art shingles and lifetime labor warranty."],
-  image: "/assets/roofing/hero.png",
-  mobileImage: "/assets/roofing/hero-mobile.png",
+  title: ["A roof built", "as a system"],
+  subtitle: ["Asphalt shingle roof replacement from the deck up,", "with permits, daily cleanup and a final walk-through."],
+  image: "/assets/photos/roofing-hero.jpg",
+  overlay: true,
 };
 
 export const roofingIntro = {
-  eyebrow: "Power roofing system",
-  title: "Weatherproofing taken up a level",
-  logo: { src: "/assets/roofing/gaf-logo.png", alt: "GAF" },
+  eyebrow: "Roof replacement",
+  title: "What’s under the shingles matters as much as the shingles",
+  text: "A roof keeps water out because every layer does its job: solid decking, a barrier where ice and water collect, underlayment, flashing, and ventilation that lets the attic breathe. We replace the whole system, not just the part you can see from the street.",
 };
 
-export const roofingShingle = {
-  title: ["State-of-the-art", "shingle"],
-  text: "Defend your home with our ultramodern roofing system, ventilated to resist degradation and improve interior climate. Made with shingles developed exclusively for POWER by GAF, North America’s largest roofing manufacturer, and coupled with our lifetime labor warranty, our roof is built to last.",
-  swatches: [
-    { name: "Cobblestone", image: "/assets/roofing/swatches/cobblestone.png" },
-    { name: "Sapphire", image: "/assets/roofing/swatches/sapphire.png" },
-    { name: "Mystic", image: "/assets/roofing/swatches/mystic.png" },
-    { name: "Graphite", image: "/assets/roofing/swatches/graphite.png" },
-    { name: "Amber", image: "/assets/roofing/swatches/amber.png" },
-  ],
-};
-
-export const roofingFeatures: { icon: FeatureIcon; title: string; text: string }[] = [
-  { icon: "stain", title: "Stain, streak & fade-resistant shingle", text: "Exclusive GAF Stain Guard-infused asphalt shingle with UV blocker" },
-  { icon: "comfort", title: "Improved interior comfort", text: "Advanced ventilation system—PowerVent intake ensures air cycles in and out properly" },
-  { icon: "waterproof", title: "Waterproof", text: "Drip edge for perimeter protection, 100% leak barrier and underlayment, properly flashed at all leak prone areas" },
-  { icon: "wind", title: "Wind-resistant", text: "Powerful adhesive grip for shingle integrity, rated for wind speeds up to 130 mph" },
-  { icon: "warp", title: "Warp & waving-resistant", text: "UV blocker to reflect heat and protect shingle integrity, advanced ventilation system, meticulous installation" },
-  { icon: "curb", title: "Curb appeal", text: "Exclusive GAF shingles made with four-color composition easily integrate with your home’s existing color palette" },
-  { icon: "durable", title: "Durable", text: "50-year rating, exclusive GAF Stain Guard-infused asphalt shingle with micro-weave core & UV blocker" },
-  { icon: "warranty", title: "Superior warranties", text: "Transferable manufacturer warranty, POWER’s limited lifetime labor warranty" },
-  { icon: "installers", title: "Highly-skilled installers", text: "Installation specialists trained in local codes and regulations" },
+export const roofingFeatures: Feature[] = [
+  {
+    icon: "installers",
+    title: "Full tear-off",
+    text: "We strip the old shingles and underlayment down to the deck, so nothing hidden is left under your new roof.",
+  },
+  {
+    icon: "measure",
+    title: "Deck inspection",
+    text: "With the deck exposed, we check it for soft or rotted spots and replace damaged sheets before anything goes on top.",
+  },
+  {
+    icon: "weather",
+    title: "Ice-and-water barrier",
+    text: "A self-sealing membrane at the eaves and valleys, where code requires it, to protect against ice dams and wind-driven rain.",
+  },
+  {
+    icon: "insulation",
+    title: "Synthetic underlayment",
+    text: "A tear-resistant layer over the rest of the deck that sheds water if anything ever gets past the shingles.",
+  },
+  {
+    icon: "water",
+    title: "Drip edge and flashing",
+    text: "Metal edging along the eaves and rakes, and new flashing at walls, chimneys and vents, where most roof leaks begin.",
+  },
+  {
+    icon: "ventilation",
+    title: "Balanced ventilation",
+    text: "Ridge and soffit vents work together to move heat and moisture out of the attic, which helps the roof and the house.",
+  },
+  {
+    icon: "style",
+    title: "Architectural shingles",
+    text: "Thicker, dimensional shingles in a range of colors. We’ll bring samples so you can see them against your house.",
+  },
+  {
+    icon: "cleanup",
+    title: "Daily cleanup",
+    text: "Tarps over plants and siding, debris hauled off, and a magnetic sweep of the yard and driveway for stray nails.",
+  },
+  {
+    icon: "warranty",
+    title: "Two layers of coverage",
+    text: "The shingle manufacturer’s warranty on materials, plus our written workmanship warranty on the installation.",
+  },
 ];
 
-export const roofingCertification = {
-  image: "/assets/roofing/gaf-premium-badge.svg",
-  alt: "GAF Premium System Professional – Residential Roofing Contractor",
-  title: ["Premium system", "professional"],
-  text: "POWER is the 1st to be awarded this prestigious GAF designation which signifies our combination of premium GAF Shingles with GAF best installation practices.",
-};
+export const roofingGuarantee = guarantee("/assets/photos/roofing-card.jpg");
 
-export const roofingBeforeAfter = {
-  before: "/assets/roofing/before.png",
-  after: "/assets/roofing/after.png",
-};
-
-export const roofingGuarantee = {
-  eyebrow: "Warranty",
-  title: ["The Power", "Guarantee"],
-  text: "When you do a job right every time, you don’t mind providing a guarantee. That’s why, in addition to a manufacturer’s warranty, POWER also provides a limited lifetime labor warranty. And if you ever have questions or issues, we also provide ongoing service and support.",
-  cta: "View warranties",
-  image: "/assets/shared/guarantee.jpg",
+export const roofingCta = {
+  title: ["Leaks, missing", "shingles, or", "just old?"],
+  text: "We’ll get on the roof, take photos, and send a written quote that spells out every layer. No charge, no pressure.",
+  label: "Get a free quote",
+  href: links.quote,
+  tone: "sky" as const,
 };
 
 export const roofingFaqs: FaqGroup[] = [
   {
     tab: "General",
     items: [
-      { q: "What are signs my roof needs to be replaced?", a: "Common signs include missing, curling, or cracked shingles, dark streaks or stains, moss or algae growth, granules collecting in gutters, water leaks in the attic or ceilings, or a roof that’s simply 20 years or older. If you notice any of these issues, it’s best to call our team of experts and schedule an inspection—early action can prevent costly damage." },
-      { q: "Roof repair vs. roof replacement: which is right for me?", a: "Minor damage may be repaired, but widespread wear, recurring leaks, or aging roofing systems often make replacement the better long-term solution. A professional inspection can help determine the most appropriate recommendation." },
-      { q: "What happens if I delay replacing my roof?", a: "Delaying roof replacement can allow existing damage to worsen over time, potentially leading to water intrusion, structural damage, mold growth, and more costly repairs. Replacing an aging roof before major issues develop can help protect your home." },
-      { q: "How can a new roof make my home more energy-efficient?", a: "Yes, our advanced ventilation system improves attic airflow by allowing heat to escape, which reduces heat buildup and impact to the atmosphere below — making your home more comfortable and helping protect your roof’s integrity." },
-      { q: "Are POWER’s roofs built to be weather and wind resistant?", a: "POWER’s shingles are rated to withstand wind speeds up to 130 mph. In addition, POWER installs all the necessary components to protect your home against all types of weather like rain or snow. This includes a 100% leak barrier perimeter, drip-edge, underlayment, and are properly flashed in all leak-prone areas. All roofing adheres to local regulations and building codes, keeping you and your home safe from the elements." },
-      { q: "How long does a roof last?", a: "An asphalt shingle roof typically lasts about 20 to 30 years, although higher-quality roofing systems may last longer. Weather, attic ventilation, installation quality, and maintenance can all affect a roof’s lifespan. POWER installs a complete roofing system with a 50-year rating, advanced ventilation, and layered moisture protection." },
-      { q: "What roofing material lasts the longest?", a: "Slate generally lasts the longest, with a potential lifespan of 60 to 150 years. However, it can be significantly heavier and more expensive than other roofing materials. POWER partners with GAF to offer asphalt shingles that provide a strong balance of durability, weather resistance, curb appeal, and long-term value." },
-      { q: "Can a new roof lower insurance costs?", a: "Some insurance providers may offer discounts for newer roofing systems because they can better protect homes from weather-related damage. Since every insurance policy is different, homeowners should check directly with their insurance provider for available savings." },
+      {
+        q: "How do I know if I need a new roof?",
+        a: "Look for curling, cracked or missing shingles, bald patches where the granules have worn off, granules collecting in the gutters, and water stains on ceilings or in the attic. A sagging roofline is a sign of deck damage and should be checked soon.",
+      },
+      {
+        q: "How long does an asphalt shingle roof last?",
+        a: "Asphalt shingle roofs commonly last 20 to 30 years. Climate, sun exposure, attic ventilation and the quality of the installation all make a difference.",
+      },
+      {
+        q: "Why tear off the old roof instead of adding a layer?",
+        a: "Removing the old shingles lets us find and repair soft decking, install the barrier and underlayment correctly, and replace worn flashing. Many building codes also limit how many layers a roof can have.",
+      },
+      {
+        q: "What’s the difference between architectural and 3-tab shingles?",
+        a: "3-tab shingles are a single flat layer. Architectural shingles are made of laminated layers, which makes them thicker and gives the roof more depth and texture. Most homeowners choose architectural shingles today.",
+      },
+      {
+        q: "Why does attic ventilation matter for a roof?",
+        a: "Trapped heat and moisture in the attic can shorten the life of shingles and decking, and in cold weather it can contribute to ice dams. Intake vents at the soffits and exhaust vents at the ridge keep air moving through the attic.",
+      },
     ],
   },
   {
     tab: "Process",
     items: [
-      { q: "What types of roofing materials does POWER offer?", a: "Power installs premium, high-performance roofing systems made from durable asphalt shingles. These shingles are engineered for long-term protection, weather resistance, and curb appeal, with options available in a variety of colors to complement your home." },
-      { q: "How long will my roof replacement take?", a: "Most roof replacements are completed in just 1-2 days, depending on the size and complexity of your home. POWER’s installation process includes the safe removal and disposal of your old shingles and materials — no extra work for you." },
-      { q: "Who installs a POWER roofing system?", a: "Your POWER roof is installed by experts who know the craft inside and out. Our crews are not only highly trained in roofing systems, but also in the local codes and regulations that keep your home protected. Every installation follows strict safety standards and industry best practices—so you don’t just get a roof, you get long-lasting peace of mind." },
-      { q: "Can I combine my roofing project with other exterior upgrades?", a: "Absolutely. Many homeowners choose to bundle roofing with other services — not only for a seamless look, but also for added efficiency and value." },
+      {
+        q: "How long does a roof replacement take?",
+        a: "Most homes take one to three days, depending on the size and pitch of the roof and the weather. Your crew lead will keep you updated if rain changes the plan.",
+      },
+      {
+        q: "What happens if you find rotted decking?",
+        a: "We stop, show you the damage, and explain the cost before we replace it. Your written quote explains how decking repairs are priced, so you won’t be surprised at the end.",
+      },
+      {
+        q: "What if it rains during the job?",
+        a: "We watch the forecast, open only as much roof as we can close up the same day, and keep tarps on site. The house is never left exposed overnight.",
+      },
+      {
+        q: "How do you protect my yard and landscaping?",
+        a: "We cover plants, decks and siding near the work area, use a dumpster or trailer for debris, and run a magnetic sweeper over the lawn and driveway each day to pick up nails.",
+      },
+      {
+        q: "Do you pull the permit?",
+        a: [
+          "Yes. We pull the permits your roof requires and schedule any inspections. ",
+          { label: "See our licenses and insurance", href: links.licenses },
+          ".",
+        ],
+      },
     ],
   },
   {
-    tab: "Financing & Warranties",
+    tab: "Cost & Warranty",
     items: [
-      { q: "What warranties come with my new roof?", a: "You’re covered by both a manufacturer’s warranty and POWER’s own limited lifetime labor warranty to ensure peace of mind even after your remodeling project has ended. Learn more about our warranties here." },
+      {
+        q: "What affects the cost of a new roof?",
+        a: "The size and steepness of the roof, how many layers we’re removing, the amount of decking that needs repair, the number of chimneys, skylights and valleys, and the shingle you choose.",
+      },
+      {
+        q: "Can you help with a storm damage claim?",
+        a: "Start by contacting your insurance company. We can inspect the roof, photograph what we find and give you a written quote to share with your adjuster. Your policy and the adjuster decide what’s covered.",
+      },
+      {
+        q: "I have an active leak. What should I do?",
+        a: `Move valuables away from the drip, catch the water, and call us at ${site.phone.display}. We’ll tell you what we can do and how soon we can get someone out to look.`,
+      },
+      {
+        q: "What warranty comes with my roof?",
+        a: [
+          "The shingle manufacturer’s warranty covers the materials, and our written workmanship warranty covers the installation. ",
+          { label: "How our warranty works", href: links.warranty },
+          ".",
+        ],
+      },
     ],
   },
 ];

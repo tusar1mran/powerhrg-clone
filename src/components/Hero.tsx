@@ -89,7 +89,7 @@ export default function Hero({
             </span>
           ))}
         </h1>
-        {/* long single-paragraph subtitles (community, belonging) are 20px and wrap at ~650px on the reference */}
+        {/* long single-paragraph subtitles are 20px and wrap at ~650px */}
         <p
           className={`fade-in-up-delay mt-6 text-[18px] leading-[28px] ${dark ? "max-w-[680px] text-navy" : "text-white"} ${
             subtitle.length === 1 && subtitle[0].length > 110 ? "max-w-[650px] lg:text-[20px] lg:leading-[30px]" : ""

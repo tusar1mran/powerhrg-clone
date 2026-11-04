@@ -2,26 +2,23 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
+import CtaBand from "@/components/CtaBand";
 import ProductIntro from "@/components/services/ProductIntro";
-import Swatches from "@/components/services/Swatches";
-import Certification from "@/components/services/Certification";
-import BeforeAfter from "@/components/services/BeforeAfter";
-import TrackProject from "@/components/services/TrackProject";
 import Guarantee from "@/components/services/Guarantee";
 import Faq from "@/components/services/Faq";
 import {
-  roofingBeforeAfter,
-  roofingCertification,
+  roofingCta,
   roofingFaqs,
   roofingFeatures,
   roofingGuarantee,
   roofingHero,
   roofingIntro,
-  roofingShingle,
 } from "@/lib/roofing-content";
 
 export const metadata: Metadata = {
-  title: "Roofing (study clone)",
+  title: "Roof Replacement",
+  description:
+    "Full tear-off asphalt shingle roof replacement with deck repair, underlayment, flashing and ventilation, plus permits and daily cleanup.",
 };
 
 export default function RoofingPage() {
@@ -30,13 +27,9 @@ export default function RoofingPage() {
       <Header transparentAtTop={false} />
       <main id="main">
         <Hero {...roofingHero} ctaHref="#product" ctaLabel="Explore roofing" />
-        <ProductIntro {...roofingIntro} features={roofingFeatures}>
-          <Swatches {...roofingShingle} />
-        </ProductIntro>
-        <Certification {...roofingCertification} />
-        <BeforeAfter {...roofingBeforeAfter} />
-        <TrackProject />
+        <ProductIntro {...roofingIntro} features={roofingFeatures} />
         <Guarantee {...roofingGuarantee} />
+        <CtaBand {...roofingCta} />
         <Faq faqs={roofingFaqs} />
       </main>
       <Footer />

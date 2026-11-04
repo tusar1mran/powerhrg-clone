@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
+import CtaBand from "@/components/CtaBand";
 import ProductIntro from "@/components/services/ProductIntro";
-import BeforeAfter from "@/components/services/BeforeAfter";
-import TrackProject from "@/components/services/TrackProject";
 import Guarantee from "@/components/services/Guarantee";
 import Faq from "@/components/services/Faq";
 import {
-  windowsBeforeAfter,
+  windowsCta,
   windowsFaqs,
   windowsFeatures,
   windowsGuarantee,
@@ -17,7 +16,9 @@ import {
 } from "@/lib/windows-content";
 
 export const metadata: Metadata = {
-  title: "Windows (study clone)",
+  title: "Window Replacement",
+  description:
+    "Custom-measured replacement windows in vinyl or fiberglass, with insulated low-E glass, installed and sealed by a licensed, insured crew.",
 };
 
 export default function WindowsPage() {
@@ -27,9 +28,8 @@ export default function WindowsPage() {
       <main id="main">
         <Hero {...windowsHero} ctaHref="#product" ctaLabel="Explore windows" />
         <ProductIntro {...windowsIntro} features={windowsFeatures} />
-        <BeforeAfter {...windowsBeforeAfter} />
-        <TrackProject />
         <Guarantee {...windowsGuarantee} />
+        <CtaBand {...windowsCta} />
         <Faq faqs={windowsFaqs} />
       </main>
       <Footer />

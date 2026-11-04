@@ -1,79 +1,132 @@
-// Copy and image paths for /about. Images go in /public/assets/about/ (see public/assets/README.md).
+// Copy and image paths for /about. Photos are in /public/assets/photos (see public/assets/CREDITS.md).
 import type { FaqGroup } from "@/components/services/Faq";
-import type { ImageCard } from "@/components/ImageCardPair";
+import type { Value } from "@/components/about/Values";
+import { links } from "./links";
+import { site } from "./site";
 
 export const aboutHero = {
-  title: ["Tear the", "roof off", "your", "expectations"],
-  subtitle: ["You don’t become the nation’s largest exterior home remodeler by", "following the same old playbook."],
-  image: "/assets/about/hero.png", // ABOUT-D.png on the reference
-  mobileImage: "/assets/about/hero-mobile.png", // ABOUT-M.png
+  title: ["Good work", "is personal"],
+  subtitle: [
+    "Shah & Crew is an exterior renovation company built on a simple idea:",
+    "do the job right, say what you mean, and stand behind the work.",
+  ],
+  image: "/assets/photos/about-hero.jpg",
+  overlay: true,
 };
 
-export const aboutValues = {
-  title: ["Our values are our", "handshake"],
-  text: "How have we grown exponentially while staying true to ourselves? By making our values the litmus test for everything we do. They determine how we act and how we treat others, anchoring us in good times and in bad. They are the road map that guides who we are and who we’re becoming.",
+export const aboutStory = {
+  eyebrow: "How we work",
+  title: ["The crew", "you meet", "is the crew", "that builds"],
+  paragraphs: [
+    "When you call Shah & Crew, you deal with the people who will actually do the work. The person who measures your house understands how it will be built, and your crew lead stays with the job from the first day to the walk-through.",
+    "We keep the work focused on the outside of the house: windows, roofs, siding, doors, insulation and the details that tie them together. Sticking to what we know is how we keep quality consistent from one job to the next.",
+  ],
+  image: "/assets/photos/about-story.jpg",
+  imageAlt: "Measuring a board on a workbench",
+};
+
+export const aboutValues: { title: string[]; text: string; values: Value[] } = {
+  title: ["What we", "hold ourselves to"],
+  text: "These aren’t slogans on a wall. They decide how we quote, how we build, and how we handle it when something goes wrong.",
   values: [
-    { title: "Integrity", icon: "/assets/about/values/HAND-ON-HEART.svg", text: "We have a natural inclination to be honest. We’re good-intentioned, and our actions are guided by morality." },
-    { title: "Care", icon: "/assets/about/values/HEART-HAND.svg", text: "We possess a selfless concern for others, displaying kindness and a willingness to act on others’ behalf." },
-    { title: "Optimism", icon: "/assets/about/values/THUMBS-UP.svg", text: "We find value in every experience, whether it goes perfectly or has room for improvement." },
-    { title: "Commitment", icon: "/assets/about/values/COMMITMENT.svg", text: "Relationships are the lifeblood of our business. We are determined to support our customers and employees for the long term." },
-    { title: "Innovation", icon: "/assets/about/values/BULB.svg", text: "We continually search for a better way. We believe in bringing creative, unexpected ideas to life throughout our organization." },
+    {
+      title: "Honesty",
+      icon: "honesty",
+      text: "We tell you what we see, including when the right answer is a repair, a smaller job, or no job at all.",
+    },
+    {
+      title: "Care",
+      icon: "care",
+      text: "We treat your home, your yard and your time the way we’d want ours treated.",
+    },
+    {
+      title: "Craft",
+      icon: "craft",
+      text: "We follow manufacturer instructions and local code, and we take the time to do the parts no one sees.",
+    },
+    {
+      title: "Communication",
+      icon: "communication",
+      text: "You’ll know who is coming, when they’re coming and what they’re doing. If a plan changes, you’ll hear it from us first.",
+    },
+    {
+      title: "Fairness",
+      icon: "fairness",
+      text: "Clear, itemized prices based on the work. No inflated “list price” and no pressure to sign today.",
+    },
   ],
 };
 
-export const aboutAlly = {
-  title: ["The unexpected", "ally"],
-  text: "At Power Home Remodeling, our purpose is to realize the potential in every home, person, and community we serve. That’s why we always look for opportunities to show up in ways no one would ever expect from an exterior home remodeling company.",
-  image: "/assets/about/ally.png", // website-herohome-white-scaled_12.png
+export const serviceArea = {
+  id: "service-area",
+  title: ["Where we work"],
+  text: `We work with homeowners across ${site.serviceArea}.\nNot sure if your home is in our area? Send us your ZIP code and we’ll let you know.`,
+  label: "Check my address",
+  href: links.quote,
+  tone: "white" as const,
 };
 
-export const aboutStats = {
-  title: "Our all-star stats",
-  stats: [
-    { value: "#20", label: "Fortune best places to work" },
-    { value: "4.6", label: "Glassdoor employee rating" },
-    { value: "28", label: "Regional offices" },
-    { value: "12%", label: "Military veterans" },
-    { value: "97%", label: "CEO approval on Glassdoor" },
-    { value: "$12M+", label: "Raised for pediatric cancer" },
-  ],
+export const aboutCta = {
+  title: ["Meet your crew"],
+  text: "Book a free estimate and see how we work before you commit to anything.",
+  label: "Get a free quote",
+  href: links.quote,
+  tone: "navy" as const,
 };
-
-export const aboutCards: ImageCard[] = [
-  {
-    title: "Community",
-    image: "/assets/about/community.jpg", // px23-migentevto-029-websize-1.jpg
-    text: "POWER is built with an ever-present true north of putting people first, and that includes improving the communities we live and work in.",
-    cta: "Learn about community impact",
-    href: "/about/community",
-  },
-  {
-    title: "Belonging",
-    image: "/assets/about/belonging.png", // Rectangle-94.png
-    text: "There’s nothing more powerful and deeply human than our desire to belong.",
-    cta: "Learn about belonging at Power",
-    href: "/about/belonging",
-  },
-];
 
 export const aboutFaqs: FaqGroup[] = [
   {
     tab: "General",
     items: [
-      { q: "What does POWER do?", a: "Power Home Remodeling specializes in exterior home renovations and installations, which include windows, roofing, entry doors, siding, attic insulation, and solar. Between our highly-trained professional installers and partnerships with some of the best manufacturers in the industry (like GAF, Pella, ProVia, Certainteed, and more), POWER has served over 500k+ homeowners and installed 1M+ projects in our 30+ years of operation. Check out our service page to see all that we offer." },
-      { q: "Why do homeowners choose POWER?", a: "Homeowners choose POWER for its decades of experience, high-quality products, professional installation process, manufacturer partnerships, and commitment to delivering an exceptional customer experience. Every project is backed by strong warranty protection and supported from consultation through post installation." },
-      { q: "Where is the POWER headquarters?", a: "Our national headquarters is located in Chester, PA (just outside of Philadelphia), with additional offices across the country." },
-      { q: "When was POWER founded?", a: "POWER was founded in 1992 by two cousins, and remains a family owned and operated company. Since then, it has grown from a small start-up into the nation’s largest, full-service exterior home remodeler, a title earned by breaking the mold and rising above the ordinary." },
-      { q: "What are POWER’s mission and core values?", a: "At POWER, we strive to realize the potential in every home, person, and community we impact. Our business is built on the principles of integrity, care, optimism, commitment, and innovation — the principles that guide how we work, lead, and serve every day. That means delivering exceptional results for homeowners and creating a positive, lasting impact beyond the walls of your home." },
-      { q: "How many employees does POWER have?", a: "Today, POWER is home to more than 5,200 employees across 28 territories and growing each year. Want to join the team? Check out our Careers page for more information." },
-      { q: "What makes POWER different from other remodelers?", a: "Unlike most remodelers, POWER combines award-winning culture, in-house installation expertise, a smooth remodeling process with the customer at the forefront, and limited lifetime transferable warranties — delivering not just products, but peace of mind. From your first consultation to final installation, our process is designed to be simple, seamless, and hassle-free, so you can enjoy the transformation without the stress." },
+      {
+        q: "What does Shah & Crew do?",
+        a: [
+          "We renovate the outside of the house: replacement windows, roof replacement, siding, entry and patio doors, attic insulation, and accessories like gutters, trim and shutters. ",
+          { label: "See all services", href: links.services },
+          ".",
+        ],
+      },
+      {
+        q: "Do you use subcontractors?",
+        a: "Our own crew handles the work and stays responsible for it from start to finish. If a job ever needs a specialist trade, such as an electrician, we’ll tell you in your quote, and we stay your single point of contact.",
+      },
+      {
+        q: "Are you licensed and insured?",
+        a: [
+          `Yes. We hold a ${site.license.state} ${site.license.type} license (${site.license.number}) and carry ${site.insurance.toLowerCase()}. `,
+          { label: "See license and insurance details", href: links.licenses },
+          ".",
+        ],
+      },
+      {
+        q: "What areas do you serve?",
+        a: [
+          `We work across ${site.serviceArea}. `,
+          { label: "Send us your ZIP code", href: links.quote },
+          " if you’re not sure.",
+        ],
+      },
     ],
   },
   {
-    tab: "Philanthropy",
+    tab: "Working with us",
     items: [
-      { q: "What recognition has POWER received?", a: "POWER has been consistently ranked on Fortune’s list of 100 Best Companies to Work For, “Best Workplaces In Construction”, and “Best Workplaces For Parents”. We are named one of Forbes “Best Employers For Women”, “Best In-State Employers”, and “Best Midsize Employers”. Additionally, POWER has earned Glassdoor’s “Best Places to Work”, recognized by Military Times as a “Best for Vets Employer”, “Angie’s Super Service Award”, plus many other honors." },
-      { q: "Does POWER give back to communities?", a: "Through our POWER for Good programs, we’ve raised millions for pediatric cancer research and local nonprofits, and our employees volunteer thousands of community service hours each year." },
+      {
+        q: "What makes you different from other contractors?",
+        a: "You deal with the people doing the work, you get everything in writing, and you sign off on the finished job before the final payment. We’d rather lose a sale than sell you something your house doesn’t need.",
+      },
+      {
+        q: "Will you pressure me to sign?",
+        a: "No. Your quote is written and itemized, and it stays open while you think it over, compare other quotes, or talk it through with your family.",
+      },
+      {
+        q: "What if something goes wrong after the job?",
+        a: [
+          "Call us. Our workmanship warranty is in writing, and we come back to fix anything we installed that isn’t working as it should. ",
+          { label: "How our warranty works", href: links.warranty },
+          ".",
+        ],
+      },
     ],
   },
 ];
