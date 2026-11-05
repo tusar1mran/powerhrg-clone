@@ -41,7 +41,43 @@
 			"tag": "v1",
 			"new_sqlite_classes": ["DOQueueHandler"]
 		}
-	]
+	],
+	"env": {
+		// Separate preview Worker for the redesign, so it never touches the production Worker or its cache.
+		// Deploy with: NEXT_PUBLIC_SITE_URL=https://shah-and-crew-redesign.millon.workers.dev pnpm run deploy:redesign
+		// Bindings are not inherited by environments, so they are repeated here with their own names.
+		"redesign": {
+			"name": "shah-and-crew-redesign",
+			"services": [
+				{
+					// Self-reference service binding, the service name must match the worker name.
+					"binding": "WORKER_SELF_REFERENCE",
+					"service": "shah-and-crew-redesign"
+				}
+			],
+			"r2_buckets": [
+				{
+					// Own R2 incremental cache, so redesign builds don't write into the production bucket.
+					"binding": "NEXT_INC_CACHE_R2_BUCKET",
+					"bucket_name": "shah-and-crew-redesign-opennext-cache"
+				}
+			],
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "NEXT_CACHE_DO_QUEUE",
+						"class_name": "DOQueueHandler"
+					}
+				]
+			},
+			"migrations": [
+				{
+					"tag": "v1",
+					"new_sqlite_classes": ["DOQueueHandler"]
+				}
+			]
+		}
+	}
 	// Secrets for the quote form are not stored here. Set them with:
 	//   pnpm wrangler secret put RESEND_API_KEY
 	//   pnpm wrangler secret put CONTACT_TO_EMAIL

@@ -22,6 +22,7 @@ Open [http://localhost:3000](http://localhost:3000).
 | `pnpm lint` | ESLint |
 | `pnpm preview` | Build for Cloudflare and serve locally in the Workers runtime |
 | `pnpm run deploy` | Build for Cloudflare and deploy the Worker (`pnpm deploy` is a built-in pnpm command, so `run` is required) |
+| `pnpm run deploy:redesign` | Build and deploy the redesign preview Worker (`shah-and-crew-redesign`, wrangler env `redesign`) |
 | `pnpm cf-typegen` | Generate `cloudflare-env.d.ts` binding types |
 
 ## Deployment (Cloudflare Workers)
