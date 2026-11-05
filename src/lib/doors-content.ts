@@ -72,7 +72,7 @@ export const doorsCta = {
   text: "We’ll measure your doors, show you options and send a written quote. No charge, no pressure.",
   label: "Get a free quote",
   href: links.quote,
-  tone: "sky" as const,
+  tone: "oat" as const,
 };
 
 export const doorsFaqs: FaqGroup[] = [

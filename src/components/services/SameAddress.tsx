@@ -13,7 +13,7 @@ type Props = {
   light?: boolean;
 };
 
-// Full-bleed sky photo with houses at the bottom, lime heading and white copy near the top.
+// Full-bleed sky photo with houses at the bottom, white serif heading and copy near the top.
 export default function SameAddress({
   title = sameAddress.title,
   text = sameAddress.text,
@@ -32,7 +32,7 @@ export default function SameAddress({
       style={{ backgroundImage: `url(${image})` }}
     >
       <Reveal className="max-w-[1100px]">
-        <h2 className="text-[34px] leading-[1.35] font-light tracking-[8px] text-lime uppercase lg:text-[63px] lg:tracking-section">
+        <h2 className="font-display text-[40px] leading-[1.1] font-medium tracking-display text-white [text-shadow:0_2px_18px_rgba(30,43,49,0.35)] lg:text-[68px]">
           {title.map((l) => (
             <span key={l} className="block">
               {l}

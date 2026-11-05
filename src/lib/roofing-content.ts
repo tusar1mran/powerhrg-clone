@@ -73,7 +73,7 @@ export const roofingCta = {
   text: "We’ll get on the roof, take photos, and send a written quote that spells out every layer. No charge, no pressure.",
   label: "Get a free quote",
   href: links.quote,
-  tone: "sky" as const,
+  tone: "oat" as const,
 };
 
 export const roofingFaqs: FaqGroup[] = [

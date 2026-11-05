@@ -1,12 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Jost } from "next/font/google";
+import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 
-const jost = Jost({
-  variable: "--font-jost",
+// Body copy and UI labels. Variable font, so every weight comes from one file.
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "700"],
+  display: "swap",
+});
+
+// Headings. The optical-size axis is loaded so large titles get the display cut.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  axes: ["opsz"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -32,7 +41,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${jost.variable} antialiased`}>
+    <html lang="en" className={`${inter.variable} ${fraunces.variable} antialiased`}>
       {/* suppressHydrationWarning: browser extensions (e.g. dark-mode tools) add attributes to <body> */}
       <body suppressHydrationWarning>{children}</body>
     </html>

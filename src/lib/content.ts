@@ -180,7 +180,7 @@ export const homeCta = {
   text: "Book a free estimate. We’ll measure, talk through your options and send a written quote. There’s no charge and no pressure.",
   label: "Get a free quote",
   href: links.quote,
-  tone: "navy" as const,
+  tone: "charcoal" as const,
 };
 
 export const footerColumns: { heading: string; links: NavItem[] }[] = [

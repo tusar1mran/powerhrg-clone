@@ -54,19 +54,22 @@ export default function TrustPoints({ title, text }: Props) {
   const points = buildPoints();
 
   return (
-    <section className="bg-sky-soft py-20 text-navy lg:py-28">
+    <section className="bg-sand py-20 text-charcoal lg:py-28">
       <div className="mx-auto max-w-[1150px] px-6">
         <Reveal className="max-w-[760px]">
-          <h2 className="text-[28px] font-light tracking-[4px] uppercase lg:text-[40px] lg:tracking-[5px]">{title}</h2>
+          <h2 className="font-display text-[34px] leading-tight font-medium tracking-display lg:text-[48px]">{title}</h2>
           <p className="mt-5 text-[16px] leading-[26px] lg:text-[18px] lg:leading-[28px]">{text}</p>
         </Reveal>
         <ul className="mt-12 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {points.map((p, i) => (
             <li key={p.title}>
               <Reveal delay={(i % 3) * 100}>
-                <p.icon aria-hidden strokeWidth={1.5} className="h-11 w-11" />
-                <h3 className="mt-4 text-[13px] font-bold tracking-[3px] uppercase lg:text-[14px] lg:tracking-[4.2px]">{p.title}</h3>
-                <p className="mt-3 text-[15px] leading-[24px] lg:text-[16px]">{p.text}</p>
+                {/* icon in a white tile */}
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-[0_2px_10px_rgba(30,43,49,0.06)]">
+                  <p.icon aria-hidden strokeWidth={1.75} className="h-7 w-7 text-gold-600" />
+                </span>
+                <h3 className="mt-5 text-[17px] font-semibold lg:text-[18px]">{p.title}</h3>
+                <p className="mt-2 text-[15px] leading-[24px] text-charcoal/85 lg:text-[16px]">{p.text}</p>
                 {p.link &&
                   (p.link.external ? (
                     <a href={p.link.href} target="_blank" rel="noopener noreferrer" className="link-underline mt-4">

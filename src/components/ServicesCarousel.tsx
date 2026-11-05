@@ -54,33 +54,32 @@ export default function ServicesCarousel() {
                   setAnimate(true);
                   setPos(i);
                 }}
-                className="group relative block aspect-[765/477] w-full overflow-hidden text-left"
+                className="group relative block aspect-[765/477] w-full overflow-hidden rounded-2xl text-left"
                 aria-label={`Show ${s.name}`}
               >
-                <Photo src={s.image} className="absolute inset-0 scale-100 transition-transform duration-700 group-hover:scale-110" />
+                <Photo src={s.image} className="absolute inset-0 scale-100 transition-transform duration-700 group-hover:scale-105" />
+                {/* bottom scrim keeps the title readable on bright photos */}
+                <span aria-hidden className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-charcoal/75 to-transparent" />
                 <span
                   className={`absolute inset-0 bg-white ${animate ? "transition-opacity duration-300" : ""} ${isActive ? "opacity-0" : "opacity-60"}`}
                 />
-                <h3
-                  className="absolute top-6 left-6 text-[28px] font-light tracking-card text-white uppercase lg:text-[47px]"
-                  style={{ writingMode: "vertical-rl" }}
-                >
+                <h3 className="absolute bottom-5 left-6 font-display text-[26px] leading-none font-medium tracking-display text-white lg:bottom-8 lg:left-8 lg:text-[44px]">
                   {s.name}
                 </h3>
               </button>
-              <div className={`mt-4 ${animate ? "transition-opacity duration-300" : ""} ${isActive ? "opacity-100" : "opacity-30"}`}>
-                <Link href={s.href} className="link-underline text-navy" tabIndex={clone ? -1 : undefined}>
+              <div className={`mt-5 ${animate ? "transition-opacity duration-300" : ""} ${isActive ? "opacity-100" : "opacity-30"}`}>
+                <Link href={s.href} className="link-underline text-charcoal" tabIndex={clone ? -1 : undefined}>
                   Explore {s.name.toLowerCase()}
                 </Link>
-                <p className="mt-5 max-w-[560px] text-[16px] text-navy">{s.text}</p>
+                <p className="mt-4 max-w-[560px] text-[16px] leading-[26px] text-charcoal/85">{s.text}</p>
               </div>
             </div>
           );
         })}
       </div>
 
-      <Arrow dir="left" label="Previous service" onClick={() => go(-1)} className="absolute top-[calc(53px+12vw)] left-0" />
-      <Arrow dir="right" label="Next service" onClick={() => go(1)} className="absolute top-[calc(53px+12vw)] right-0" />
+      <Arrow dir="left" label="Previous service" onClick={() => go(-1)} className="absolute top-[calc(53px+12vw)] left-4 lg:left-8" />
+      <Arrow dir="right" label="Next service" onClick={() => go(1)} className="absolute top-[calc(53px+12vw)] right-4 lg:right-8" />
     </section>
   );
 }

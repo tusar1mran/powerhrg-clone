@@ -23,7 +23,7 @@ type Props = {
 };
 
 const field =
-  "h-16 w-full border-0 border-b-4 border-sky bg-white px-3 text-[20px] leading-7 text-navy outline-none placeholder:text-navy/60 focus:border-navy aria-[invalid=true]:border-[#b42318]";
+  "h-14 w-full rounded-xl border border-charcoal/15 bg-white px-4 text-[17px] leading-7 text-charcoal outline-none transition-[border-color,box-shadow] placeholder:text-charcoal/55 focus:border-charcoal focus:ring-2 focus:ring-gold/60 aria-[invalid=true]:border-[#b42318]";
 
 // "service" and "consent" start empty, so the select shows its prompt and the box is unchecked.
 const defaultValues: DefaultValues<ContactInput> = {
@@ -98,9 +98,9 @@ export default function ContactForm({ id = "quote", title, intro, consent, submi
   const describedBy = (name: keyof ContactValues) => (errors[name] ? `${id}-${name}-error` : undefined);
 
   return (
-    <section id={id} className="scroll-mt-24 bg-sky-soft px-6 py-6 text-navy lg:bg-white lg:py-24">
-      <Reveal className="mx-auto max-w-[1150px] md:bg-sky-soft lg:px-20 lg:py-10">
-        <h2 className="mb-4 text-center text-[22px] leading-[1.3] font-light tracking-[2px] uppercase lg:text-[30px] lg:tracking-[3px] xl:text-[47px] xl:tracking-[5px]">
+    <section id={id} className="scroll-mt-24 bg-sand px-6 py-6 text-charcoal lg:bg-white lg:py-24">
+      <Reveal className="mx-auto max-w-[1150px] md:rounded-3xl md:bg-sand md:px-10 md:py-10 lg:px-20 lg:py-14">
+        <h2 className="mb-4 text-center font-display text-[30px] leading-[1.1] font-medium tracking-display lg:text-[40px] xl:text-[48px]">
           {sent ? success.title : title}
         </h2>
         {sent ? (
@@ -203,7 +203,7 @@ export default function ContactForm({ id = "quote", title, intro, consent, submi
                     type="checkbox"
                     aria-invalid={errors.consent ? true : undefined}
                     aria-describedby={describedBy("consent")}
-                    className="mt-[2px] h-5 w-5 shrink-0 rounded-sm border-4 border-sky accent-navy"
+                    className="mt-[2px] h-5 w-5 shrink-0 rounded accent-charcoal"
                     {...register("consent")}
                   />
                   <span className="text-[13px] leading-[19px]">{consent}</span>
@@ -220,7 +220,7 @@ export default function ContactForm({ id = "quote", title, intro, consent, submi
               <button
                 type="submit"
                 disabled={pending}
-                className="bg-lime px-4 py-3 text-[14px] leading-5 font-bold tracking-[0.3em] text-navy uppercase transition-colors hover:bg-navy hover:text-lime disabled:cursor-wait disabled:opacity-60 lg:px-8 lg:py-6"
+                className="btn-pill bg-gold px-8 py-4 text-charcoal hover:bg-charcoal hover:text-white focus-visible:bg-charcoal focus-visible:text-white disabled:cursor-wait disabled:opacity-60"
               >
                 {pending ? "Sending…" : submit}
               </button>

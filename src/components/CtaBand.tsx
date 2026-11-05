@@ -7,33 +7,30 @@ type Props = {
   label: string;
   href?: string;
   text?: string;
-  tone?: "sky" | "white" | "navy";
+  tone?: "oat" | "white" | "charcoal";
   variant?: "button" | "link";
 };
 
-export default function CtaBand({ id, title, label, href = "#", text, tone = "sky", variant = "button" }: Props) {
-  const bg = { sky: "bg-sky text-navy", white: "bg-white text-navy", navy: "bg-navy text-white" }[tone];
+export default function CtaBand({ id, title, label, href = "#", text, tone = "oat", variant = "button" }: Props) {
+  const bg = { oat: "bg-oat text-charcoal", white: "bg-white text-charcoal", charcoal: "on-dark bg-charcoal text-white" }[tone];
   const button =
-    tone === "navy" ? "bg-lime text-black hover:bg-sky focus:bg-sky" : "bg-navy text-white hover:bg-lime hover:text-black focus:bg-lime focus:text-black";
+    tone === "charcoal"
+      ? "bg-gold text-charcoal hover:bg-white focus-visible:bg-white"
+      : "bg-charcoal text-white hover:bg-gold hover:text-charcoal focus-visible:bg-gold focus-visible:text-charcoal";
 
   return (
-    <section id={id} className={`${bg} scroll-mt-24 px-6 py-20 text-center lg:py-24 ${text ? "xl:py-36" : ""}`}>
+    <section id={id} className={`${bg} scroll-mt-24 px-6 py-20 text-center lg:py-24 ${text ? "xl:py-32" : ""}`}>
       <Reveal>
-        <h2 className="text-[30px] leading-[1.3] font-light tracking-[5px] uppercase lg:text-[63px] lg:tracking-[10px]">
+        <h2 className="font-display text-[36px] leading-[1.1] font-medium tracking-display lg:text-[60px]">
           {title.map((l) => (
             <span key={l} className="block">
               {l}
             </span>
           ))}
         </h2>
-        {text && <p className="mx-auto mt-4 max-w-[760px] text-[16px] leading-[1.45] whitespace-pre-line xl:text-[20px]">{text}</p>}
+        {text && <p className="mx-auto mt-5 max-w-[760px] text-[16px] leading-[1.55] whitespace-pre-line xl:text-[19px]">{text}</p>}
         {variant === "button" ? (
-          <a
-            href={href}
-            className={`mt-10 inline-block px-6 py-4 text-[12px] font-bold tracking-[3px] uppercase transition-colors duration-150 lg:text-[14px] lg:tracking-[4.2px] ${button} ${
-              text ? "lg:mt-[60px]" : ""
-            }`}
-          >
+          <a href={href} className={`btn-pill mt-10 ${button} ${text ? "lg:mt-12" : ""}`}>
             {label}
           </a>
         ) : (

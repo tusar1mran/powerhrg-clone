@@ -68,7 +68,7 @@ export const windowsCta = {
   text: "We’ll look at your windows, explain your options and send a written quote. No charge, no pressure.",
   label: "Get a free quote",
   href: links.quote,
-  tone: "sky" as const,
+  tone: "oat" as const,
 };
 
 export const windowsFaqs: FaqGroup[] = [

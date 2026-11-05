@@ -22,7 +22,7 @@ type Props = {
   ctaHref?: string;
   ctaLabel?: string;
   button?: { label: string; href: string };
-  buttonVariant?: "lime" | "outline";
+  buttonVariant?: "solid" | "outline";
   overlay?: boolean;
   ink?: "light" | "dark";
   onDark?: boolean;
@@ -42,14 +42,15 @@ export default function Hero({
   ctaHref = "#services",
   ctaLabel = "Explore services",
   button,
-  buttonVariant = "lime",
+  buttonVariant = "solid",
   overlay = false,
   ink = "light",
   onDark = false,
 }: Props) {
   const dark = ink === "dark";
   const mobile = mobileImage ?? image;
-  const base = "#7ba3e6";
+  // shown behind the photo while it loads (charcoal-700)
+  const base = "#33454d";
 
   let desktopBg = `url(${image}) center / cover no-repeat, ${base}`;
   if (!inPublic(image) && mobileImage) {
@@ -73,14 +74,21 @@ export default function Hero({
       {overlay && (
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,31,63,0.8)_15%,rgba(0,31,63,0.45)_55%,transparent_90%)] md:bg-[linear-gradient(to_right,rgba(0,31,63,0.6)_40%,rgba(0,31,63,0.25)_70%,transparent_100%)]"
+          className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(30,43,49,0.82)_15%,rgba(30,43,49,0.45)_55%,transparent_90%)] md:bg-[linear-gradient(to_right,rgba(30,43,49,0.7)_35%,rgba(30,43,49,0.3)_65%,transparent_100%)]"
         />
       )}
-      <div className={`relative px-6 sm:px-12 lg:pl-[203px] ${size === "full" ? "pt-[180px] lg:pt-[215px]" : "pt-[150px] lg:pt-[190px]"}`}>
+      {/* light copy gets a soft shadow so it stays readable on bright photos without an overlay */}
+      <div
+        className={`relative px-6 sm:px-12 lg:pl-[160px] ${dark ? "" : "[text-shadow:0_2px_16px_rgba(30,43,49,0.45)]"} ${
+          size === "full" ? "pt-[170px] lg:pt-[205px]" : "pt-[140px] lg:pt-[180px]"
+        }`}
+      >
+        {/* short gold rule above the title */}
+        <span aria-hidden className="fade-in-up mb-6 block h-1 w-14 rounded-full bg-gold lg:mb-8" />
         <h1
-          className={`fade-in-up text-[40px] leading-[1.3] font-light tracking-[5px] uppercase sm:text-[56px] ${dark ? "text-navy" : "text-lime"} ${
-            // the short banner (about) uses a 60px title so four lines + CTA fit in 700px
-            size === "full" ? "lg:text-[76px] lg:tracking-hero" : "lg:text-[60px]"
+          className={`fade-in-up font-display text-[44px] leading-[1.08] font-medium tracking-display sm:text-[60px] ${dark ? "text-charcoal" : "text-white"} ${
+            // the short banner (about) uses a 64px title so four lines + CTA fit in 700px
+            size === "full" ? "lg:text-[84px]" : "lg:text-[64px]"
           }`}
         >
           {title.map((line) => (
@@ -91,7 +99,7 @@ export default function Hero({
         </h1>
         {/* long single-paragraph subtitles are 20px and wrap at ~650px */}
         <p
-          className={`fade-in-up-delay mt-6 text-[18px] leading-[28px] ${dark ? "max-w-[680px] text-navy" : "text-white"} ${
+          className={`fade-in-up-delay mt-6 text-[18px] leading-[28px] ${dark ? "max-w-[680px] text-charcoal" : "text-white/90"} ${
             subtitle.length === 1 && subtitle[0].length > 110 ? "max-w-[650px] lg:text-[20px] lg:leading-[30px]" : ""
           }`}
         >
@@ -106,8 +114,8 @@ export default function Hero({
             href={button.href}
             className={
               buttonVariant === "outline"
-                ? "fade-in-up mt-[35px] flex w-full items-center justify-center border-4 border-white px-8 py-6 text-[14px] leading-none font-bold tracking-[0.3em] text-white uppercase transition-colors duration-150 hover:border-navy hover:bg-navy hover:text-lime sm:inline-flex sm:w-auto sm:min-w-[240px]"
-                : "mt-10 inline-block bg-lime px-6 py-4 text-[12px] font-bold tracking-[3px] text-navy uppercase transition-colors duration-150 hover:bg-navy hover:text-lime focus:bg-navy focus:text-lime lg:mt-12 lg:text-[13px] lg:tracking-[3.5px]"
+                ? "btn-pill fade-in-up mt-[35px] flex w-full border-2 border-white text-white hover:bg-white hover:text-charcoal focus-visible:bg-white focus-visible:text-charcoal sm:inline-flex sm:w-auto sm:min-w-[220px]"
+                : "btn-pill mt-10 bg-gold text-charcoal hover:bg-gold-600 focus-visible:bg-gold-600 lg:mt-12"
             }
           >
             {button.label}
@@ -115,10 +123,10 @@ export default function Hero({
         )}
         <a
           href={ctaHref}
-          className={`group relative inline-block pr-5 ${dark ? "text-navy" : "text-white"} ${button ? "mt-8 flex w-fit lg:mt-10" : size === "full" ? "mt-12 lg:mt-20" : "mt-8 lg:mt-10"}`}
+          className={`group relative inline-block pr-6 ${dark ? "text-charcoal" : "text-white"} ${button ? "mt-8 flex w-fit lg:mt-10" : size === "full" ? "mt-12 lg:mt-16" : "mt-8 lg:mt-10"}`}
         >
           <span className="link-underline">{ctaLabel}</span>
-          <span aria-hidden className="absolute top-0 right-0 inline-block text-[14px] leading-6 font-bold transition-transform duration-500 group-hover:translate-y-2">
+          <span aria-hidden className="absolute top-0 right-0 inline-block text-[15px] leading-6 font-semibold transition-transform duration-500 group-hover:translate-y-1.5">
             ↓
           </span>
         </a>

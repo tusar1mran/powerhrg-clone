@@ -26,11 +26,11 @@ export default function OurPromise({ id = "promise", eyebrow, title, paragraphs,
   const item = items[i];
 
   return (
-    <section id={id} className="on-dark scroll-mt-24 bg-navy-700 py-20 text-white lg:py-28">
+    <section id={id} className="on-dark scroll-mt-24 bg-charcoal-700 py-20 text-white lg:py-28">
       <div className="mx-auto grid max-w-[1150px] items-center gap-14 px-6 lg:grid-cols-[1fr_1.15fr]">
         <Reveal>
-          <p className="text-[11px] font-bold tracking-[2.8px] uppercase opacity-80">{eyebrow}</p>
-          <h2 className="mt-3 text-[40px] leading-[1.25] font-light tracking-[10px] uppercase lg:text-[63px] lg:tracking-[20px]">
+          <p className="text-[12px] font-semibold tracking-label text-gold uppercase">{eyebrow}</p>
+          <h2 className="mt-3 font-display text-[44px] leading-[1.05] font-medium tracking-display lg:text-[64px]">
             {title.map((l) => (
               <span key={l} className="block">
                 {l}
@@ -38,7 +38,7 @@ export default function OurPromise({ id = "promise", eyebrow, title, paragraphs,
             ))}
           </h2>
           {paragraphs.map((p) => (
-            <p key={p.slice(0, 24)} className="mt-6 max-w-[450px] text-[16px] leading-6">
+            <p key={p.slice(0, 24)} className="mt-6 max-w-[450px] text-[16px] leading-[26px] text-white/90">
               {p}
             </p>
           ))}
@@ -53,16 +53,16 @@ export default function OurPromise({ id = "promise", eyebrow, title, paragraphs,
           <div
             key={i}
             aria-live="polite"
-            className="relative mx-auto flex aspect-[565/560] w-full max-w-[565px] animate-[fade-in_700ms_ease] flex-col items-center justify-start bg-sky px-[12%] pt-[24%] text-center text-navy"
+            className="relative mx-auto flex aspect-[565/560] w-full max-w-[565px] animate-[fade-in_700ms_ease] flex-col items-center justify-start bg-oat px-[12%] pt-[24%] text-center text-charcoal"
             style={{ clipPath: PANEL_SHAPE }}
           >
             {/* big faint index number behind the title */}
-            <span aria-hidden className="pointer-events-none absolute top-[16%] text-[220px] leading-none font-light text-navy/10">
+            <span aria-hidden className="pointer-events-none absolute top-[14%] font-display text-[220px] leading-none font-medium text-charcoal/[0.07]">
               {i + 1}
             </span>
-            <h3 className="relative text-[28px] leading-tight font-light tracking-[8px] uppercase lg:text-[36px] lg:tracking-[12px]">{item.title}</h3>
-            <p className="relative mt-6 max-w-[360px] text-[15px] leading-6">{item.text}</p>
-            <p className="absolute bottom-[10%] text-[11px] font-bold tracking-[2.8px] uppercase">
+            <h3 className="relative font-display text-[30px] leading-tight font-medium tracking-display lg:text-[40px]">{item.title}</h3>
+            <p className="relative mt-5 max-w-[360px] text-[15px] leading-6">{item.text}</p>
+            <p className="absolute bottom-[10%] text-[12px] font-semibold tracking-label uppercase">
               {i + 1} of {items.length}
             </p>
           </div>

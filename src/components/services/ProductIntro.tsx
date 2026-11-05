@@ -28,15 +28,15 @@ export default function ProductIntro({ eyebrow, title, text, logo, children, fea
     });
 
   return (
-    <section id="product" className="bg-white py-20 text-navy lg:pt-24 lg:pb-28">
+    <section id="product" className="bg-white py-20 text-charcoal lg:pt-24 lg:pb-28">
       <div className="mx-auto max-w-[1150px] px-6">
         <Reveal className={logo ? "grid items-center gap-10 lg:grid-cols-[1.6fr_1fr]" : ""}>
           <div>
-            <p className="text-[12px] font-bold tracking-[3px] text-navy/60 uppercase lg:text-[14px] lg:tracking-[4.2px]">{eyebrow}</p>
-            <h2 className="mt-4 max-w-[1000px] text-[29px] leading-[1.25] font-light tracking-[2px] uppercase lg:text-[46px] lg:tracking-[5px] xl:text-[63px] xl:tracking-[10px]">
+            <p className="text-[12px] font-semibold tracking-label text-charcoal/60 uppercase">{eyebrow}</p>
+            <h2 className="mt-3 max-w-[1000px] font-display text-[34px] leading-[1.1] font-medium tracking-display lg:text-[50px] xl:text-[60px]">
               {title}
             </h2>
-            {text && <p className="mt-8 max-w-[560px] text-[16px] leading-[26px] lg:text-[20px] lg:leading-[30px]">{text}</p>}
+            {text && <p className="mt-6 max-w-[560px] text-[16px] leading-[26px] text-charcoal/85 lg:text-[19px] lg:leading-[30px]">{text}</p>}
           </div>
           {logo && <Photo src={logo.src} contain label={logo.alt} className="mx-auto h-[200px] w-[200px] lg:h-[246px] lg:w-[246px]" />}
         </Reveal>
@@ -48,8 +48,11 @@ export default function ProductIntro({ eyebrow, title, text, logo, children, fea
             const isOpen = open.has(i);
             return (
               <li key={f.title}>
-                <Reveal delay={(i % 3) * 100} className="flex items-start gap-6">
-                  <FeatureIconSvg name={f.icon} className="h-[56px] w-[56px] shrink-0" />
+                <Reveal delay={(i % 3) * 100} className="flex items-start gap-5">
+                  {/* icon in a sand tile */}
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-sand">
+                    <FeatureIconSvg name={f.icon} className="h-8 w-8" />
+                  </span>
                   <div className="flex-1 pt-4">
                     <button
                       type="button"
@@ -57,7 +60,7 @@ export default function ProductIntro({ eyebrow, title, text, logo, children, fea
                       onClick={() => toggle(i)}
                       className="flex w-full items-start justify-between gap-4 text-left"
                     >
-                      <span className="text-[12px] leading-[20px] font-bold tracking-[3px] uppercase lg:text-[14px] lg:tracking-[4.2px]">{f.title}</span>
+                      <span className="text-[16px] leading-[22px] font-semibold lg:text-[17px]">{f.title}</span>
                       <svg
                         width="14"
                         height="14"

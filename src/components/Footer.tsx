@@ -7,8 +7,8 @@ import { site } from "@/lib/site";
 
 const container = "mx-auto w-full px-6 sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1280px] 3xl:max-w-[1728px]";
 const legal = "mr-2 block py-2 hover:text-white hover:underline focus:text-white focus:underline focus:outline-none lg:mb-0 lg:inline-block lg:py-0";
-const heading = "mb-5 block text-[14px] leading-7 font-bold tracking-[0.3em] uppercase";
-const linkClass = "mb-5 block text-[18px] leading-7 hover:underline focus:text-white focus:underline focus:outline-none";
+const heading = "mb-5 block text-[12px] leading-7 font-semibold tracking-label text-gold uppercase";
+const linkClass = "mb-4 block text-[16px] leading-7 text-white/90 hover:text-white hover:underline focus:text-white focus:underline focus:outline-none";
 
 // The current year is time-based, so with Cache Components it is cached (refreshed daily) instead of
 // making every page dynamic.
@@ -20,7 +20,7 @@ async function CopyrightYear() {
 
 export default function Footer() {
   return (
-    <footer className="z-40 bg-navy pt-12 pb-10 text-white lg:pt-20">
+    <footer className="z-40 bg-charcoal pt-12 pb-10 text-white lg:pt-20">
       <div className={`${container} grid grid-cols-1 gap-y-12 pb-12 lg:grid-cols-12`}>
         <div className="col-span-1 lg:col-span-3 lg:col-start-2">
           <Link href={links.home} aria-label="Return to homepage" className="inline-block">
@@ -71,7 +71,7 @@ export default function Footer() {
             )}
             <Link
               href={links.quote}
-              className="mt-2 inline-block bg-lime px-6 py-4 text-[12px] font-bold tracking-[3px] text-navy uppercase transition-colors hover:bg-white focus:bg-white"
+              className="btn-pill mt-2 bg-gold text-charcoal hover:bg-white focus-visible:bg-white"
             >
               Get a free quote
             </Link>
@@ -79,7 +79,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className={`${container} grid grid-cols-1 gap-y-6 border-t border-white/30 pt-8 lg:grid-cols-12`}>
+      <div className={`${container} grid grid-cols-1 gap-y-6 border-t border-white/15 pt-8 lg:grid-cols-12`}>
         <div className="col-span-1 lg:col-span-3 lg:col-start-2">
           {site.socials.length > 0 && (
             <ul className="flex gap-4">

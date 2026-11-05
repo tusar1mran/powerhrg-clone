@@ -9,7 +9,7 @@ export type FaqGroup = { tab: string; items: FaqItem[] };
 type Props = { faqs: FaqGroup[]; heading?: string; intro?: string; variant?: "boxed" | "plain"; animate?: boolean };
 
 /**
- * Tabbed FAQ in a light-blue box. Pass a single group with an empty `tab` to get the
+ * Tabbed FAQ in a sand-coloured box. Pass a single group with an empty `tab` to get the
  * plain variant used on the accessories page: white background, no tabs, no sub-heading.
  */
 export default function Faq({ faqs, heading = "FAQs", intro, variant, animate = true }: Props) {
@@ -20,19 +20,19 @@ export default function Faq({ faqs, heading = "FAQs", intro, variant, animate = 
   const showTabs = !plain && faqs.some((f) => f.tab !== "");
 
   return (
-    <section className="bg-white px-0 pb-14 lg:px-6">
+    <section className="bg-white px-0 pb-14 lg:px-6 lg:pt-14">
       <Reveal
         speed="normal"
         still={!animate}
-        className={`mx-auto grid max-w-[1190px] gap-10 px-6 py-14 text-navy lg:grid-cols-[1fr_1.65fr] lg:px-[54px] lg:py-[74px] ${
-          plain ? "" : "bg-sky-soft"
+        className={`mx-auto grid max-w-[1190px] gap-10 px-6 py-14 text-charcoal lg:grid-cols-[1fr_1.65fr] lg:px-[54px] lg:py-[74px] ${
+          plain ? "" : "bg-sand lg:rounded-3xl"
         }`}
       >
         <div>
-          <h2 className="text-[30px] font-light tracking-card uppercase lg:text-[47px]">{heading}</h2>
-          {intro && <p className="mt-6 text-[16px] leading-[1.45] xl:text-[20px]">{intro}</p>}
+          <h2 className="font-display text-[34px] leading-tight font-medium tracking-display lg:text-[48px]">{heading}</h2>
+          {intro && <p className="mt-6 text-[16px] leading-[1.55] xl:text-[19px]">{intro}</p>}
           {showTabs && (
-            <ul role="tablist" aria-label="FAQ categories" className="mt-6 flex flex-wrap gap-4 lg:block lg:space-y-[10px]">
+            <ul role="tablist" aria-label="FAQ categories" className="mt-6 flex flex-wrap gap-2 lg:flex-col lg:items-start">
               {faqs.map((f, i) => (
                 <li key={f.tab}>
                   <button
@@ -43,7 +43,9 @@ export default function Faq({ faqs, heading = "FAQs", intro, variant, animate = 
                       setTab(i);
                       setOpen(null);
                     }}
-                    className={`px-[2px] text-[12px] font-bold tracking-[2.8px] uppercase lg:text-[13px] ${tab === i ? "bg-lime" : ""}`}
+                    className={`rounded-full px-4 py-2 text-[14px] font-semibold transition-colors ${
+                      tab === i ? "bg-charcoal text-white" : "text-charcoal hover:bg-oat/60"
+                    }`}
                   >
                     {f.tab}
                   </button>
@@ -54,24 +56,31 @@ export default function Faq({ faqs, heading = "FAQs", intro, variant, animate = 
         </div>
 
         <div role={plain ? undefined : "tabpanel"}>
-          {!plain && current.tab && <h3 className="mb-6 text-[30px] font-light tracking-card uppercase lg:text-[47px]">{current.tab}</h3>}
-          <ul className="border-b border-[#8ea9dc]">
+          {!plain && current.tab && <h3 className="mb-6 font-display text-[30px] leading-tight font-medium tracking-display lg:text-[40px]">{current.tab}</h3>}
+          <ul className="border-b border-oat">
             {current.items.map((item, i) => {
               const isOpen = open === i;
               return (
-                <li key={item.q} className="border-t border-[#8ea9dc]">
+                <li key={item.q} className="border-t border-oat">
                   <button
                     type="button"
                     aria-expanded={isOpen}
                     onClick={() => setOpen(isOpen ? null : i)}
-                    className="flex w-full items-center justify-between gap-6 py-[14px] text-left"
+                    className="flex w-full items-center justify-between gap-6 py-[18px] text-left"
                   >
-                    <span className="text-[12px] leading-[20px] font-bold tracking-[3px] uppercase lg:text-[14px] lg:tracking-[4.2px]">{item.q}</span>
-                    <span aria-hidden className="text-[18px] font-light">{isOpen ? "−" : "+"}</span>
+                    <span className="text-[16px] leading-[24px] font-semibold lg:text-[17px]">{item.q}</span>
+                    <span
+                      aria-hidden
+                      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[18px] leading-none transition-colors ${
+                        isOpen ? "bg-gold text-charcoal" : "border border-charcoal/25 text-charcoal"
+                      }`}
+                    >
+                      {isOpen ? "−" : "+"}
+                    </span>
                   </button>
                   {/* grid-rows trick animates height without measuring */}
                   <div className={`grid transition-all duration-[250ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${isOpen ? "grid-rows-[1fr] pb-8" : "grid-rows-[0fr]"}`}>
-                    <div className="space-y-4 overflow-hidden text-[14px] leading-[24px] whitespace-pre-line">
+                    <div className="space-y-4 overflow-hidden text-[15px] leading-[25px] whitespace-pre-line text-charcoal/90">
                       <p>
                         <RichText value={item.a} />
                       </p>

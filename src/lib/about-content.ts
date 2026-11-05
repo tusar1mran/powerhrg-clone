@@ -71,7 +71,7 @@ export const aboutCta = {
   text: "Book a free estimate and see how we work before you commit to anything.",
   label: "Get a free quote",
   href: links.quote,
-  tone: "navy" as const,
+  tone: "charcoal" as const,
 };
 
 export const aboutFaqs: FaqGroup[] = [

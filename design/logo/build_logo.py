@@ -27,8 +27,8 @@ from fontTools.varLib.instancer import instantiateVariableFont
 FONT_PATH = sys.argv[1]
 OUT_DIR = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("public/assets/logo")
 
-NAVY = "#102F48"
-LIME = "#DDFE5C"
+CHARCOAL = "#1E2B31"
+GOLD = "#F0AD3C"
 WHITE = "#FFFFFF"
 
 TITLE = "Shah &amp; Crew"
@@ -139,15 +139,15 @@ def lockup(ink: str, roof: str, letter: str) -> tuple[str, float]:
 
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# Navy: white or light backgrounds (scrolled desktop header).
-navy, width = lockup(NAVY, NAVY, WHITE)
-(OUT_DIR / "shah-crew-navy.svg").write_text(navy)
+# Dark: white or light backgrounds (scrolled desktop header).
+dark, width = lockup(CHARCOAL, CHARCOAL, WHITE)
+(OUT_DIR / "shah-crew-dark.svg").write_text(dark)
 
-# White: navy or photo backgrounds (transparent desktop header on the home page).
-white, _ = lockup(WHITE, LIME, NAVY)
+# White: charcoal or photo backgrounds (transparent desktop header on the home page).
+white, _ = lockup(WHITE, GOLD, CHARCOAL)
 (OUT_DIR / "shah-crew-white.svg").write_text(white)
 
 # Icon only: the 60px mobile header has no room for the wordmark.
-(OUT_DIR / "shah-crew-icon-navy.svg").write_text(svg(ICON_WIDTH, icon(NAVY, NAVY, WHITE)))
+(OUT_DIR / "shah-crew-icon-dark.svg").write_text(svg(ICON_WIDTH, icon(CHARCOAL, CHARCOAL, WHITE)))
 
 print(f"lockup {fmt(width)} x {HEIGHT}, icon {ICON_WIDTH} x {HEIGHT} -> {OUT_DIR}")

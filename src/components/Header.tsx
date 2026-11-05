@@ -13,17 +13,18 @@ type Props = {
 
 const BAR_HEIGHT = 48;
 
+// Rounded gold "Get a free quote" button, vertically centred in the header bar.
 const ctaClass =
-  "absolute top-0 z-50 px-8 py-0 text-[14px] font-bold tracking-[0.3em] whitespace-nowrap text-navy uppercase antialiased transition-colors duration-150 bg-lime hover:bg-navy hover:text-lime focus:bg-navy focus:text-lime";
+  "btn-pill absolute top-1/2 z-50 -translate-y-1/2 whitespace-nowrap bg-gold text-charcoal antialiased hover:bg-charcoal hover:text-white focus-visible:bg-charcoal focus-visible:text-white";
 
-const navLabelClass = "group mb-0 flex h-full items-center px-6 text-[14px] leading-[18.2px] font-bold uppercase";
+const navLabelClass = "group mb-0 flex h-full items-center px-5 text-[15px] leading-[18.2px] font-semibold";
 
 function Arrow({ className = "" }: { className?: string }) {
   return (
     <svg className={className} width="14" height="12" viewBox="0 0 14 12" fill="none" aria-hidden>
       <path
         d="M9.65818 4.9875H0L8.85156e-08 7.0125L9.6635 7.0125L5.40532 11.4H8.25651L13.5 6.00274L8.25651 0.599998L5.4 0.599999L9.65818 4.9875Z"
-        fill="#102F48"
+        fill="currentColor"
       />
     </svg>
   );
@@ -40,7 +41,7 @@ function SearchIcon({ className = "w-5 h-5" }: { className?: string }) {
 function Chevron({ up = false }: { up?: boolean }) {
   return (
     <svg className={`h-3 w-4 ${up ? "rotate-180" : ""}`} viewBox="0 0 12 9" fill="none" aria-hidden>
-      <path d="M12 0V3.1739L5.99695 9L0 3.1739L0 0.00591481L5.99695 5.8261L12 0Z" fill="#102F48" />
+      <path d="M12 0V3.1739L5.99695 9L0 3.1739L0 0.00591481L5.99695 5.8261L12 0Z" fill="currentColor" />
     </svg>
   );
 }
@@ -60,14 +61,14 @@ function SearchResults({ query, onPick, mobile = false }: { query: string; onPic
   if (query.trim() && results.length === 0) return null;
   return (
     <div className="flex flex-col">
-      <h3 className="m-0 pb-[10px] text-[14px] font-bold tracking-[0.2em] text-navy uppercase opacity-60">{title}</h3>
+      <h3 className="m-0 pb-[10px] text-[12px] font-semibold tracking-label text-charcoal uppercase opacity-60">{title}</h3>
       <div className={`flex flex-col ${mobile ? "mt-3 ml-6" : ""}`}>
         {list.map((r) => (
           <Link
             key={r.href + r.label}
             href={r.href}
             onClick={onPick}
-            className={`group flex items-center justify-between text-navy transition-all duration-200 ${mobile ? "py-3" : "p-6 hover:bg-lime"}`}
+            className={`group flex items-center justify-between text-charcoal transition-all duration-200 ${mobile ? "py-3" : "rounded-xl p-6 hover:bg-sand"}`}
           >
             <span className="block text-[15.5px] leading-[1.4] font-normal">{r.label}</span>
             <Arrow className="h-3 w-[14px] shrink-0 -translate-x-[10px] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
@@ -152,8 +153,8 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
   const desktopClass = atTop
     ? transparent
       ? "absolute bg-transparent text-white"
-      : "absolute bg-white/85 text-navy border-b border-lime"
-    : "fixed top-0 bg-white/85 backdrop-blur-[20px] text-navy border-b border-lime";
+      : "absolute bg-white/85 text-charcoal border-b border-charcoal/10"
+    : "fixed top-0 bg-white/85 backdrop-blur-[20px] text-charcoal border-b border-charcoal/10 shadow-[0_4px_24px_rgba(30,43,49,0.06)]";
 
   return (
     <>
@@ -165,10 +166,10 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
       </a>
 
       {barOpen && (
-        <div id="services-bar" className="relative z-30 flex w-full items-center justify-center bg-navy py-3 text-center text-white lg:h-12 lg:py-0">
-          <p className="m-0 pr-11 pl-1 text-[15px] leading-[1.5]">
+        <div id="services-bar" className="relative z-30 flex w-full items-center justify-center bg-charcoal py-3 text-center text-white lg:h-12 lg:py-0">
+          <p className="m-0 pr-11 pl-1 text-[14px] leading-[1.5]">
             <span>{serviceAreaBar.text}</span>{" "}
-            <Link href={serviceAreaBar.link.href} className="underline">
+            <Link href={serviceAreaBar.link.href} className="font-semibold text-gold underline underline-offset-2">
               {serviceAreaBar.link.label}
             </Link>
           </p>
@@ -200,7 +201,7 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
           {transparent ? (
             <img src="/assets/logo/shah-crew-white.svg" alt="" width={150} height={56} className="h-[56px] w-[150px]" />
           ) : (
-            <img src="/assets/logo/shah-crew-navy.svg" alt="" width={128} height={48} className="h-[48px] w-[128px] transition-all" />
+            <img src="/assets/logo/shah-crew-dark.svg" alt="" width={128} height={48} className="h-[48px] w-[128px] transition-all" />
           )}
         </Link>
 
@@ -213,7 +214,7 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
                   <div key={entry.label} className="relative h-full">
                     <Link href={entry.href} aria-current={active ? "page" : undefined} className={navLabelClass}>
                       <span
-                        className={`w-[calc(100%-0.3em)] border-b-2 tracking-[0.3rem] ${active ? "border-b-lime" : "border-transparent group-hover:border-b-lime"}`}
+                        className={`border-b-2 py-1 ${active ? "border-b-gold" : "border-transparent group-hover:border-b-gold"}`}
                       >
                         {entry.label}
                       </span>
@@ -237,22 +238,25 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
                     className={navLabelClass}
                   >
                     <span
-                      className={`w-[calc(100%-0.3em)] border-b-2 tracking-[0.3rem] ${isOpen ? "border-b-lime" : "border-transparent group-hover:border-b-lime"}`}
+                      className={`border-b-2 py-1 ${isOpen ? "border-b-gold" : "border-transparent group-hover:border-b-gold"}`}
                     >
                       {group.label}
                     </span>
                   </button>
                   {isOpen && (
-                    <div id={id} className="absolute top-[50px] left-0 mt-[6px] min-w-[300px] origin-top-left animate-[dropdown-in_150ms_ease-out] bg-white text-navy shadow">
+                    <div
+                      id={id}
+                      className="absolute top-[50px] left-0 mt-[6px] min-w-[300px] origin-top-left animate-[dropdown-in_150ms_ease-out] overflow-hidden rounded-2xl bg-white p-2 text-charcoal shadow-[0_12px_40px_rgba(30,43,49,0.16)]"
+                    >
                       {group.items.map((item) => (
                         <div key={item.href} className="group relative">
                           <Link
                             href={item.href}
                             onClick={() => setOpenMenu(null)}
-                            className="flex justify-between pt-[18px] pr-6 pb-[18px] pl-5 text-[20px] leading-[26px] font-normal whitespace-nowrap transition-[padding] group-hover:bg-lime"
+                            className="flex justify-between rounded-xl pt-[14px] pr-6 pb-[14px] pl-4 text-[17px] leading-[26px] font-medium whitespace-nowrap transition-[padding] group-hover:bg-sand"
                           >
                             <span className="inline-block">{item.label}</span>
-                            <Arrow className="absolute top-6 right-8 opacity-0 transition-[right,opacity] duration-500 group-hover:right-6 group-hover:opacity-100" />
+                            <Arrow className="absolute top-[21px] right-8 opacity-0 transition-[right,opacity] duration-500 group-hover:right-6 group-hover:opacity-100" />
                           </Link>
                         </div>
                       ))}
@@ -280,11 +284,11 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
         </div>
 
         {searchOpen && (
-          <div className="absolute top-[90px] right-0 left-0 z-[10001] flex max-h-[calc(100vh-90px)] w-full items-start justify-center overflow-y-auto border-b border-[#d4ff00] bg-white">
+          <div className="absolute top-[90px] right-0 left-0 z-[10001] flex max-h-[calc(100vh-90px)] w-full items-start justify-center overflow-y-auto border-b border-charcoal/10 bg-white shadow-[0_12px_40px_rgba(30,43,49,0.12)]">
             <div className="relative flex h-[550px] w-full max-w-[640px] flex-col bg-white p-10">
               <div className="shrink-0 pb-10">
                 <div className="relative flex items-center">
-                  <SearchIcon className="mr-3 h-5 w-5 shrink-0 text-navy opacity-60" />
+                  <SearchIcon className="mr-3 h-5 w-5 shrink-0 text-charcoal opacity-60" />
                   <input
                     ref={searchRef}
                     type="text"
@@ -293,14 +297,14 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
                     placeholder="Search"
                     autoComplete="off"
                     aria-label="Search"
-                    className="w-full border-none bg-white/80 py-3 pr-10 pl-4 align-middle text-[20px] leading-none font-normal text-navy shadow-none outline-none"
+                    className="w-full border-none bg-white/80 py-3 pr-10 pl-4 align-middle text-[20px] leading-none font-normal text-charcoal shadow-none outline-none"
                   />
                   {query && (
                     <button
                       type="button"
                       aria-label="Clear search"
                       onClick={() => setQuery("")}
-                      className="absolute top-1/2 right-10 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-navy text-white"
+                      className="absolute top-1/2 right-10 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-charcoal text-white"
                     >
                       <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 18 6M6 6l12 12" />
@@ -314,14 +318,14 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
           </div>
         )}
 
-        <Link href={cta.href} className={`${ctaClass} right-0 h-[90px] leading-[90px]`}>
+        <Link href={cta.href} className={`${ctaClass} right-6`}>
           {cta.label}
         </Link>
       </header>
 
-      <header className={`sticky top-0 z-[60] h-[60px] w-full lg:hidden ${isHome ? "bg-white" : "border-b border-lime bg-white/85"}`}>
+      <header className={`sticky top-0 z-[60] h-[60px] w-full lg:hidden ${isHome ? "bg-white" : "border-b border-charcoal/10 bg-white/85"}`}>
         <Link href="/" onClick={goHome} aria-label="Return to homepage" className="absolute top-2 left-4 z-40">
-          <img src="/assets/logo/shah-crew-icon-navy.svg" alt="" width={40} height={44} className="h-[44px] w-[40px]" />
+          <img src="/assets/logo/shah-crew-icon-dark.svg" alt="" width={40} height={44} className="h-[44px] w-[40px]" />
         </Link>
         <button
           type="button"
@@ -330,22 +334,22 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
           onClick={() => setMobileOpen(true)}
           className="absolute top-0 right-0 z-[60] h-[60px] w-[60px]"
         >
-          <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" width="22" height="18" viewBox="0 0 22 18" fill="none" aria-hidden>
-            <line x1="22" y1="1" x2="0" y2="1" stroke="#102F48" strokeWidth="2" />
-            <line x1="22" y1="9" x2="0" y2="9" stroke="#102F48" strokeWidth="2" />
-            <line x1="22" y1="17" x2="0" y2="17" stroke="#102F48" strokeWidth="2" />
+          <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-charcoal" width="22" height="18" viewBox="0 0 22 18" fill="none" aria-hidden>
+            <line x1="22" y1="1" x2="0" y2="1" stroke="currentColor" strokeWidth="2" />
+            <line x1="22" y1="9" x2="0" y2="9" stroke="currentColor" strokeWidth="2" />
+            <line x1="22" y1="17" x2="0" y2="17" stroke="currentColor" strokeWidth="2" />
           </svg>
         </button>
-        <Link href={cta.href} className={`${ctaClass} right-[60px] h-[60px] leading-[60px]`}>
+        <Link href={cta.href} className={`${ctaClass} right-[60px] px-4 py-2 text-[14px]`}>
           {cta.label}
         </Link>
 
         {mobileOpen && (
           <div role="dialog" aria-modal="true" aria-label="Mobile Navigation" className="fixed inset-0 z-[60] overflow-y-auto">
             <div className="relative h-screen w-full origin-center animate-[dropdown-in_150ms_ease-out] overflow-y-auto bg-white">
-              <div className={`relative z-[60] h-[60px] w-full ${isHome ? "" : "border-b border-lime bg-white/85"}`}>
+              <div className={`relative z-[60] h-[60px] w-full ${isHome ? "" : "border-b border-charcoal/10 bg-white/85"}`}>
                 <Link href="/" onClick={goHome} aria-label="Return to homepage" className="absolute top-2 left-4 z-[60]">
-                  <img src="/assets/logo/shah-crew-icon-navy.svg" alt="" width={40} height={44} className="h-[44px] w-[40px]" />
+                  <img src="/assets/logo/shah-crew-icon-dark.svg" alt="" width={40} height={44} className="h-[44px] w-[40px]" />
                 </Link>
                 <button
                   type="button"
@@ -353,19 +357,19 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
                   onClick={() => setMobileOpen(false)}
                   className="absolute top-0 right-0 z-[60] h-[60px] w-[60px]"
                 >
-                  <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
-                    <line x1="2" y1="2" x2="20" y2="20" stroke="#102F48" strokeWidth="2" />
-                    <line x1="20" y1="2" x2="2" y2="20" stroke="#102F48" strokeWidth="2" />
+                  <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-charcoal" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
+                    <line x1="2" y1="2" x2="20" y2="20" stroke="currentColor" strokeWidth="2" />
+                    <line x1="20" y1="2" x2="2" y2="20" stroke="currentColor" strokeWidth="2" />
                   </svg>
                 </button>
-                <Link href={cta.href} className={`${ctaClass} right-[60px] h-[60px] leading-[60px]`}>
+                <Link href={cta.href} className={`${ctaClass} right-[60px] px-4 py-2 text-[14px]`}>
                   {cta.label}
                 </Link>
               </div>
 
               <div className="mx-auto w-full px-6 pt-7 sm:max-w-[640px] md:max-w-[768px]">
                 <div className="mb-4">
-                  <div className="relative flex h-[45px] w-full items-center border border-navy/20 bg-white">
+                  <div className="relative flex h-[45px] w-full items-center rounded-full border border-charcoal/20 bg-white">
                     <input
                       type="text"
                       value={mobileQuery}
@@ -373,9 +377,9 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
                       placeholder="Search"
                       autoComplete="off"
                       aria-label="Search"
-                      className="h-full w-full border-none bg-transparent pr-10 pl-4 text-[16px] leading-none font-normal text-navy outline-none"
+                      className="h-full w-full border-none bg-transparent pr-10 pl-4 text-[16px] leading-none font-normal text-charcoal outline-none"
                     />
-                    <SearchIcon className="absolute right-3 h-[18px] w-[18px] text-navy opacity-60" />
+                    <SearchIcon className="absolute right-3 h-[18px] w-[18px] text-charcoal opacity-60" />
                   </div>
                 </div>
                 {mobileQuery && (
@@ -392,7 +396,7 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
                           key={entry.label}
                           href={entry.href}
                           onClick={() => setMobileOpen(false)}
-                          className="relative block w-full py-5 text-left text-[20px] leading-7 tracking-[0.2em] text-navy uppercase"
+                          className="relative block w-full py-4 text-left font-display text-[26px] leading-8 font-medium tracking-display text-charcoal"
                         >
                           {entry.label}
                         </Link>
@@ -406,7 +410,7 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
                           type="button"
                           aria-expanded={isOpen}
                           onClick={() => setMobileGroup(isOpen ? null : group.label)}
-                          className="relative block w-full py-5 text-left text-[20px] leading-7 tracking-[0.2em] text-navy uppercase"
+                          className="relative block w-full py-4 text-left font-display text-[26px] leading-8 font-medium tracking-display text-charcoal"
                         >
                           <span>{group.label}</span>
                           <span aria-hidden className="absolute top-1/2 right-0 -translate-y-1/2">
@@ -419,7 +423,7 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
                         >
                           <div className="overflow-hidden">
                             {group.items.map((item) => (
-                              <Link key={item.href} href={item.href} className="mb-0 block py-2 text-navy">
+                              <Link key={item.href} href={item.href} className="mb-0 block py-2 text-charcoal">
                                 <span className="inline-block">{item.label}</span>
                               </Link>
                             ))}

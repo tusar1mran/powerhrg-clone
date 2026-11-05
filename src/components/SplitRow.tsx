@@ -12,7 +12,7 @@ type Props = {
   /** Which side the photo sits on. */
   imageSide: "left" | "right";
   /** Text-side tone. */
-  tone: "blue" | "white" | "sky" | "navy" | "pale";
+  tone: "cream" | "white" | "sand" | "charcoal" | "oat";
   cta?: { label: string; href: string; external?: boolean };
   eyebrow?: string;
   bullets?: string[];
@@ -41,13 +41,13 @@ export default function SplitRow({
   bulletsLabel,
   capsBullets = false,
 }: Props) {
-  const bg = { blue: "bg-[#edf3fd]", white: "bg-white", sky: "bg-sky-soft", navy: "bg-navy", pale: "bg-sky/20" }[tone];
-  const ink = tone === "navy" ? "on-dark text-white" : "text-navy";
+  const bg = { cream: "bg-[#fbf8f3]", white: "bg-white", sand: "bg-sand", charcoal: "bg-charcoal", oat: "bg-oat/40" }[tone];
+  const ink = tone === "charcoal" ? "on-dark text-white" : "text-charcoal";
 
   const copy = (
     <Reveal className={`max-w-[420px] ${ink}`}>
-      {eyebrow && <p className="mb-3 text-[11px] font-bold tracking-[2.8px] uppercase">{eyebrow}</p>}
-      <h2 className="text-[30px] leading-[1.3] font-light tracking-[4px] uppercase lg:text-[47px] lg:tracking-card">
+      {eyebrow && <p className="mb-3 text-[12px] font-semibold tracking-label uppercase opacity-70">{eyebrow}</p>}
+      <h2 className="font-display text-[34px] leading-[1.1] font-medium tracking-display lg:text-[48px]">
         {title.map((l) => (
           <span key={l} className="block">
             {l}
@@ -66,10 +66,10 @@ export default function SplitRow({
             <li
               key={b}
               className={`flex gap-3 ${
-                capsBullets ? "text-[12px] font-bold tracking-[3px] uppercase lg:text-[13px]" : "text-[15px] leading-[24px] lg:text-[16px]"
+                capsBullets ? "text-[15px] font-semibold lg:text-[16px]" : "text-[15px] leading-[24px] lg:text-[16px]"
               }`}
             >
-              <span aria-hidden>•</span>
+              <span aria-hidden className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
               <span>{b}</span>
             </li>
           ))}
@@ -106,7 +106,7 @@ export default function SplitRow({
         }`}
       >
         <Reveal className={imageSide === "right" ? "lg:order-2" : ""}>
-          <Photo src={image} label={imageAlt} className="aspect-[660/540] w-full" />
+          <Photo src={image} label={imageAlt} className="aspect-[660/540] w-full rounded-2xl" />
         </Reveal>
         <div className={imageSide === "right" ? "lg:order-1" : ""}>{copy}</div>
       </div>

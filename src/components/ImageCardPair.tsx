@@ -6,35 +6,35 @@ export type ImageCard = { title: string; image: string; text: string; cta: strin
 type Props = {
   heading: string;
   cards: ImageCard[];
-  /** Vertical white title over the photo. */
-  verticalTitle?: boolean;
-  tone?: "white" | "sky";
+  /** White title over the bottom of the photo. */
+  overlayTitle?: boolean;
+  tone?: "white" | "sand";
 };
 
 // Two photo cards - "Reasons to relax" on /services, "Where to next" on the homepage.
-export default function ImageCardPair({ heading, cards, verticalTitle = true, tone = "white" }: Props) {
+export default function ImageCardPair({ heading, cards, overlayTitle = true, tone = "white" }: Props) {
   return (
-    <section className={`${tone === "sky" ? "bg-sky-soft" : "bg-white"} py-20 lg:py-24`}>
+    <section className={`${tone === "sand" ? "bg-sand" : "bg-white"} py-20 lg:py-24`}>
       <div className="mx-auto max-w-[1150px] px-6">
         <Reveal>
-          <h2 className="text-[28px] font-light tracking-[4px] text-navy uppercase lg:text-[37px] lg:tracking-card">{heading}</h2>
+          <h2 className="font-display text-[32px] leading-tight font-medium tracking-display text-charcoal lg:text-[44px]">{heading}</h2>
         </Reveal>
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
           {cards.map((c, i) => (
             <Reveal key={c.title} delay={i * 150}>
-              <a href={c.href ?? "#"} aria-label={c.title} className="group relative block aspect-[565/338] overflow-hidden">
-                <Photo src={c.image} className="absolute inset-0 scale-100 transition-transform duration-700 group-hover:scale-110 group-focus:scale-110" />
-                {verticalTitle && (
-                  <h3
-                    className="absolute top-6 left-5 text-[32px] font-light tracking-card text-white uppercase lg:text-[40px]"
-                    style={{ writingMode: "vertical-rl" }}
-                  >
-                    {c.title}
-                  </h3>
+              <a href={c.href ?? "#"} aria-label={c.title} className="group relative block aspect-[565/338] overflow-hidden rounded-2xl">
+                <Photo src={c.image} className="absolute inset-0 scale-100 transition-transform duration-700 group-hover:scale-105 group-focus:scale-105" />
+                {overlayTitle && (
+                  <>
+                    <span aria-hidden className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-charcoal/75 to-transparent" />
+                    <h3 className="absolute bottom-5 left-6 font-display text-[28px] leading-none font-medium tracking-display text-white lg:text-[36px]">
+                      {c.title}
+                    </h3>
+                  </>
                 )}
               </a>
-              <p className="mt-4 text-[16px] whitespace-pre-line text-navy">{c.text}</p>
-              <a href={c.href ?? "#"} className="link-underline mt-3 text-navy">
+              <p className="mt-4 text-[16px] leading-[26px] whitespace-pre-line text-charcoal/85">{c.text}</p>
+              <a href={c.href ?? "#"} className="link-underline mt-3 text-charcoal">
                 {c.cta}
               </a>
             </Reveal>

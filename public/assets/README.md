@@ -2,7 +2,7 @@
 
 | Folder | Contents |
 |---|---|
-| logo/ | `shah-crew-white.svg` (desktop header over photos, footer), `shah-crew-navy.svg` (desktop header on light backgrounds), `shah-crew-icon-navy.svg` (mobile header). Built by `design/logo/build_logo.py`; the wordmark is Jost (SIL OFL) outlined to paths. |
+| logo/ | `shah-crew-white.svg` (desktop header over photos, footer), `shah-crew-dark.svg` (desktop header on light backgrounds), `shah-crew-icon-dark.svg` (mobile header). Built by `design/logo/build_logo.py`; the wordmark is Jost (SIL OFL) outlined to paths. |
 | photos/ | Stock photos used across the site. Sources and licences are listed in `CREDITS.md`. |
 
 The favicon (`src/app/icon.svg`) and Apple touch icon (`src/app/apple-icon.png`) are made from the logo icon.

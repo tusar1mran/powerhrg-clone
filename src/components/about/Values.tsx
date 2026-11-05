@@ -30,10 +30,10 @@ export default function Values({ id, title, text, values }: Props) {
     });
 
   return (
-    <section id={id} className="scroll-mt-24 bg-white py-20 text-navy lg:py-24">
+    <section id={id} className="scroll-mt-24 bg-white py-20 text-charcoal lg:py-24">
       <div className="mx-auto max-w-[1150px] px-6">
         <Reveal>
-          <h2 className="text-[30px] leading-[1.3] font-light tracking-[4px] uppercase lg:text-[46px] lg:tracking-card">
+          <h2 className="font-display text-[34px] leading-[1.1] font-medium tracking-display lg:text-[48px]">
             {title.map((l) => (
               <span key={l} className="block">
                 {l}
@@ -50,10 +50,13 @@ export default function Values({ id, title, text, values }: Props) {
             return (
               <li key={v.title}>
                 <Reveal delay={(i % 3) * 100} className="flex items-start gap-5">
-                  <Icon aria-hidden strokeWidth={1.5} className="h-[40px] w-[40px] shrink-0" />
-                  <div className="pt-[10px]">
-                    <button type="button" aria-expanded={isOpen} onClick={() => toggle(i)} className="flex items-center gap-6 text-left">
-                      <span className="text-[12px] font-bold tracking-[3px] uppercase lg:text-[14px] lg:tracking-[4.2px]">{v.title}</span>
+                  {/* icon in a sand tile */}
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sand">
+                    <Icon aria-hidden strokeWidth={1.5} className="h-7 w-7" />
+                  </span>
+                  <div className="pt-[12px]">
+                    <button type="button" aria-expanded={isOpen} onClick={() => toggle(i)} className="flex items-center gap-4 text-left">
+                      <span className="text-[16px] font-semibold lg:text-[17px]">{v.title}</span>
                       <svg
                         width="14"
                         height="14"

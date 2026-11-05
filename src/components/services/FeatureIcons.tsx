@@ -66,5 +66,5 @@ export type Feature = { icon: FeatureIcon; title: string; text: string };
 
 export default function FeatureIconSvg({ name, className = "" }: { name: FeatureIcon; className?: string }) {
   const Icon = icons[name];
-  return <Icon aria-hidden strokeWidth={1.5} className={`text-navy ${className}`} />;
+  return <Icon aria-hidden strokeWidth={1.5} className={`text-charcoal ${className}`} />;
 }

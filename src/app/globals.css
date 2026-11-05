@@ -1,24 +1,26 @@
 @import "tailwindcss";
 
 /*
-  Shah & Crew design tokens. The type is Jost, a free geometric sans (SIL OFL) that also sets the logo wordmark.
+  Shah & Crew design tokens. Headings are set in Fraunces (a soft serif, SIL OFL) in sentence case;
+  body copy and UI labels are Inter (SIL OFL). The logo wordmark is outlined Jost and does not
+  depend on these fonts.
 */
 @theme {
-  --color-navy: #102f48;       /* headings, footer, process band, logo */
-  --color-navy-700: #2c4760;   /* "Our promise" background */
-  --color-lime: #ddfe5c;       /* hero title, CTA button, accents, logo roof */
-  --color-sky: #a5c1f5;        /* promise panel, CTA bands */
-  --color-sky-soft: #e4ecfc;   /* trust points, FAQ box, contact cards */
-  --color-slate: #c5cbd3;      /* photo placeholder while loading */
-  --color-ink: #1a1a1a;        /* body copy */
+  --color-charcoal: #1e2b31;     /* headings, footer, process band, logo */
+  --color-charcoal-700: #33454d; /* "Our promise" background */
+  --color-gold: #f0ad3c;         /* CTA buttons, accents, link underlines, logo roof */
+  --color-gold-600: #d9922a;     /* gold button hover */
+  --color-oat: #ddd3c4;          /* promise panel, CTA bands */
+  --color-sand: #f6f2eb;         /* trust points, FAQ box, contact cards */
+  --color-slate: #c5cbd3;        /* photo placeholder while loading */
+  --color-ink: #1f2427;          /* body copy */
 
-  --font-sans: var(--font-jost), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
 
   /* Letter-spacing used across the site */
-  --tracking-hero: 10px;
-  --tracking-section: 18px;
-  --tracking-card: 5px;
-  --tracking-label: 2.8px;
+  --tracking-display: -0.015em; /* serif headings */
+  --tracking-label: 0.14em;     /* small uppercase eyebrows */
 
   --breakpoint-3xl: 108rem;
 }
@@ -65,48 +67,64 @@ body {
   font-family: var(--font-sans);
 }
 
+/* Serif headings: the optical-size axis keeps large titles crisp and small ones sturdy. */
+h1,
+h2,
+h3 {
+  font-optical-sizing: auto;
+  text-wrap: balance;
+}
+
 .on-dark {
-  --link-rest: var(--color-lime);
-  --link-sweep: var(--color-sky);
+  --link-rest: var(--color-gold);
+  --link-hover: #fff;
 }
 
-/* Small uppercase label with a lime underline - "EXPLORE SERVICES", "VIEW BILL OF RIGHTS" etc. */
+/*
+  Text link with a gold underline - "Explore services", "How our warranty works" etc.
+  On hover the underline tucks up under the text and darkens.
+*/
 @utility link-underline {
-  position: relative;
   display: inline-block;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 600;
   line-height: 1.5rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  &::after,
-  &::before {
-    content: "";
-    display: block;
-    height: 2px;
-    width: calc(100% - 0.3em);
-  }
-  &::after {
-    margin-top: 0.25rem;
-    background-color: var(--link-rest, var(--color-navy));
-  }
-  &::before {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background-color: var(--link-sweep, var(--color-lime));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  &:hover::before {
-    transform: scaleX(1);
+  letter-spacing: 0.01em;
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--link-rest, var(--color-gold));
+  text-underline-offset: 7px;
+  transition:
+    text-underline-offset 200ms cubic-bezier(0.4, 0, 0.2, 1),
+    text-decoration-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    text-underline-offset: 4px;
+    text-decoration-color: var(--link-hover, currentColor);
   }
 }
 
-a:hover .link-underline::before,
-a:focus-visible .link-underline::before {
-  transform: scaleX(1);
+a:hover .link-underline,
+a:focus-visible .link-underline {
+  text-underline-offset: 4px;
+  text-decoration-color: var(--link-hover, currentColor);
+}
+
+/* Rounded pill button. Colour classes are added where it is used. */
+@utility btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.875rem 1.75rem;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25rem;
+  letter-spacing: 0.01em;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease;
 }
 
 @keyframes fade-in {

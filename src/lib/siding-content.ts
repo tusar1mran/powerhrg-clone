@@ -72,7 +72,7 @@ export const sidingCta = {
   text: "We’ll look at your walls, bring samples and send a written quote for the whole job. No charge, no pressure.",
   label: "Get a free quote",
   href: links.quote,
-  tone: "sky" as const,
+  tone: "oat" as const,
 };
 
 export const sidingFaqs: FaqGroup[] = [
