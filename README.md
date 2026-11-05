@@ -20,6 +20,32 @@ Open [http://localhost:3000](http://localhost:3000).
 | `pnpm build` | Production build |
 | `pnpm start` | Serve the production build |
 | `pnpm lint` | ESLint |
+| `pnpm preview` | Build for Cloudflare and serve locally in the Workers runtime |
+| `pnpm run deploy` | Build for Cloudflare and deploy the Worker (`pnpm deploy` is a built-in pnpm command, so `run` is required) |
+| `pnpm cf-typegen` | Generate `cloudflare-env.d.ts` binding types |
+
+## Deployment (Cloudflare Workers)
+
+The site runs on Cloudflare Workers through the [OpenNext adapter](https://opennext.js.org/cloudflare).
+Configuration lives in `wrangler.jsonc` (Worker, bindings) and `open-next.config.ts` (caching).
+
+- Worker: `shah-and-crew-website`
+- Incremental cache: R2 bucket `shah-and-crew-website-opennext-cache`, with a regional cache in front
+- Revalidation queue: Durable Object `DOQueueHandler` (pages revalidate daily because of `cacheLife("days")` in `Footer.tsx`)
+
+`NEXT_PUBLIC_SITE_URL` is inlined at build time, so pass it when deploying:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://www.yourdomain.com pnpm run deploy
+```
+
+Quote form secrets are stored on the Worker, not in the repo:
+
+```bash
+pnpm wrangler secret put RESEND_API_KEY
+pnpm wrangler secret put CONTACT_TO_EMAIL
+pnpm wrangler secret put CONTACT_FROM_EMAIL
+```
 
 ## Where things live
 

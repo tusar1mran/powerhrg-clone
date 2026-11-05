@@ -1,0 +1,4 @@
+# Cloudflare Workers Static Assets headers. See https://opennext.js.org/cloudflare/caching#static-assets-caching
+# Next.js build output under /_next/static is content-hashed, so it can be cached forever.
+/_next/static/*
+  Cache-Control: public,max-age=31536000,immutable

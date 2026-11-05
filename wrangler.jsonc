@@ -1,0 +1,49 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"main": ".open-next/worker.js",
+	"name": "shah-and-crew-website",
+	"compatibility_date": "2026-11-04",
+	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	"observability": {
+		"enabled": true
+	},
+	"services": [
+		{
+			// Self-reference service binding, the service name must match the worker name.
+			// Used by the revalidation queue. See https://opennext.js.org/cloudflare/caching
+			"binding": "WORKER_SELF_REFERENCE",
+			"service": "shah-and-crew-website"
+		}
+	],
+	"r2_buckets": [
+		{
+			// R2 incremental cache for prerendered pages and "use cache" entries.
+			// See https://opennext.js.org/cloudflare/caching
+			"binding": "NEXT_INC_CACHE_R2_BUCKET",
+			"bucket_name": "shah-and-crew-website-opennext-cache"
+		}
+	],
+	"durable_objects": {
+		"bindings": [
+			{
+				// Queue that de-duplicates time-based revalidations (cacheLife in Footer.tsx).
+				"name": "NEXT_CACHE_DO_QUEUE",
+				"class_name": "DOQueueHandler"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_sqlite_classes": ["DOQueueHandler"]
+		}
+	]
+	// Secrets for the quote form are not stored here. Set them with:
+	//   pnpm wrangler secret put RESEND_API_KEY
+	//   pnpm wrangler secret put CONTACT_TO_EMAIL
+	//   pnpm wrangler secret put CONTACT_FROM_EMAIL
+}
