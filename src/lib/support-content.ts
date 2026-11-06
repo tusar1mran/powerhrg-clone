@@ -146,3 +146,9 @@ export const contactForm = {
     text: "Your request is on its way to our office. We’ll be in touch within one business day.",
   },
 };
+
+// Pre-filled into the message field when the visitor picked several parts of the house
+// before opening the form (see src/lib/quote/prefill.ts).
+export const quotePrefillMessage = (services: readonly string[]) =>
+  `I’d like a quote for: ${services.join(", ")}.`;
+

@@ -1,28 +1,109 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 
 /*
-  Shah & Crew design tokens. Headings are set in Fraunces (a soft serif, SIL OFL) in sentence case;
-  body copy and UI labels are Inter (SIL OFL). The logo wordmark is outlined Jost and does not
-  depend on these fonts.
+  Shah & Crew design tokens, "Your House" concept. The site reads like a hand-inked drawing sheet:
+  warm paper, charcoal linework, and gold only where something is highlighted or actionable.
+  Headings are Instrument Serif (SIL OFL) in sentence case; body copy and UI labels are
+  Instrument Sans (SIL OFL); drawing annotations (numbers, part labels, notes) are IBM Plex Mono
+  (SIL OFL). The logo wordmark is outlined Jost and does not depend on these fonts.
 */
 @theme {
-  --color-charcoal: #1e2b31;     /* headings, footer, process band, logo */
-  --color-charcoal-700: #33454d; /* "Our promise" background */
-  --color-gold: #f0ad3c;         /* CTA buttons, accents, link underlines, logo roof */
-  --color-gold-600: #d9922a;     /* gold button hover */
-  --color-oat: #ddd3c4;          /* promise panel, CTA bands */
-  --color-sand: #f6f2eb;         /* trust points, FAQ box, contact cards */
+  --color-charcoal: #1e2b31;     /* linework, headings, body copy, logo */
+  --color-charcoal-700: #33454d; /* secondary linework and muted text on paper */
+  --color-gold: #f0ad3c;         /* primary buttons, highlighted house parts, logo roof */
+  --color-gold-600: #d9922a;     /* gold button hover, selected-part outline */
+  --color-gold-800: #8a5a10;     /* gold-toned text on paper (5:1 contrast) */
+  --color-gold-100: #fcebc8;     /* hovered / focused house part fill */
+  --color-gold-200: #f8d694;     /* selected house part fill */
+  --color-paper: #f7f3ea;        /* page background */
+  --color-paper-2: #efe8da;      /* footer, trays, alternating bands */
+  --color-paper-3: #e3d8c4;      /* deeper paper for drawn surfaces */
+  --color-glass: #e2e6df;        /* window glass in the drawings */
+  --color-oat: #ddd3c4;          /* legacy sections: promise panel, CTA bands */
+  --color-sand: #f6f2eb;         /* legacy sections: trust points, FAQ box, contact cards */
   --color-slate: #c5cbd3;        /* photo placeholder while loading */
-  --color-ink: #1f2427;          /* body copy */
+  --color-ink: #1f2427;          /* legacy body copy */
 
-  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-instrument-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   /* Letter-spacing used across the site */
-  --tracking-display: -0.015em; /* serif headings */
-  --tracking-label: 0.14em;     /* small uppercase eyebrows */
+  --tracking-display: -0.01em; /* serif headings */
+  --tracking-label: 0.14em;    /* small uppercase eyebrows and drawing annotations */
 
   --breakpoint-3xl: 108rem;
+}
+
+/* shadcn/ui semantic tokens, mapped onto the palette above. */
+@theme inline {
+  --font-heading: var(--font-display);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* The site is light-only (see `viewport.colorScheme` in the root layout), so there is no .dark block. */
+:root {
+  --background: #f7f3ea;
+  --foreground: #1e2b31;
+  --card: #fbf8f2;
+  --card-foreground: #1e2b31;
+  --popover: #fbf8f2;
+  --popover-foreground: #1e2b31;
+  --primary: #f0ad3c;
+  --primary-foreground: #1e2b31;
+  --secondary: #efe8da;
+  --secondary-foreground: #1e2b31;
+  --muted: #efe8da;
+  --muted-foreground: #4b5a61;
+  --accent: #fcebc8;
+  --accent-foreground: #1e2b31;
+  --destructive: #b42318;
+  --border: rgb(30 43 49 / 0.16);
+  --input: rgb(30 43 49 / 0.3);
+  --ring: #1e2b31;
+  --radius: 0.375rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  /* Keyboard focus is always visible; components with their own ring utility override this. */
+  :focus-visible {
+    outline: 2px solid var(--color-charcoal);
+    outline-offset: 3px;
+  }
 }
 
 @keyframes dropdown-in {
@@ -62,12 +143,12 @@ input[type="checkbox"] {
 }
 
 body {
-  background: #fff;
-  color: var(--color-ink);
+  background: var(--color-paper);
+  color: var(--color-charcoal);
   font-family: var(--font-sans);
 }
 
-/* Serif headings: the optical-size axis keeps large titles crisp and small ones sturdy. */
+/* Serif headings: balanced line breaks keep large titles from leaving a single word behind. */
 h1,
 h2,
 h3 {
@@ -127,6 +208,24 @@ a:focus-visible .link-underline {
     box-shadow 150ms ease;
 }
 
+/* Small uppercase annotation, as lettered on a drawing: part numbers, eyebrows, sheet notes. */
+@utility annotation {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1rem;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* Faint drafting grid behind the hero and the layer diagrams. */
+@utility drafting-grid {
+  background-image:
+    linear-gradient(to right, rgb(30 43 49 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(30 43 49 / 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -163,13 +262,87 @@ a:focus-visible .link-underline {
   animation: fade-in-up 1s 1s both;
 }
 
+/* The hero house settles in once on load. */
+@keyframes drawing-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.drawing-in {
+  animation: drawing-in 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .reveal.is-visible,
   .fade-in-up,
-  .fade-in-up-delay {
+  .fade-in-up-delay,
+  .drawing-in {
     opacity: 1;
     animation-duration: 1ms !important;
     animation-delay: 0s !important;
+  }
+}
+
+/*
+  "Take it apart" layer diagrams. Every layer is drawn in its exploded position, so browsers without
+  scroll-driven animations and visitors who prefer reduced motion simply see the finished diagram.
+  Where scroll timelines are supported, each layer starts stacked (offset by --collapse-x/-y) and
+  separates as the diagram scrolls through the viewport. On large screens the diagram is sticky,
+  so the timeline is the whole chapter instead of the diagram itself.
+*/
+@keyframes layer-explode {
+  from {
+    transform: translate(var(--collapse-x, 0px), var(--collapse-y, 0px));
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes layer-note-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .story-figure {
+      view-timeline: --story-figure block;
+    }
+    .story-layer {
+      animation: layer-explode linear both;
+      animation-timeline: --story-figure;
+      animation-range: entry 40% cover 50%;
+    }
+    .story-note {
+      animation: layer-note-in linear both;
+      animation-timeline: --story-figure;
+      animation-range: cover 40% cover 55%;
+    }
+
+    @media (width >= 64rem) {
+      .story-chapter {
+        view-timeline: --story-chapter block;
+      }
+      .story-layer {
+        animation-timeline: --story-chapter;
+        animation-range: contain 0% contain 50%;
+      }
+      .story-note {
+        animation-timeline: --story-chapter;
+        animation-range: contain 40% contain 60%;
+      }
+    }
   }
 }

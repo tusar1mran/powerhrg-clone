@@ -5,6 +5,8 @@ import { serviceLinks } from "../links";
 
 export const serviceOptions = [...serviceLinks.map((s) => s.name), "More than one", "Not sure yet", "Question about my project"] as const;
 
+export type ServiceOption = (typeof serviceOptions)[number];
+
 export const contactSchema = z.object({
   name: z.string().trim().min(2, "Please enter your name.").max(100, "Please keep your name under 100 characters."),
   email: z.email("Please enter a valid email address.").trim().max(254, "Please enter a shorter email address."),

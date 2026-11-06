@@ -1,20 +1,33 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { IBM_Plex_Mono, Instrument_Sans, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { cn } from "@/lib/utils";
+import SiteHeader from "@/components/site/SiteHeader";
+import SiteFooter from "@/components/site/SiteFooter";
+import MobileActionBar from "@/components/site/MobileActionBar";
 
 // Body copy and UI labels. Variable font, so every weight comes from one file.
-const inter = Inter({
-  variable: "--font-inter",
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
-// Headings. The optical-size axis is loaded so large titles get the display cut.
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+// Headings. A single regular weight with an italic for emphasis, used at display sizes only.
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
   subsets: ["latin"],
-  axes: ["opsz"],
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+// Drawing annotations: part numbers, layer labels and sheet notes.
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -39,11 +52,21 @@ export const viewport: Viewport = {
   colorScheme: "only light",
 };
 
+// The header, footer and mobile call/quote bar are shared by every page, so they live here
+// instead of in each page.
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable} antialiased`}>
+    <html
+      lang="en"
+      className={cn("antialiased", instrumentSans.variable, instrumentSerif.variable, plexMono.variable)}
+    >
       {/* suppressHydrationWarning: browser extensions (e.g. dark-mode tools) add attributes to <body> */}
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning className="pb-[calc(4.5rem+env(safe-area-inset-bottom))] md:pb-0">
+        <SiteHeader />
+        {children}
+        <SiteFooter />
+        <MobileActionBar />
+      </body>
     </html>
   );
 }
