@@ -159,7 +159,7 @@ export const labelAnchors: Record<RoofLayerId, Vec3Tuple> = {
   iceWater: slopePoint(1, L - 0.35, 0.06, W / 2 - 0.4),
   underlayment: slopePoint(1, 1.1, 0.06, -W / 2 + 0.5),
   dripEdge: slopePoint(1, L + 0.05, 0.02, -0.3),
-  shingles: slopePoint(1, 1.3, 0.12, 0.2),
+  shingles: slopePoint(1, 0.85, 0.12, 0.7),
   ridgeVent: [-0.6, section.ridgeHeight + 0.25, 0],
 };
 
