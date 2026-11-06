@@ -76,6 +76,39 @@
 					"new_sqlite_classes": ["DOQueueHandler"]
 				}
 			]
+		},
+		// Preview Worker for the "Your House" concept (branch concept/house).
+		// Deploy with: NEXT_PUBLIC_SITE_URL=https://shah-and-crew-redesign2.millon.workers.dev pnpm run deploy:redesign2
+		"redesign2": {
+			"name": "shah-and-crew-redesign2",
+			"services": [
+				{
+					// Self-reference service binding, the service name must match the worker name.
+					"binding": "WORKER_SELF_REFERENCE",
+					"service": "shah-and-crew-redesign2"
+				}
+			],
+			"r2_buckets": [
+				{
+					// Own R2 incremental cache, so concept builds never share cache entries.
+					"binding": "NEXT_INC_CACHE_R2_BUCKET",
+					"bucket_name": "shah-and-crew-redesign2-opennext-cache"
+				}
+			],
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "NEXT_CACHE_DO_QUEUE",
+						"class_name": "DOQueueHandler"
+					}
+				]
+			},
+			"migrations": [
+				{
+					"tag": "v1",
+					"new_sqlite_classes": ["DOQueueHandler"]
+				}
+			]
 		}
 	}
 	// Secrets for the quote form are not stored here. Set them with:
