@@ -42,6 +42,8 @@ export default function SheetFrame({ sheet, children }: Props) {
               aria-label={titleBlockAriaLabel}
               className="border-t-[1.5px] border-charcoal lg:border-t-0 lg:border-l-[1.5px]"
             >
+              {/* Pinned under the sticky header (106px: 56px bar + 48px index strip + two 1px rules),
+                  only on screens tall enough to show the whole title block. */}
               <div className="lg:tall:sticky lg:tall:top-[106px]">
                 <TitleBlock sheet={entry} />
               </div>
