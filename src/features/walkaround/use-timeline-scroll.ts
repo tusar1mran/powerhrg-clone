@@ -9,7 +9,10 @@ export const CHAPTER_SECTION_ATTRIBUTE = "data-walkaround-chapter";
 
 /**
  * Keeps the timeline store in sync with the page scroll. Section positions are measured on
- * layout changes only; scroll events just do arithmetic, throttled to one update per frame.
+ * layout changes only; scroll events just do a little arithmetic and write the store. The store
+ * ignores unchanged values, the 3D scene batches its redraws into the next animation frame, and
+ * React only re-renders when the active chapter changes, so no extra throttling is needed (and
+ * none that depends on animation frames, which browsers may pause while nothing is animating).
  */
 export function useTimelineScroll(trackRef: RefObject<HTMLElement | null>, store: TimelineStore): void {
   useEffect(() => {
@@ -19,10 +22,8 @@ export function useTimelineScroll(trackRef: RefObject<HTMLElement | null>, store
     }
 
     let sections: SectionBox[] = [];
-    let frame = 0;
 
     const update = () => {
-      frame = 0;
       store.set(computeTimeline(sections, window.scrollY, window.innerHeight));
     };
 
@@ -35,25 +36,16 @@ export function useTimelineScroll(trackRef: RefObject<HTMLElement | null>, store
       update();
     };
 
-    const onScroll = () => {
-      if (frame === 0) {
-        frame = window.requestAnimationFrame(update);
-      }
-    };
-
     const resizeObserver = new ResizeObserver(measure);
     resizeObserver.observe(track);
     window.addEventListener("resize", measure);
-    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", update, { passive: true });
     measure();
 
     return () => {
       resizeObserver.disconnect();
       window.removeEventListener("resize", measure);
-      window.removeEventListener("scroll", onScroll);
-      if (frame !== 0) {
-        window.cancelAnimationFrame(frame);
-      }
+      window.removeEventListener("scroll", update);
     };
   }, [trackRef, store]);
 }
