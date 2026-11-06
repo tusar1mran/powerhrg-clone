@@ -36,7 +36,7 @@ export function HighlightDirector({ registry }: { registry: readonly RegisteredM
       if (group !== "neutral") {
         // A faint warm lift on the part in focus, a stronger one for the quote selection, and a
         // light one under the pointer.
-        const glow = focus * 0.06 + frame.selection[group] * 0.2 + frame.hover[group] * 0.12;
+        const glow = focus * 0.05 + frame.selection[group] * 0.09 + frame.hover[group] * 0.07;
         emissive.r += gold.r * glow;
         emissive.g += gold.g * glow;
         emissive.b += gold.b * glow;

@@ -68,6 +68,9 @@ export const roofingFeatures: Feature[] = [
 
 export const roofingGuarantee = guarantee("/assets/photos/roofing-card.jpg");
 
+/** Heading for the grid of roofingFeatures on the redesigned page. */
+export const roofingFeaturesTitle = "Included in every roof replacement";
+
 /**
  * The layers of the roof system, from the deck up, as shown in the interactive 3D roof section
  * and the homepage walk-around. Each layer reuses the copy of the matching feature above, so the
@@ -97,6 +100,7 @@ export const roofExplorer = {
   title: "Take the roof apart",
   text: "Drag to turn the roof section, pull the layers apart, or pick a layer to see what it does.",
   explodeLabel: "Separate the layers",
+  layersLabel: "Roof layers",
   allLayersLabel: "All layers",
   viewsLabel: "View",
   views: [

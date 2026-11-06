@@ -371,3 +371,8 @@ a:focus-visible .link-underline {
       linear-gradient(0deg, rgb(11 17 20 / 0.7) 0%, rgb(11 17 20 / 0) 30%);
   }
 }
+
+/* Backdrop behind the transparent roof-section canvas on /services/roofing: the same daylight haze. */
+.roof-stage {
+  background: radial-gradient(ellipse 75% 70% at 50% 45%, #cfd1c8 0%, #9aa39e 30%, #56666b 60%, #1d2a30 100%);
+}

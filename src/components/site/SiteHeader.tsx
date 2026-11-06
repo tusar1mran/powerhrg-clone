@@ -14,7 +14,7 @@ import MobileNav from "./MobileNav";
 // marker and the mobile sheet hydrate.
 export default function SiteHeader() {
   return (
-    <header className="dark fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-charcoal-950/65 backdrop-blur-xl supports-[backdrop-filter]:bg-charcoal-950/45">
+    <header className="dark fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-charcoal-950/90 backdrop-blur-xl supports-[backdrop-filter]:bg-charcoal-950/72">
       <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-4 px-4 sm:px-6 lg:gap-8 lg:px-10">
         <Link
           href={links.home}

@@ -1,18 +1,16 @@
 import type { Metadata } from "next";
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import Footer from "@/components/Footer";
-import CtaBand from "@/components/CtaBand";
-import ProductIntro from "@/components/services/ProductIntro";
-import Guarantee from "@/components/services/Guarantee";
-import Faq from "@/components/services/Faq";
+import QuoteCta from "@/components/home/QuoteCta";
+import RoofExplorerSection from "@/components/roofing/RoofExplorerSection";
+import RoofingFaq from "@/components/roofing/RoofingFaq";
+import RoofingFeatures from "@/components/roofing/RoofingFeatures";
+import RoofingGuarantee from "@/components/roofing/RoofingGuarantee";
+import RoofingHero from "@/components/roofing/RoofingHero";
 import {
   roofingCta,
   roofingFaqs,
   roofingFeatures,
+  roofingFeaturesTitle,
   roofingGuarantee,
-  roofingHero,
-  roofingIntro,
 } from "@/lib/roofing-content";
 
 export const metadata: Metadata = {
@@ -21,18 +19,18 @@ export const metadata: Metadata = {
     "Full tear-off asphalt shingle roof replacement with deck repair, underlayment, flashing and ventilation, plus permits and daily cleanup.",
 };
 
+// Roofing in the redesign: the title, then an interactive 3D roof section beside the intro, what's
+// included, the warranty, FAQs and a quote CTA. Static HTML; only the roof explorer hydrates, and
+// three.js loads only when the explorer comes into view.
 export default function RoofingPage() {
   return (
-    <>
-      <Header transparentAtTop={false} />
-      <main id="main">
-        <Hero {...roofingHero} ctaHref="#product" ctaLabel="Explore roofing" />
-        <ProductIntro {...roofingIntro} features={roofingFeatures} />
-        <Guarantee {...roofingGuarantee} />
-        <CtaBand {...roofingCta} />
-        <Faq faqs={roofingFaqs} />
-      </main>
-      <Footer />
-    </>
+    <main id="main" className="dark bg-charcoal-950 text-foreground">
+      <RoofingHero />
+      <RoofExplorerSection />
+      <RoofingFeatures title={roofingFeaturesTitle} features={roofingFeatures} />
+      <RoofingGuarantee {...roofingGuarantee} />
+      <RoofingFaq faqs={roofingFaqs} />
+      <QuoteCta id="roofing-quote" {...roofingCta} />
+    </main>
   );
 }
