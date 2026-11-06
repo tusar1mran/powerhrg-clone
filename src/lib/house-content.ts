@@ -45,9 +45,9 @@ export const partLocations: Record<ServiceName, string> = {
   Roofing: "Roof",
   Insulation: "Attic",
   Siding: "Walls",
-  Windows: "Windows",
+  Windows: "Every opening",
   Doors: "Front door",
-  Accessories: "Gutters, shutters and trim",
+  Accessories: "Gutters and trim",
 };
 
 export const explorerCopy = {
@@ -195,6 +195,8 @@ export type ServiceSheet<K extends string> = {
   service: ServiceName;
   /** Lettering above the title, like the sheet number on a drawing set. */
   sheetLabel: string;
+  /** Eyebrow over the numbered key to the hero drawing. */
+  systemEyebrow: string;
   hero: { title: string[]; intro: string };
   figureLabel: string;
   keyPlan: { label: string; back: { label: string; href: string } };
@@ -212,6 +214,7 @@ const roofLayerTitles: ReadonlySet<string> = new Set(Object.values(roofStory.not
 export const roofingSheet: ServiceSheet<RoofLayer> = {
   service: "Roofing",
   sheetLabel: `Sheet 02 · ${roofingIntro.eyebrow}`,
+  systemEyebrow: "Key to Fig. 1",
   hero: {
     title: roofingHero.title,
     intro: roofingHero.subtitle.join(" "),

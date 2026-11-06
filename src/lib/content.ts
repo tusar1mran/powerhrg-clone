@@ -44,7 +44,7 @@ export const searchIndex: NavItem[] = [
   { label: "Licenses & Insurance", href: links.licenses },
 ];
 
-export const headerCta = { label: "Get a Free Quote", href: links.quote };
+export const headerCta = { label: "Get a free quote", href: links.quote };
 
 export const serviceAreaBar = {
   text: `Free, no-obligation estimates across ${site.serviceArea}.`,

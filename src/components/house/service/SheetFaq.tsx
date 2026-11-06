@@ -55,9 +55,9 @@ export function SheetFaq<K extends string>({ sheet }: { sheet: ServiceSheet<K> }
 
         {faqs.groups.length > 1 ? (
           <Tabs defaultValue={first.tab} className="gap-6">
-            <TabsList aria-label={faqs.title} className="h-auto flex-wrap gap-1 bg-paper-2 p-1">
+            <TabsList aria-label={faqs.title} className="h-auto flex-wrap gap-1 bg-paper-2 p-1 group-data-horizontal/tabs:h-auto">
               {faqs.groups.map((group) => (
-                <TabsTrigger key={group.tab} value={group.tab} className="h-11 flex-none px-4 text-[15px]">
+                <TabsTrigger key={group.tab} value={group.tab} className="h-11 flex-none px-4 text-[15px] text-charcoal-700 data-active:text-charcoal">
                   {group.tab}
                 </TabsTrigger>
               ))}

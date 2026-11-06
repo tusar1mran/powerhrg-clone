@@ -53,7 +53,8 @@ export function SheetHero<K extends string>({ sheet, figure }: Props<K>) {
             href={sheet.keyPlan.back.href}
             className="group mt-2 flex w-fit items-center gap-4 rounded-md border border-charcoal/20 bg-paper p-2 pr-4 hover:border-charcoal"
           >
-            <HouseKeyPlan highlight={sheet.service} className="w-24" />
+            {/* Thinner lines than the full drawing, so the thumbnail stays light at this size. */}
+            <HouseKeyPlan highlight={sheet.service} className="w-24 [&_*]:[stroke-width:0.9px]" />
             <span className="flex flex-col gap-1">
               <span className="annotation text-charcoal-700">{sheet.keyPlan.label}</span>
               <span className="inline-flex items-center gap-2 text-[15px] font-semibold">

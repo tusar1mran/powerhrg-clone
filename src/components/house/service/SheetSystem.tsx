@@ -14,7 +14,7 @@ export function SheetSystem<K extends string>({ sheet, order }: Props<K>) {
     <section aria-labelledby="sheet-system-title" className="py-16 lg:py-24">
       <Container className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
         <SectionHeader
-          eyebrow={sheet.system.eyebrow}
+          eyebrow={sheet.systemEyebrow}
           title={sheet.system.title}
           titleId="sheet-system-title"
           className="lg:sticky lg:top-24 lg:self-start"

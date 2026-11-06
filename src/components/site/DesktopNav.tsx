@@ -20,7 +20,7 @@ type Props = { nav: HeaderNav; className?: string };
 const topLinkClass = cn(
   "inline-flex h-11 items-center rounded-md bg-transparent px-3 text-[15px] font-medium text-charcoal",
   "hover:bg-gold-100 focus:bg-gold-100 data-open:bg-gold-100",
-  "data-active:underline data-active:decoration-gold-600 data-active:decoration-2 data-active:underline-offset-8",
+  "data-active:bg-transparent data-active:underline data-active:decoration-gold-600 data-active:decoration-2 data-active:underline-offset-8 data-active:hover:bg-gold-100",
 );
 
 const panelLinkClass =
@@ -41,14 +41,14 @@ export default function DesktopNav({ nav, className }: Props) {
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[34rem] grid-cols-2 gap-1 p-1">
-              {nav.services.items.map((item, index) => {
+              {nav.services.items.map((item) => {
                 const active = isActivePath(pathname, item.href);
                 return (
                   <li key={item.href}>
                     <NavigationMenuLink asChild active={active} className={panelLinkClass}>
                       <Link href={item.href} aria-current={active ? "page" : undefined}>
                         <span aria-hidden className="annotation pt-0.5 text-gold-800">
-                          {String(index + 1).padStart(2, "0")}
+                          {item.number}
                         </span>
                         <span className="flex flex-col">
                           <span className="text-[15px] font-semibold text-charcoal">{item.label}</span>

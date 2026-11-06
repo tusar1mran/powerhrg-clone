@@ -216,14 +216,14 @@ export const shrubs = [
 ];
 
 /**
- * Invisible hit areas. Each is at least 92 units across, which is 44 CSS px when the drawing is
- * 390 px wide. Later parts in paint order win where areas overlap (e.g. the gutter band over the
- * bottom of the roof).
+ * Invisible hit areas. Each is at least 96 units across, which is just under 46 CSS px when the
+ * drawing runs edge to edge on a 390 px phone (44 px is the minimum). Later parts in paint order
+ * win where areas overlap (e.g. the gutter band over the bottom of the roof).
  */
 export const hitAreas: Record<ServiceName, HitShape[]> = {
   Roofing: [
     { kind: "polygon", points: roofOutline },
-    { kind: "rect", rect: { x: chimney.x - 22, y: chimneyCap.y, width: 92, height: 120 } },
+    { kind: "rect", rect: { x: chimney.x - 24, y: chimneyCap.y, width: 96, height: 120 } },
   ],
   Insulation: [{ kind: "polygon", points: "330,344 450,190 570,344" }],
   Siding: [{ kind: "rect", rect: wall }],
@@ -233,9 +233,9 @@ export const hitAreas: Record<ServiceName, HitShape[]> = {
   })),
   Doors: [{ kind: "rect", rect: { x: 380, y: 544, width: 140, height: 216 } }],
   Accessories: [
-    { kind: "rect", rect: { x: 76, y: 300, width: 748, height: 92 } },
-    { kind: "rect", rect: { x: 76, y: 392, width: 92, height: 368 } },
-    { kind: "rect", rect: { x: 732, y: 392, width: 92, height: 368 } },
+    { kind: "rect", rect: { x: 74, y: 298, width: 752, height: 96 } },
+    { kind: "rect", rect: { x: 74, y: 394, width: 96, height: 366 } },
+    { kind: "rect", rect: { x: 730, y: 394, width: 96, height: 366 } },
     ...shutters.map((s) => ({ kind: "rect" as const, rect: s })),
   ],
 };

@@ -1,12 +1,13 @@
 // Copy for the site-wide header, footer and mobile call / quote bar of the "Your House" concept.
 // Links come from links.ts and business details from site.ts, so nothing here is hardcoded twice.
 import { footerColumns, headerCta } from "./content";
-import { partLocations } from "./house-content";
-import { links, serviceLinks } from "./links";
+import { houseParts } from "./house/parts";
+import { links } from "./links";
 import { site } from "./site";
 
 export type ChromeLink = { label: string; href: string };
-export type ServiceNavLink = ChromeLink & { location: string };
+/** A service in the menus, numbered and located as on the homepage house drawing. */
+export type ServiceNavLink = ChromeLink & { number: string; location: string };
 
 export const skipLinkLabel = "Skip to main content";
 
@@ -15,8 +16,8 @@ export const headerNav = {
   services: {
     label: "Services",
     all: { label: "All services", href: links.services },
-    items: serviceLinks.map(
-      (s): ServiceNavLink => ({ label: s.name, href: s.href, location: partLocations[s.name] }),
+    items: houseParts.map(
+      (part): ServiceNavLink => ({ label: part.name, href: part.href, number: part.number, location: part.location }),
     ),
   },
   links: [

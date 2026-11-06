@@ -56,7 +56,7 @@ export default function MobileNav({ nav, actions, className }: Props) {
         <nav aria-label={nav.label} className="flex-1 overflow-y-auto px-3 py-4">
           <p className="annotation px-2 pb-2 text-charcoal-700">{nav.services.label}</p>
           <ul className="flex flex-col">
-            {nav.services.items.map((item, index) => (
+            {nav.services.items.map((item) => (
               <li key={item.href}>
                 <SheetClose asChild>
                   <Link
@@ -65,7 +65,7 @@ export default function MobileNav({ nav, actions, className }: Props) {
                     className={rowClass}
                   >
                     <span aria-hidden className="annotation text-gold-800">
-                      {String(index + 1).padStart(2, "0")}
+                      {item.number}
                     </span>
                     {item.label}
                   </Link>

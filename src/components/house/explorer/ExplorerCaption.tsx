@@ -6,6 +6,8 @@ import { useHouseExplorer } from "./context";
 /**
  * Note under the drawing that names the highlighted part and gives its one-line summary. It repeats
  * what the part's accessible name and description already say, so it is hidden from screen readers.
+ * It only reserves its full height on large screens, where hovering changes it often; on phones it
+ * grows when a part is tapped.
  */
 export function ExplorerCaption({ className }: { className?: string }) {
   const { state, meta } = useHouseExplorer();
@@ -18,7 +20,7 @@ export function ExplorerCaption({ className }: { className?: string }) {
   }
 
   return (
-    <div aria-hidden className={cn("min-h-[6.5rem] border-t border-charcoal pt-3", className)}>
+    <div aria-hidden className={cn("border-t border-charcoal pt-3 lg:min-h-[6.5rem]", className)}>
       {part ? (
         <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
           <span className="annotation pt-1.5 text-gold-800">{part.number}</span>
