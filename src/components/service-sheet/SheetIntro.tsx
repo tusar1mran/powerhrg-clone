@@ -23,7 +23,7 @@ export default function SheetIntro({ sheet, kicker, title, subtitle, children }:
           <span aria-hidden>·</span>
           <span>{kicker}</span>
         </p>
-        <h1 className="type-display mt-6 text-[52px] sm:text-[72px] xl:text-[92px]">
+        <h1 className="type-display mt-6 text-[52px] sm:text-[72px] xl:text-[80px] 2xl:text-[92px]">
           {title.map((line) => (
             <span key={line} className="block">
               {line}

@@ -83,7 +83,7 @@ export default function Home() {
             {paragraph}
           </p>
         ))}
-        <NoteList className="mt-10 md:grid-cols-2 xl:grid-cols-4">
+        <NoteList className="mt-10 md:grid-cols-2">
           {promise.items.map((item, i) => (
             <NoteItem key={item.title} mark={i + 1} title={item.title}>
               {item.text}

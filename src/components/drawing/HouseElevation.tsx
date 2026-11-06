@@ -48,7 +48,7 @@ type Placement = { bubble: Pt; target: Pt; via?: Pt; label: Pt; anchor: "start" 
 
 const placements: Record<ServiceName, Placement> = {
   Roofing: { bubble: { x: 196, y: 64 }, target: { x: 360, y: 112 }, label: { x: 236, y: 64 }, anchor: "start" },
-  Insulation: { bubble: { x: 764, y: 64 }, target: { x: 610, y: 146 }, label: { x: 724, y: 64 }, anchor: "end" },
+  Insulation: { bubble: { x: 900, y: 64 }, target: { x: 700, y: 150 }, label: { x: 860, y: 64 }, anchor: "end" },
   Accessories: { bubble: { x: 884, y: 210 }, target: { x: 790, y: 182 }, label: { x: 884, y: 262 }, anchor: "middle" },
   Windows: { bubble: { x: 84, y: 260 }, target: { x: 246, y: 260 }, label: { x: 84, y: 312 }, anchor: "middle" },
   Siding: { bubble: { x: 884, y: 430 }, target: { x: 730, y: 430 }, label: { x: 884, y: 482 }, anchor: "middle" },
