@@ -141,6 +141,8 @@ export const contactForm = {
   consent:
     "I agree that Shah & Crew may contact me by phone, text or email about this request. Message and data rates may apply. Consent is not a condition of purchase. Reply STOP to opt out of texts.",
   submit: "Send request",
+  // Starts the message box when several services were picked before arriving at the form.
+  prefillNote: "Services I’m interested in:",
   success: {
     title: "Thanks, we’ve got it",
     text: "Your request is on its way to our office. We’ll be in touch within one business day.",

@@ -68,6 +68,46 @@ export const roofingFeatures: Feature[] = [
 
 export const roofingGuarantee = guarantee("/assets/photos/roofing-card.jpg");
 
+/**
+ * The layers of the roof system, from the deck up, as shown in the interactive 3D roof section
+ * and the homepage walk-around. Each layer reuses the copy of the matching feature above, so the
+ * two never drift apart. The 3D view is an illustration of the order of the layers, not to scale.
+ */
+export type RoofLayerId = "deck" | "iceWater" | "underlayment" | "dripEdge" | "shingles" | "ridgeVent";
+export type RoofLayer = { id: RoofLayerId; label: string; title: string; text: string };
+
+function roofingFeature(title: string): Pick<Feature, "title" | "text"> {
+  const feature = roofingFeatures.find((f) => f.title === title);
+  if (!feature) {
+    throw new Error(`roofing-content: no roofing feature titled "${title}"`);
+  }
+  return { title: feature.title, text: feature.text };
+}
+
+export const roofLayers: RoofLayer[] = [
+  { id: "deck", label: "Roof deck", ...roofingFeature("Deck inspection") },
+  { id: "iceWater", label: "Ice-and-water barrier", ...roofingFeature("Ice-and-water barrier") },
+  { id: "underlayment", label: "Synthetic underlayment", ...roofingFeature("Synthetic underlayment") },
+  { id: "dripEdge", label: "Drip edge", ...roofingFeature("Drip edge and flashing") },
+  { id: "shingles", label: "Architectural shingles", ...roofingFeature("Architectural shingles") },
+  { id: "ridgeVent", label: "Ridge vent", ...roofingFeature("Balanced ventilation") },
+];
+
+export const roofExplorer = {
+  title: "Take the roof apart",
+  text: "Drag to turn the roof section, pull the layers apart, or pick a layer to see what it does.",
+  explodeLabel: "Separate the layers",
+  allLayersLabel: "All layers",
+  viewsLabel: "View",
+  views: [
+    { id: "eave", label: "Eave" },
+    { id: "ridge", label: "Ridge" },
+    { id: "overhead", label: "Overhead" },
+  ],
+  note: "Illustration of the layer order. Not to scale.",
+  fallback: "Your browser can’t show the 3D roof section, so here is the same roof system as a diagram.",
+} as const;
+
 export const roofingCta = {
   title: ["Leaks, missing", "shingles, or", "just old?"],
   text: "We’ll get on the roof, take photos, and send a written quote that spells out every layer. No charge, no pressure.",

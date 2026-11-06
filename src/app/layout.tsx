@@ -1,7 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Bricolage_Grotesque, Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { cn } from "@/lib/utils";
+import SiteHeader from "@/components/site/SiteHeader";
+import SiteFooter from "@/components/site/SiteFooter";
+import MobileActionBar from "@/components/site/MobileActionBar";
+import SkipLink from "@/components/site/SkipLink";
 
 // Body copy and UI labels. Variable font, so every weight comes from one file.
 const inter = Inter({
@@ -10,9 +15,18 @@ const inter = Inter({
   display: "swap",
 });
 
-// Headings. The optical-size axis is loaded so large titles get the display cut.
+// Headings on the legacy pages. The optical-size axis is loaded so large titles get the display cut.
 const fraunces = Fraunces({
   variable: "--font-fraunces",
+  subsets: ["latin"],
+  axes: ["opsz"],
+  display: "swap",
+});
+
+// Headings in the redesign (header, footer, home, roofing). A variable grotesque with an
+// optical-size axis, so the very large hero type tightens up while small labels stay open.
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
   axes: ["opsz"],
   display: "swap",
@@ -37,13 +51,25 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: "only light",
+  themeColor: "#121b20",
 };
 
+// The header, footer and mobile Call / Quote bar are shared by every page, so they live here
+// instead of being repeated in each page.
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable} antialiased`}>
+    <html
+      lang="en"
+      className={cn("antialiased", inter.variable, fraunces.variable, bricolage.variable, "font-sans")}
+    >
       {/* suppressHydrationWarning: browser extensions (e.g. dark-mode tools) add attributes to <body> */}
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <SkipLink />
+        <SiteHeader />
+        {children}
+        <SiteFooter />
+        <MobileActionBar />
+      </body>
     </html>
   );
 }

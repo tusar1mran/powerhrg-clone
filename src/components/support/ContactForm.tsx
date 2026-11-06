@@ -1,10 +1,14 @@
 "use client";
 
-import { useState, useTransition, type ReactNode } from "react";
+import { Suspense, useCallback, useEffect, useEffectEvent, useMemo, useState, useTransition, type ReactNode } from "react";
+import { useSearchParams } from "next/navigation";
 import { useForm, type DefaultValues, type FieldError } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Reveal from "../Reveal";
 import { submitContact } from "@/lib/contact/actions";
+import { quotePrefill } from "@/lib/contact/prefill";
+import { parseQuoteServices } from "@/lib/quote/quote-params";
+import type { ServiceName } from "@/lib/links";
 import {
   contactSchema,
   serviceOptions,
@@ -19,6 +23,8 @@ type Props = {
   intro?: string;
   consent: string;
   submit: string;
+  /** Lead-in for the message box when several services arrive in the URL. */
+  prefillNote: string;
   success: { title: string; text: string };
 };
 
@@ -56,9 +62,29 @@ function Field({ label, error, errorId, children }: { label: string; error?: Fie
   );
 }
 
+/**
+ * Reads `?service=` from the URL (e.g. links from the homepage selection tray) and hands the
+ * validated services to the form. It sits in its own Suspense boundary so the rest of the form
+ * is still prerendered as static HTML; only this invisible piece waits for the URL.
+ */
+function UrlServicePrefill({ onServices }: { onServices: (services: ServiceName[]) => void }) {
+  const searchParams = useSearchParams();
+  const services = useMemo(() => parseQuoteServices(searchParams), [searchParams]);
+  const notify = useEffectEvent((next: ServiceName[]) => onServices(next));
+
+  useEffect(() => {
+    if (services.length > 0) {
+      notify(services);
+    }
+  }, [services]);
+
+  return null;
+}
+
 // Free-quote / contact form. Validates in the browser with the shared zod schema, then calls the
-// submitContact Server Action, which validates again and emails the office.
-export default function ContactForm({ id = "quote", title, intro, consent, submit, success }: Props) {
+// submitContact Server Action, which validates again and emails the office. Services named in the
+// URL pre-fill the "What do you need help with?" select (and the message, for several services).
+export default function ContactForm({ id = "quote", title, intro, consent, submit, prefillNote, success }: Props) {
   const [sent, setSent] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
@@ -67,12 +93,31 @@ export default function ContactForm({ id = "quote", title, intro, consent, submi
     register,
     handleSubmit,
     setError,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm<ContactInput, unknown, ContactValues>({
     resolver: zodResolver(contactSchema),
     defaultValues,
     mode: "onTouched",
   });
+
+  // Never overwrites a choice or message the visitor has already made.
+  const applyServices = useCallback(
+    (services: ServiceName[]) => {
+      const prefill = quotePrefill(services, prefillNote);
+      if (!prefill) {
+        return;
+      }
+      if (!getValues("service")) {
+        setValue("service", prefill.service, { shouldDirty: true });
+      }
+      if (prefill.message && !getValues("message")?.trim()) {
+        setValue("message", prefill.message, { shouldDirty: true });
+      }
+    },
+    [getValues, setValue, prefillNote],
+  );
 
   const onSubmit = (values: ContactValues) => {
     setFormError(null);
@@ -111,6 +156,9 @@ export default function ContactForm({ id = "quote", title, intro, consent, submi
           <>
             {intro && <p className="mx-auto mb-8 max-w-[640px] text-center text-[16px] leading-[1.45] xl:text-[18px]">{intro}</p>}
             <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
+              <Suspense fallback={null}>
+                <UrlServicePrefill onServices={applyServices} />
+              </Suspense>
               <div className="grid gap-6 md:grid-cols-2">
                 <Field label="Name (required)" error={errors.name} errorId={`${id}-name-error`}>
                   <input
