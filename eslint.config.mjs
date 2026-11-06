@@ -16,6 +16,8 @@ const eslintConfig = defineConfig([
     ".open-next/**",
     ".wrangler/**",
     "cloudflare-env.d.ts",
+    // Git worktrees for redesign concepts; each one is linted from its own folder.
+    ".worktrees/**",
   ]),
 ]);
 
