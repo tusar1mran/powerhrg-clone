@@ -22,8 +22,9 @@ export function HighlightDirector({ registry }: { registry: readonly RegisteredM
     const { effects, dusk } = frame;
 
     for (const entry of registry) {
-      const neutral = entry.group === "neutral";
-      const focus = neutral ? 0 : effects.focus[entry.group];
+      const group = entry.group;
+      const neutral = group === "neutral";
+      const focus = group === "neutral" ? 0 : effects.focus[group];
       const dim = effects.focusStrength * (1 - focus) * (neutral ? 0.75 : 1);
 
       entry.material.color.copy(entry.base).lerp(entry.dimmed, dim * 0.82);
@@ -32,8 +33,8 @@ export function HighlightDirector({ registry }: { registry: readonly RegisteredM
       if (entry.glow) {
         emissive.copy(entry.glow.color).multiplyScalar(lerp(entry.glow.day, entry.glow.dusk, dusk) * (1 - dim * 0.6));
       }
-      if (!neutral) {
-        const glow = frame.selection[entry.group] * 0.2 + frame.hover[entry.group] * 0.12;
+      if (group !== "neutral") {
+        const glow = frame.selection[group] * 0.2 + frame.hover[group] * 0.12;
         emissive.r += gold.r * glow;
         emissive.g += gold.g * glow;
         emissive.b += gold.b * glow;

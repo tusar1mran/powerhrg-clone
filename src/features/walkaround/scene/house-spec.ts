@@ -82,3 +82,53 @@ export const windowPlacements: WindowPlacement[] = [
   { position: [-columnX, lowerY, -frontZ], rotationY: Math.PI, shutters: false },
   { position: [columnX, lowerY, -frontZ], rotationY: Math.PI, shutters: false },
 ];
+
+/* -------------------------------------------------------------------------------------------- */
+/* Roof slopes                                                                                  */
+/* -------------------------------------------------------------------------------------------- */
+
+/** +1 is the front slope (draining towards +z), -1 the back slope. */
+export type SlopeSide = 1 | -1;
+
+/** Thickness of each roof layer. Exaggerated a little so the layers read at a distance. */
+export const roofLayerThickness = {
+  deck: 0.04,
+  underlayment: 0.014,
+  shingles: 0.05,
+} as const;
+
+/** Height of the finished roof surface above the rafter line, measured along the slope normal. */
+export const roofStackHeight = roofLayerThickness.deck + roofLayerThickness.underlayment + roofLayerThickness.shingles;
+
+export type SlopeFrame = {
+  /** Rotation about x that lays a flat box onto this slope. */
+  rotationX: number;
+  /** Unit vector pointing out of the roof surface. */
+  normal: Vec3Tuple;
+  /** Unit vector pointing down the slope, from the ridge to the eave. */
+  down: Vec3Tuple;
+};
+
+export function slopeFrame(side: SlopeSide): SlopeFrame {
+  const sin = Math.sin(houseSpec.pitch);
+  const cos = Math.cos(houseSpec.pitch);
+  return {
+    rotationX: side * houseSpec.pitch,
+    normal: [0, cos, side * sin],
+    down: [0, -sin, side * cos],
+  };
+}
+
+/**
+ * A point on a slope: `along` metres down from the ridge, `offset` metres out from the rafter line
+ * (the plane through the top outside edge of the walls). `x` runs along the ridge.
+ */
+export function slopePoint(side: SlopeSide, along: number, offset: number, x = 0): Vec3Tuple {
+  const { normal, down } = slopeFrame(side);
+  return [x, houseSpec.ridgeHeight + down[1] * along + normal[1] * offset, down[2] * along + normal[2] * offset];
+}
+
+/** Height of the rafter line above a given z, i.e. the underside of the roof deck. */
+export function rafterHeightAt(z: number): number {
+  return houseSpec.ridgeHeight - Math.abs(z) * Math.tan(houseSpec.pitch);
+}

@@ -1,6 +1,16 @@
 // Geometry helpers for building the house procedurally. Parts are built as separate primitives,
 // moved into place, then merged so each material costs one draw call instead of one per board.
-import { BoxGeometry, BufferAttribute, Euler, Matrix4, Quaternion, Vector3, type BufferGeometry } from "three";
+import {
+  BoxGeometry,
+  BufferAttribute,
+  Euler,
+  ExtrudeGeometry,
+  Matrix4,
+  Quaternion,
+  Shape,
+  Vector3,
+  type BufferGeometry,
+} from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 
 export type Vec3Tuple = readonly [number, number, number];
@@ -24,6 +34,29 @@ export function place<T extends BufferGeometry>(geometry: T, position: Vec3Tuple
 /** An axis-aligned box of the given size, centred at `position`. */
 export function box(size: Vec3Tuple, position: Vec3Tuple, rotation?: Vec3Tuple): BoxGeometry {
   return place(new BoxGeometry(size[0], size[1], size[2]), position, rotation);
+}
+
+/**
+ * A flat wall piece facing ±x, cut to an outline drawn in the z/y plane (e.g. a gable end: a
+ * rectangle with a triangle on top). The piece spans `x` to `x + thickness`.
+ */
+export function profileSlab(outline: readonly (readonly [number, number])[], thickness: number, x: number): BufferGeometry {
+  const shape = new Shape();
+  outline.forEach(([z, y], index) => {
+    if (index === 0) {
+      shape.moveTo(z, y);
+    } else {
+      shape.lineTo(z, y);
+    }
+  });
+  shape.closePath();
+
+  const geometry = new ExtrudeGeometry(shape, { depth: thickness, bevelEnabled: false });
+  // Shape x becomes world z; the extrusion (local +z) becomes world -x, so shift it back by
+  // `thickness` to make the slab start at `x`.
+  geometry.rotateY(-Math.PI / 2);
+  geometry.translate(x + thickness, 0, 0);
+  return geometry;
 }
 
 /**

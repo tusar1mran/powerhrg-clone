@@ -1,6 +1,6 @@
 "use client";
 
-import { Color, DoubleSide, MeshStandardMaterial, type Texture } from "three";
+import { BackSide, Color, MeshStandardMaterial, type Side, type Texture } from "three";
 import type { ServiceName } from "@/lib/links";
 import { useDisposable } from "@/features/three/use-disposable";
 import {
@@ -70,7 +70,8 @@ const materialDefinitions = {
   brick: { group: "neutral", color: "#ffffff", roughness: 0.9 },
   foliage: { group: "neutral", color: "#5f704f", roughness: 0.9, flatShading: true },
   bark: { group: "neutral", color: "#5c4b3d", roughness: 0.95 },
-  foyer: { group: "neutral", color: "#efe2c9", roughness: 0.9, glow: ["#ffcf8a", 0.18, 1.1], doubleSided: true },
+  // Seen from outside through the open door, so only the inside faces of the room are drawn.
+  foyer: { group: "neutral", color: "#efe2c9", roughness: 0.9, glow: ["#ffcf8a", 0.18, 1.1], side: BackSide },
   drywall: { group: "neutral", color: "#d9d4ca", roughness: 0.95 },
 } satisfies Record<string, MaterialDefinition>;
 
@@ -81,7 +82,8 @@ type MaterialDefinition = {
   metalness?: number;
   transparent?: boolean;
   flatShading?: boolean;
-  doubleSided?: boolean;
+  /** Which faces are drawn. Front faces only unless set. */
+  side?: Side;
   /** [colour, intensity by day, intensity at dusk] */
   glow?: readonly [string, number, number];
 };
@@ -178,6 +180,8 @@ function applyTextures(materials: HouseMaterials, textures: TextureSet): void {
   materials.shutter.map = textures.louvers;
 
   materials.lawn.map = textures.lawn;
+  // The lawn texture tiles across the disc; the fade covers the whole disc once.
+  textures.lawn.repeat.set(12, 12);
   materials.lawn.alphaMap = textures.fade;
 }
 
@@ -200,8 +204,8 @@ export function useHouseMaterials(): HouseMaterialSet {
         transparent: definition.transparent ?? false,
         flatShading: definition.flatShading ?? false,
       });
-      if (definition.doubleSided) {
-        material.side = DoubleSide;
+      if (definition.side !== undefined) {
+        material.side = definition.side;
       }
       material.name = key;
       materials[key] = material;
