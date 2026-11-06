@@ -214,7 +214,7 @@ export default function HouseElevation({ callouts, title, description }: Props) 
 
       {/* attic insulation behind the roof, in hidden (dashed) line */}
       <g clipPath={`url(#${roofClip})`}>
-        <rect x={WALL.left + 20} y={EAVE.y - 34} width={WALL.right - WALL.left - 40} height="30" fill="var(--color-paper)" opacity="0.85" />
+        <rect x={WALL.left + 20} y={EAVE.y - 34} width={WALL.right - WALL.left - 40} height="30" fill="var(--color-paper)" opacity="0.7" />
         <path
           d={hiddenBatts(WALL.left + 24, WALL.right - 24, EAVE.y - 6, 30, 26)}
           fill="none"

@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
 import ServiceGlyph from "@/components/drawing/ServiceGlyph";
 import type { ServiceName } from "@/lib/links";
+import { cn } from "@/lib/utils";
 
 type IndexSheet = { id: string; number: string; title: string; href: string; text: string };
 
@@ -19,9 +20,9 @@ function SheetCell({ sheet, openLabel, children }: { sheet: IndexSheet; openLabe
     <li className="border-r border-b border-charcoal/40">
       <Link
         href={sheet.href}
-        className="group flex h-full flex-col gap-4 bg-paper/70 p-5 transition-colors hover:bg-paper focus-visible:outline-offset-[-3px] sm:p-6"
+        className="group grid h-full grid-cols-[5rem_minmax(0,1fr)] content-start gap-x-4 gap-y-4 bg-paper/70 p-5 transition-colors hover:bg-paper focus-visible:outline-offset-[-3px] sm:flex sm:flex-col sm:p-6"
       >
-        <span className="flex items-center justify-between gap-3">
+        <span className="col-span-2 flex items-center justify-between gap-3">
           <span className="type-mono border border-charcoal px-1.5 py-0.5 text-[11px] font-semibold">{sheet.number}</span>
           <span className="type-mono flex items-center gap-1 text-[10.5px] text-charcoal/75 group-hover:text-charcoal">
             {openLabel}
@@ -29,7 +30,8 @@ function SheetCell({ sheet, openLabel, children }: { sheet: IndexSheet; openLabe
           </span>
         </span>
         {children}
-        <span className="flex flex-col gap-2">
+        {/* Phones: glyph and text side by side; without a glyph the text takes the full row. */}
+        <span className={cn("flex flex-col gap-2", children ? null : "col-span-2")}>
           <span className="type-sheet text-[20px] leading-none underline decoration-transparent decoration-2 underline-offset-4 group-hover:decoration-gold">
             {sheet.title}
           </span>
@@ -50,8 +52,8 @@ export default function CoverSheetIndex({ serviceHeading, generalHeading, openLa
         <ol className="grid border-t border-l border-charcoal/40 sm:grid-cols-2 xl:grid-cols-3">
           {services.map((sheet) => (
             <SheetCell key={sheet.id} sheet={sheet} openLabel={openLabel}>
-              <span className="flex h-24 items-center justify-center border border-dashed border-charcoal/30 bg-paper">
-                <ServiceGlyph service={sheet.service} className="size-20 text-charcoal" />
+              <span className="flex h-20 items-center justify-center self-start border border-dashed border-charcoal/30 bg-paper sm:h-24 sm:self-auto">
+                <ServiceGlyph service={sheet.service} className="size-16 text-charcoal sm:size-20" />
               </span>
             </SheetCell>
           ))}

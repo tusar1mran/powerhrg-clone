@@ -41,7 +41,8 @@ export type ScheduleRow = {
   mark: string;
   item: string;
   kind: string;
-  ref: { label: string; href: string };
+  /** `label` is the full cross-reference; `short` is the compact form shown on narrow screens. */
+  ref: { label: string; short: string; href: string };
 };
 
 export type ServiceSheetModel<Part extends string> = {
@@ -106,10 +107,11 @@ export function buildServiceSheet<const F extends readonly Feature[], Part exten
     if (callout) {
       ref = {
         label: `Detail ${plan.detailNumber} / ${plan.sheetNumber}, callout ${callout.mark}`,
+        short: `Callout ${callout.mark}`,
         href: `#${callout.anchor}`,
       };
     } else if (note) {
-      ref = { label: `Note ${note.mark}`, href: `#${note.anchor}` };
+      ref = { label: `Note ${note.mark}`, short: `Note ${note.mark}`, href: `#${note.anchor}` };
     } else {
       throw new Error(`Service sheet ${plan.sheetNumber}: "${feature.title}" is neither drawn nor noted.`);
     }

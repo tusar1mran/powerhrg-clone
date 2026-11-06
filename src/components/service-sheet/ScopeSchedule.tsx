@@ -37,7 +37,8 @@ export default function ScopeSchedule({ caption, rows }: Props) {
                   href={row.ref.href}
                   className="type-mono text-[12px] underline decoration-gold decoration-2 underline-offset-4 hover:decoration-charcoal"
                 >
-                  {row.ref.label}
+                  <span className="sm:hidden">{row.ref.short}</span>
+                  <span className="hidden sm:inline">{row.ref.label}</span>
                 </a>
               </TableCell>
             </TableRow>
