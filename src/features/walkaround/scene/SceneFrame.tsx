@@ -69,8 +69,12 @@ export function useSceneFrame(): RefObject<SceneFrameState> {
   return frame;
 }
 
-/** Largest step used for easing, so a long pause between on-demand frames doesn't cause a jump. */
-const MAX_DELTA = 1 / 30;
+/**
+ * Largest step used for easing, so a long pause between on-demand frames doesn't cause a jump.
+ * Damping is exponential, so a generous cap still stays smooth, and slow GPUs that only manage a
+ * few frames a second still arrive at the next chapter in about the same time as fast ones.
+ */
+const MAX_DELTA = 0.25;
 const SETTLED = 0.0005;
 
 /**

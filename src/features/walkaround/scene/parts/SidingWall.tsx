@@ -23,9 +23,9 @@ const { halfWidth, halfDepth, foundation, wallTop } = houseSpec;
  */
 const layers = {
   studs: { from: halfWidth - 0.2, depth: 0.14 },
-  sheathing: { from: halfWidth - 0.06, depth: 0.02, swing: 0.2, slide: 0.12 },
-  wrap: { from: halfWidth - 0.04, depth: 0.012, swing: 0.42, slide: 0.24 },
-  siding: { from: halfWidth - 0.028, depth: 0.028, swing: 0.66, slide: 0.38 },
+  sheathing: { from: halfWidth - 0.06, depth: 0.02, swing: 0.14, slide: 0.1 },
+  wrap: { from: halfWidth - 0.04, depth: 0.012, swing: 0.3, slide: 0.2 },
+  siding: { from: halfWidth - 0.028, depth: 0.028, swing: 0.48, slide: 0.32 },
 } as const;
 
 const STUD_SPACING = 0.4; // 16 inches on centre

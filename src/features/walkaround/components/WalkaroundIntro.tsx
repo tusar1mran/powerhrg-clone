@@ -76,7 +76,7 @@ export function WalkaroundIntro() {
         </nav>
       </div>
 
-      <p aria-hidden className="absolute bottom-24 left-1/2 flex -translate-x-1/2 items-center gap-2 text-[12px] tracking-label text-white/55 uppercase lg:bottom-8">
+      <p aria-hidden className="absolute bottom-24 left-1/2 flex -translate-x-1/2 items-center gap-2 text-[11px] tracking-label whitespace-nowrap text-white/55 uppercase lg:bottom-8 lg:text-[12px]">
         <span className="h-6 w-px animate-pulse bg-white/40 motion-reduce:animate-none" />
         {walkaroundHero.scrollHint}
       </p>

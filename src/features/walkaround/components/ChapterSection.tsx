@@ -32,28 +32,28 @@ export function ChapterSection({ service }: Props) {
     >
       <div className="sticky top-0 flex h-svh items-end px-3 pt-24 pb-[5.5rem] sm:px-6 lg:items-center lg:px-10 lg:py-24">
         <article className="pointer-events-auto mx-auto flex w-full max-w-[1440px]">
-          <div className="flex w-full max-w-[30rem] flex-col gap-4 rounded-3xl border border-white/10 bg-charcoal-950/65 p-5 shadow-[0_30px_80px_-30px_rgb(0_0_0/0.6)] backdrop-blur-2xl sm:p-7 lg:gap-5 lg:p-9">
+          <div className="flex w-full max-w-[30rem] flex-col gap-3 rounded-3xl border border-white/10 bg-charcoal-950/70 p-4 shadow-[0_30px_80px_-30px_rgb(0_0_0/0.6)] backdrop-blur-2xl sm:gap-4 sm:p-7 lg:gap-5 lg:p-9">
             <p className="flex items-center gap-3 text-[12px] font-semibold tracking-label text-gold uppercase">
               <span className="tabular-nums">{walkaroundChrome.chapterOf(index, SERVICE_CHAPTER_COUNT)}</span>
               <span aria-hidden className="h-px flex-1 bg-white/15" />
             </p>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1 sm:gap-2">
               <h2
                 id={`${id}-title`}
-                className="font-heading text-[40px] leading-[0.95] font-semibold tracking-tightest text-white sm:text-[52px] lg:text-[64px]"
+                className="font-heading text-[34px] leading-[0.95] font-semibold tracking-tightest text-white sm:text-[52px] lg:text-[64px]"
               >
                 {service.name}
               </h2>
-              <p className="text-[15px] font-medium text-white/60 lg:text-[16px]">{details.moment}</p>
+              <p className="text-[13px] font-medium text-white/60 sm:text-[15px] lg:text-[16px]">{details.moment}</p>
             </div>
-            <p className="text-[15px] leading-relaxed text-white/85 lg:text-[17px]">{service.text}</p>
+            <p className="text-[14px] leading-normal text-white/85 sm:text-[15px] sm:leading-relaxed lg:text-[17px]">{service.text}</p>
 
             {details.layers.length > 0 ? (
               <ol className="flex flex-wrap gap-1.5" aria-label={`${service.name}: ${details.moment}`}>
                 {details.layers.map((layer, layerIndex) => (
                   <li
                     key={layer}
-                    className="inline-flex h-7 items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 text-[12px] font-medium text-white/80"
+                    className="inline-flex h-6 items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 text-[11px] font-medium text-white/80 sm:h-7 sm:px-3 sm:text-[12px]"
                   >
                     <span aria-hidden className="text-gold tabular-nums">
                       {layerIndex + 1}
@@ -64,13 +64,13 @@ export function ChapterSection({ service }: Props) {
               </ol>
             ) : null}
 
-            <div className="flex flex-wrap items-center gap-2 pt-1">
+            <div className="flex flex-wrap items-center gap-1 pt-1 sm:gap-2">
               <QuoteToggle service={service.name} />
               <Link
                 href={service.href}
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
-                  "h-11 rounded-full px-4 text-[14px] font-semibold text-white hover:bg-white/10",
+                  "h-10 rounded-full px-3 text-[13px] font-semibold text-white hover:bg-white/10 sm:h-11 sm:px-4 sm:text-[14px]",
                 )}
               >
                 {walkaroundChrome.learnMore(service.name)}

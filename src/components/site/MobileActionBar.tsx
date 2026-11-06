@@ -17,7 +17,7 @@ export default function MobileActionBar() {
         aria-label={mobileActionBar.label}
         className={cn(
           MOBILE_ACTION_BAR_CLASS,
-          "dark fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 border-t border-white/10 bg-charcoal-950/85 px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl lg:hidden",
+          "dark fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 text-foreground border-t border-white/10 bg-charcoal-950/85 px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl lg:hidden",
         )}
       >
         <a

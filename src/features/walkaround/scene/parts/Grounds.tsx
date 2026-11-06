@@ -25,18 +25,18 @@ const frontZ = houseSpec.halfDepth + 0.75;
 
 /** Foundation shrubs along the front, plus two trees behind the house to frame it. */
 const shrubs: Blob[] = [
-  { position: [-4.4, 0.45, frontZ], scale: [0.95, 0.7, 0.75] },
-  { position: [-2.4, 0.4, frontZ], scale: [0.8, 0.62, 0.7] },
-  { position: [2.4, 0.4, frontZ], scale: [0.8, 0.62, 0.7] },
-  { position: [4.4, 0.45, frontZ], scale: [0.95, 0.7, 0.75] },
-  { position: [-6.3, 0.5, 2.8], scale: [0.9, 0.75, 0.9] },
-  { position: [6.4, 0.45, 3.2], scale: [0.85, 0.65, 0.85] },
+  { position: [-4.4, 0.32, frontZ], scale: [0.72, 0.5, 0.55] },
+  { position: [-2.3, 0.28, frontZ], scale: [0.58, 0.44, 0.5] },
+  { position: [2.3, 0.28, frontZ], scale: [0.58, 0.44, 0.5] },
+  { position: [4.4, 0.32, frontZ], scale: [0.72, 0.5, 0.55] },
+  { position: [-6.4, 0.36, 2.6], scale: [0.66, 0.52, 0.66] },
+  { position: [6.5, 0.32, 3.2], scale: [0.6, 0.46, 0.6] },
 ];
 
 const trees: { position: Vec3Tuple; height: number }[] = [
-  { position: [-10.5, 0, -6.5], height: 7.4 },
+  { position: [-9.5, 0, -8.5], height: 7.4 },
   { position: [11.5, 0, -7.5], height: 8.6 },
-  { position: [-13.5, 0, 3.5], height: 6.2 },
+  { position: [5, 0, -12], height: 6.6 },
 ];
 
 /** Each tree crown is a few overlapping, slightly irregular blobs. */
@@ -73,7 +73,7 @@ export function Grounds({ materials }: { materials: HouseMaterials }) {
   const geometry = useDisposable(
     () => ({
       lawn: new CircleGeometry(GROUND_RADIUS, 64).rotateX(-Math.PI / 2),
-      foliage: new IcosahedronGeometry(1, 1),
+      foliage: new IcosahedronGeometry(1, 2),
       trunk: new CylinderGeometry(0.12, 0.18, 1, 8).translate(0, 0.5, 0),
     }),
   );

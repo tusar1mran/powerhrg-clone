@@ -57,7 +57,7 @@ const materialDefinitions = {
   // Insulation chapter.
   joists: { group: "Insulation", color: "#c7a174", roughness: 0.85 },
   atticFloor: { group: "Insulation", color: "#d9d3c7", roughness: 0.9 },
-  insulation: { group: "Insulation", color: "#ffffff", roughness: 1 },
+  insulation: { group: "Insulation", color: "#e2d8c6", roughness: 1 },
   sealant: { group: "Insulation", color: "#f0ad3c", roughness: 0.5, glow: ["#f0ad3c", 0.35, 0.6] },
   // Accessories chapter.
   trim: { group: "Accessories", color: "#f2f0ea", roughness: 0.6 },

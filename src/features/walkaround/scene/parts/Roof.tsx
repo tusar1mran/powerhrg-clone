@@ -24,11 +24,15 @@ const { roofLength, slopeLength, ridgeHeight } = houseSpec;
 
 type RoofLayerKey = "deck" | "underlayment" | "shingles";
 
-/** Offset of each layer's underside from the rafter line, and how far it lifts when exploded. */
-const layerStack: Record<RoofLayerKey, { offset: number; lift: number }> = {
-  deck: { offset: 0, lift: 0 },
-  underlayment: { offset: roofLayerThickness.deck, lift: 0.85 },
-  shingles: { offset: roofLayerThickness.deck + roofLayerThickness.underlayment, lift: 1.8 },
+/**
+ * Offset of each layer's underside from the rafter line, and how it moves when exploded: `lift`
+ * along the slope normal, and `slide` along the ridge so each layer's end steps back from the one
+ * below it, like a cutaway drawing.
+ */
+const layerStack: Record<RoofLayerKey, { offset: number; lift: number; slide: number }> = {
+  deck: { offset: 0, lift: 0, slide: 0 },
+  underlayment: { offset: roofLayerThickness.deck, lift: 0.85, slide: -0.9 },
+  shingles: { offset: roofLayerThickness.deck + roofLayerThickness.underlayment, lift: 1.8, slide: -1.9 },
 };
 
 const RIDGE_VENT_LIFT = 2.9;
@@ -90,8 +94,9 @@ function SlopeLayer({ side, layer, geometry, material, fades, children }: SlopeL
       return;
     }
     const { roofExplode, atticReveal } = frameRef.current.effects;
-    const lift = layerStack[layer].lift * roofExplode + (fades ? ATTIC_LIFT * atticReveal : 0);
-    group.position.set(0, normal[1] * lift, normal[2] * lift);
+    const { lift: layerLift, slide } = layerStack[layer];
+    const lift = layerLift * roofExplode + (fades ? ATTIC_LIFT * atticReveal : 0);
+    group.position.set(slide * roofExplode, normal[1] * lift, normal[2] * lift);
     if (fades) {
       applyFade(group, material, atticReveal);
     }

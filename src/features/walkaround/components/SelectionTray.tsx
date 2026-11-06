@@ -27,7 +27,7 @@ export function SelectionTray() {
         aria-label={selectionTray.label}
         inert={!open}
         className={cn(
-          "dark fixed inset-x-3 top-[7.5rem] z-40 transition-all duration-300 lg:inset-x-auto lg:top-auto lg:right-10 lg:bottom-8 lg:w-[400px]",
+          "dark fixed inset-x-3 top-[7.5rem] z-40 text-foreground transition-all duration-300 lg:inset-x-auto lg:top-auto lg:right-10 lg:bottom-8 lg:w-[400px]",
           open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0 lg:translate-y-2",
         )}
       >

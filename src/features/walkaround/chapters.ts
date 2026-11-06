@@ -17,21 +17,21 @@ export type Chapter = {
   pose: CameraPose;
 };
 
-const introPose: CameraPose = { position: [-15.5, 6.2, 19.5], target: [0.4, 3.9, 0] };
+const introPose: CameraPose = { position: [-19.5, 7.4, 25.5], target: [0.8, 4.4, 0] };
 
 const servicePoses: Record<ServiceName, CameraPose> = {
   // Front, slightly to the right, at second-floor height so both rows of windows read.
-  Windows: { position: [7.5, 5.2, 14.5], target: [-0.6, 3.6, 2.5] },
+  Windows: { position: [9, 5.4, 20.5], target: [-0.3, 3.5, 2] },
   // High three-quarter view so the separated layers stack up above the roof.
-  Roofing: { position: [15.5, 15.5, 15.5], target: [0, 7.6, 0] },
+  Roofing: { position: [18, 18.5, 21], target: [0, 8.4, 0] },
   // Square on to the right-hand wall, which is the one that peels apart.
-  Siding: { position: [19, 5.4, 7.5], target: [4.8, 3.6, 0] },
+  Siding: { position: [25.5, 7, 12.5], target: [4.6, 4.1, -0.6] },
   // Low and close on the entry door.
-  Doors: { position: [3.4, 2.4, 11.5], target: [0, 1.9, 3.6] },
+  Doors: { position: [4.4, 2.7, 14.5], target: [0, 1.9, 3.6] },
   // Above and in front, looking down into the attic once the roof lifts away.
-  Insulation: { position: [1.5, 17.5, 12.5], target: [0, 6.2, -0.2] },
-  // Front-left corner, where the gutters, downspout, trim and shutters meet.
-  Accessories: { position: [-13, 5.6, 11.5], target: [-3.2, 4.2, 2.6] },
+  Insulation: { position: [2, 23, 18], target: [0, 6.2, -0.3] },
+  // Front-right corner, where the gutters, downspout, corner boards and fascia meet.
+  Accessories: { position: [17.5, 6.2, 17], target: [3.6, 4.6, 2.2] },
 };
 
 export const chapters: readonly Chapter[] = [

@@ -19,7 +19,7 @@ export function QuoteToggle({ service }: { service: ServiceName }) {
       variant={inQuote ? "default" : "outline"}
       aria-pressed={inQuote}
       onClick={() => toggleService(service)}
-      className={cn("h-11 rounded-full px-5 text-[14px] font-semibold", !inQuote && "border-white/20 bg-white/5")}
+      className={cn("h-10 rounded-full px-4 text-[13px] font-semibold sm:h-11 sm:px-5 sm:text-[14px]", !inQuote && "border-white/20 bg-white/5")}
     >
       {inQuote ? <CheckIcon data-icon="inline-start" /> : <PlusIcon data-icon="inline-start" />}
       {inQuote ? walkaroundChrome.inQuote : walkaroundChrome.addToQuote}
