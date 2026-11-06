@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
 import ProductIntro from "@/components/services/ProductIntro";
 import Guarantee from "@/components/services/Guarantee";
@@ -24,7 +22,6 @@ export const metadata: Metadata = {
 export default function WindowsPage() {
   return (
     <>
-      <Header transparentAtTop={false} />
       <main id="main">
         <Hero {...windowsHero} ctaHref="#product" ctaLabel="Explore windows" />
         <ProductIntro {...windowsIntro} features={windowsFeatures} />
@@ -32,7 +29,6 @@ export default function WindowsPage() {
         <CtaBand {...windowsCta} />
         <Faq faqs={windowsFaqs} />
       </main>
-      <Footer />
     </>
   );
 }

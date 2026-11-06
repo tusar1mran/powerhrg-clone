@@ -61,8 +61,13 @@ export const explorerCopy = {
     selected: "In your quote. Pick again to remove.",
   },
   legendTitle: "Parts of the house",
+  /** Lettering along the top edge of the drawing frame. */
+  sheet: {
+    title: "Sheet 01 · Your house",
+    scale: "Front elevation",
+  },
   /** Shown under the drawing until a part is highlighted, like a drawing-sheet caption. */
-  figureNote: "Fig. 1 · Front elevation · Not to scale",
+  figureNote: "Fig. 1 · Not to scale",
   tray: {
     title: "Your quote",
     empty: "Nothing picked yet. Choose parts on the house or in the list.",
@@ -91,6 +96,8 @@ export type StoryChapter<K extends string> = {
   text: string;
   href: string;
   linkLabel: string;
+  /** Lettering under the exploded diagram. */
+  figureLabel: string;
   notes: Record<K, LayerNote>;
 };
 
@@ -101,6 +108,7 @@ export const roofStory: StoryChapter<RoofLayer> = {
   text: roofingIntro.text,
   href: serviceHref("Roofing"),
   linkLabel: "Roofing in detail",
+  figureLabel: "Fig. 2 · Roof system, exploded",
   notes: {
     deck: note(roofingFeatures, "Deck inspection"),
     barrier: note(roofingFeatures, "Ice-and-water barrier"),
@@ -118,6 +126,7 @@ export const wallStory: StoryChapter<WallLayer> = {
   text: sidingIntro.text,
   href: serviceHref("Siding"),
   linkLabel: "Siding in detail",
+  figureLabel: "Fig. 3 · Wall, exploded",
   notes: {
     sheathing: note(sidingFeatures, "Walls checked first"),
     wrap: note(sidingFeatures, "House wrap"),
@@ -134,6 +143,7 @@ export const atticStory: StoryChapter<AtticLayer> = {
   text: insulationIntro.text,
   href: serviceHref("Insulation"),
   linkLabel: "Insulation in detail",
+  figureLabel: "Fig. 4 · Attic floor, exploded",
   notes: {
     airSeal: note(insulationFeatures, "Air sealing first"),
     insulation: note(insulationFeatures, "Blown-in insulation"),

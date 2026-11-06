@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useTransition, type ReactNode } from "react";
+import { Suspense, useCallback, useState, useTransition, type ReactNode } from "react";
 import { useForm, type DefaultValues, type FieldError } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Reveal from "../Reveal";
+import QuotePrefill from "./QuotePrefill";
 import { submitContact } from "@/lib/contact/actions";
 import {
   contactSchema,
@@ -12,6 +13,8 @@ import {
   type ContactInput,
   type ContactValues,
 } from "@/lib/contact/schema";
+import type { QuotePrefill as QuotePrefillValue } from "@/lib/quote/prefill";
+import { quotePrefillMessage } from "@/lib/support-content";
 
 type Props = {
   id?: string;
@@ -57,7 +60,8 @@ function Field({ label, error, errorId, children }: { label: string; error?: Fie
 }
 
 // Free-quote / contact form. Validates in the browser with the shared zod schema, then calls the
-// submitContact Server Action, which validates again and emails the office.
+// submitContact Server Action, which validates again and emails the office. Services picked on the
+// homepage house arrive as ?service=... in the URL and pre-fill the form (see QuotePrefill).
 export default function ContactForm({ id = "quote", title, intro, consent, submit, success }: Props) {
   const [sent, setSent] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
@@ -67,12 +71,27 @@ export default function ContactForm({ id = "quote", title, intro, consent, submi
     register,
     handleSubmit,
     setError,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm<ContactInput, unknown, ContactValues>({
     resolver: zodResolver(contactSchema),
     defaultValues,
     mode: "onTouched",
   });
+
+  // One service selects it directly; several select "More than one" and list them in the message,
+  // unless the visitor has already started writing one.
+  const applyPrefill = useCallback(
+    (prefill: QuotePrefillValue) => {
+      setValue("service", prefill.service, { shouldDirty: true });
+      const message = getValues("message") ?? "";
+      if (prefill.services.length > 1 && message.trim() === "") {
+        setValue("message", quotePrefillMessage(prefill.services), { shouldDirty: true });
+      }
+    },
+    [setValue, getValues],
+  );
 
   const onSubmit = (values: ContactValues) => {
     setFormError(null);
@@ -111,6 +130,9 @@ export default function ContactForm({ id = "quote", title, intro, consent, submi
           <>
             {intro && <p className="mx-auto mb-8 max-w-[640px] text-center text-[16px] leading-[1.45] xl:text-[18px]">{intro}</p>}
             <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
+              <Suspense fallback={null}>
+                <QuotePrefill onPrefill={applyPrefill} />
+              </Suspense>
               <div className="grid gap-6 md:grid-cols-2">
                 <Field label="Name (required)" error={errors.name} errorId={`${id}-name-error`}>
                   <input

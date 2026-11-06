@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import Process from "@/components/Process";
 import SplitRow from "@/components/SplitRow";
 import Faq from "@/components/services/Faq";
@@ -20,7 +18,6 @@ export const metadata: Metadata = {
 export default function SupportPage() {
   return (
     <>
-      <Header transparentAtTop={false} />
       <main id="main">
         <PageIntro {...supportIntro} />
         <ContactOptions {...contactOptions} />
@@ -30,7 +27,6 @@ export default function SupportPage() {
         <SplitRow variant="contained" {...licenses} />
         <ContactForm {...contactForm} />
       </main>
-      <Footer />
     </>
   );
 }

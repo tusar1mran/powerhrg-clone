@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ServicesCarousel from "@/components/ServicesCarousel";
 import ImageCardPair from "@/components/ImageCardPair";
 import CtaBand from "@/components/CtaBand";
-import Footer from "@/components/Footer";
 import SameAddress from "@/components/services/SameAddress";
 import Faq from "@/components/services/Faq";
 import { faqs, reasons, servicesCta, servicesHero } from "@/lib/services-content";
@@ -18,7 +16,6 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <Header transparentAtTop={false} />
       <main id="main">
         <Hero {...servicesHero} overlay />
         <ServicesCarousel />
@@ -27,7 +24,6 @@ export default function ServicesPage() {
         <CtaBand {...servicesCta} />
         <Faq faqs={faqs} />
       </main>
-      <Footer />
     </>
   );
 }
