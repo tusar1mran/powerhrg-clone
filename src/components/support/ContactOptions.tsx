@@ -7,31 +7,39 @@ import { site } from "@/lib/site";
 type Copy = { title: string; text: string };
 type Props = { phone: Copy; email: Copy; quote: Copy & { label: string } };
 
-type Option = { icon: LucideIcon; title: string; text: string; action: { label: string; href: string } };
+type Option = { icon: LucideIcon; title: string; text: string; action: { label: string; href: string }; featured?: boolean };
 
-// Three ways to reach us, right under the /support intro.
 export default function ContactOptions({ phone, email, quote }: Props) {
   const options: Option[] = [
     { icon: Phone, title: phone.title, text: phone.text, action: { label: site.phone.display, href: site.phone.href } },
     { icon: Mail, title: email.title, text: email.text, action: { label: site.email, href: `mailto:${site.email}` } },
-    { icon: ClipboardCheck, title: quote.title, text: quote.text, action: { label: quote.label, href: links.quote } },
+    { icon: ClipboardCheck, title: quote.title, text: quote.text, action: { label: quote.label, href: links.quote }, featured: true },
   ];
 
   return (
-    <section className="bg-white px-6 pb-16 text-navy">
-      <ul className="mx-auto grid max-w-[1150px] gap-4 md:grid-cols-3">
+    <section className="pb-8">
+      <ul className="container-page grid gap-4 md:grid-cols-3 lg:gap-5">
         {options.map((o, i) => (
           <li key={o.title}>
-            <Reveal delay={i * 100} className="h-full bg-sky-soft px-8 py-10">
-              <o.icon aria-hidden strokeWidth={1.5} className="h-9 w-9" />
-              <h2 className="mt-4 text-[13px] font-bold tracking-[3px] uppercase lg:text-[14px] lg:tracking-[4.2px]">{o.title}</h2>
-              <p className="mt-3 text-[15px] leading-[24px]">{o.text}</p>
+            <Reveal
+              delay={i * 90}
+              className={`flex h-full flex-col rounded-[var(--radius-card)] p-7 lg:p-8 ${
+                o.featured ? "on-dark bg-brand text-on-brand" : "border border-line bg-white text-ink"
+              }`}
+            >
+              <span
+                className={`flex h-12 w-12 items-center justify-center rounded-2xl ${o.featured ? "bg-accent text-ink" : "bg-accent-soft text-accent-ink"}`}
+              >
+                <o.icon aria-hidden strokeWidth={1.75} className="h-6 w-6" />
+              </span>
+              <h2 className="mt-5 text-[19px] font-bold">{o.title}</h2>
+              <p className={`mt-2 flex-1 text-[15.5px] leading-relaxed ${o.featured ? "text-on-brand/75" : "text-muted"}`}>{o.text}</p>
               {o.action.href.startsWith("/") ? (
-                <Link href={o.action.href} className="link-underline mt-5 break-all">
+                <Link href={o.action.href} className="link-underline mt-6 self-start break-all">
                   {o.action.label}
                 </Link>
               ) : (
-                <a href={o.action.href} className="link-underline mt-5 break-all">
+                <a href={o.action.href} className="link-underline mt-6 self-start break-all">
                   {o.action.label}
                 </a>
               )}

@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export default function SidingPage() {
   return (
     <>
-      <Header transparentAtTop={false} />
+      <Header />
       <main id="main">
         <Hero {...sidingHero} ctaHref="#product" ctaLabel="Explore siding" />
         <ProductIntro {...sidingIntro} features={sidingFeatures} />

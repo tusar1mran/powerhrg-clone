@@ -1,24 +1,30 @@
 @import "tailwindcss";
 
-/*
-  Shah & Crew design tokens. The type is Jost, a free geometric sans (SIL OFL) that also sets the logo wordmark.
-*/
 @theme {
-  --color-navy: #102f48;       /* headings, footer, process band, logo */
-  --color-navy-700: #2c4760;   /* "Our promise" background */
-  --color-lime: #ddfe5c;       /* hero title, CTA button, accents, logo roof */
-  --color-sky: #a5c1f5;        /* promise panel, CTA bands */
-  --color-sky-soft: #e4ecfc;   /* trust points, FAQ box, contact cards */
-  --color-slate: #c5cbd3;      /* photo placeholder while loading */
-  --color-ink: #1a1a1a;        /* body copy */
+  --color-brand: #1f3a30;
+  --color-brand-soft: #2c4a3e;
+  --color-brand-deep: #152a22;
+  --color-accent: #e07a3f;
+  --color-accent-strong: #c9652c;
+  --color-accent-ink: #a14f1c;
+  --color-accent-soft: #f6e1d1;
+  --color-sand: #ebe2d4;
+  --color-cream: #f4efe6;
+  --color-paper: #fbf9f5;
+  --color-line: #e3dacb;
+  --color-ink: #1b1f1c;
+  --color-muted: #5c645e;
+  --color-on-brand: #f4efe6;
+  --color-danger: #b42318;
 
-  --font-sans: var(--font-jost), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
 
-  /* Letter-spacing used across the site */
-  --tracking-hero: 10px;
-  --tracking-section: 18px;
-  --tracking-card: 5px;
-  --tracking-label: 2.8px;
+  --radius-card: 1.25rem;
+  --radius-panel: 2rem;
+
+  --shadow-card: 0 1px 2px rgb(27 31 28 / 0.04), 0 12px 32px -12px rgb(27 31 28 / 0.18);
+  --shadow-float: 0 24px 60px -20px rgb(21 42 34 / 0.45);
 
   --breakpoint-3xl: 108rem;
 }
@@ -26,87 +32,12 @@
 @keyframes dropdown-in {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: translateY(-6px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: none;
   }
-}
-
-a.underline,
-.hover\:underline:hover,
-.focus\:underline:focus,
-.group:hover .group-hover\:underline,
-.group:focus .group-focus\:underline {
-  text-decoration-line: underline;
-}
-
-html {
-  scroll-behavior: smooth;
-  color-scheme: only light;
-}
-
-a[href],
-button:not(:disabled),
-[role="button"],
-[role="tab"],
-select,
-summary,
-label[for],
-label:has(> input[type="checkbox"]),
-input[type="checkbox"] {
-  cursor: pointer;
-}
-
-body {
-  background: #fff;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-}
-
-.on-dark {
-  --link-rest: var(--color-lime);
-  --link-sweep: var(--color-sky);
-}
-
-/* Small uppercase label with a lime underline - "EXPLORE SERVICES", "VIEW BILL OF RIGHTS" etc. */
-@utility link-underline {
-  position: relative;
-  display: inline-block;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.5rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  &::after,
-  &::before {
-    content: "";
-    display: block;
-    height: 2px;
-    width: calc(100% - 0.3em);
-  }
-  &::after {
-    margin-top: 0.25rem;
-    background-color: var(--link-rest, var(--color-navy));
-  }
-  &::before {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background-color: var(--link-sweep, var(--color-lime));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  &:hover::before {
-    transform: scaleX(1);
-  }
-}
-
-a:hover .link-underline::before,
-a:focus-visible .link-underline::before {
-  transform: scaleX(1);
 }
 
 @keyframes fade-in {
@@ -121,12 +52,202 @@ a:focus-visible .link-underline::before {
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 24px, 0);
   }
   to {
     opacity: 1;
-    transform: translateZ(0);
+    transform: none;
   }
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: only light;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+a[href],
+button:not(:disabled),
+[role="button"],
+[role="tab"],
+select,
+summary,
+label[for],
+label:has(> input[type="checkbox"]),
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
+}
+
+.on-dark {
+  --btn-hover-bg: var(--color-paper);
+  --btn-hover-fg: var(--color-ink);
+  --link-line: var(--color-accent);
+}
+
+@utility container-page {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1280px;
+  padding-inline: 1.25rem;
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility inset-panel {
+  margin-inline: 0.75rem;
+  border-radius: var(--radius-panel);
+  @media (width >= 40rem) {
+    margin-inline: 1.25rem;
+  }
+}
+
+@utility display-1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 6.2vw, 5.75rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+}
+
+@utility display-2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 4.2vw, 3.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+}
+
+@utility display-3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 72, "SOFT" 30;
+}
+
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  &::before {
+    content: "";
+    width: 1.5rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-accent);
+  }
+}
+
+@utility lead {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  @media (width >= 64rem) {
+    font-size: 1.1875rem;
+  }
+}
+
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.25rem;
+  padding: 0 1.6rem;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease,
+    transform 200ms ease;
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+@utility btn-accent {
+  background: var(--color-accent);
+  color: var(--color-ink);
+  &:hover,
+  &:focus-visible {
+    background: var(--btn-hover-bg, var(--color-ink));
+    color: var(--btn-hover-fg, var(--color-paper));
+  }
+}
+
+@utility btn-brand {
+  background: var(--color-brand);
+  color: var(--color-on-brand);
+  &:hover,
+  &:focus-visible {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+}
+
+@utility btn-ghost {
+  border: 1.5px solid currentColor;
+  &:hover,
+  &:focus-visible {
+    background: var(--btn-hover-bg, var(--color-ink));
+    border-color: var(--btn-hover-bg, var(--color-ink));
+    color: var(--btn-hover-fg, var(--color-paper));
+  }
+}
+
+@utility link-underline {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.25rem;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+  background-image: linear-gradient(var(--link-line, var(--color-accent)), var(--link-line, var(--color-accent)));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 2px;
+  transition: background-size 250ms ease;
+  &::after {
+    content: "→";
+    transition: transform 250ms ease;
+  }
+  &:hover::after,
+  &:focus-visible::after {
+    transform: translateX(4px);
+  }
+}
+
+a:hover .link-underline::after,
+a:focus-visible .link-underline::after {
+  transform: translateX(4px);
 }
 
 .reveal {
@@ -134,18 +255,22 @@ a:focus-visible .link-underline::before {
 }
 .reveal.is-visible {
   opacity: 1;
-  animation-name: fade-in;
+  animation-name: fade-in-up;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
   animation-fill-mode: both;
 }
 
 .fade-in-up {
-  animation: fade-in-up 1s both;
+  animation: fade-in-up 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 .fade-in-up-delay {
-  animation: fade-in-up 1s 1s both;
+  animation: fade-in-up 900ms 250ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   .reveal,
   .reveal.is-visible,
   .fade-in-up,
@@ -154,4 +279,39 @@ a:focus-visible .link-underline::before {
     animation-duration: 1ms !important;
     animation-delay: 0s !important;
   }
+}
+
+@utility scrim-hero {
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-brand-deep) 94%, transparent) 0%,
+    color-mix(in srgb, var(--color-brand-deep) 72%, transparent) 55%,
+    color-mix(in srgb, var(--color-brand-deep) 35%, transparent) 100%
+  );
+  @media (width >= 64rem) {
+    background: linear-gradient(
+      100deg,
+      color-mix(in srgb, var(--color-brand-deep) 90%, transparent) 0%,
+      color-mix(in srgb, var(--color-brand-deep) 60%, transparent) 42%,
+      color-mix(in srgb, var(--color-brand-deep) 5%, transparent) 75%
+    );
+  }
+}
+
+@utility scrim-card {
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-brand-deep) 90%, transparent) 0%,
+    color-mix(in srgb, var(--color-brand-deep) 35%, transparent) 55%,
+    color-mix(in srgb, var(--color-brand-deep) 5%, transparent) 100%
+  );
+}
+
+@utility scrim-band {
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-brand-deep) 95%, transparent) 0%,
+    color-mix(in srgb, var(--color-brand-deep) 60%, transparent) 50%,
+    color-mix(in srgb, var(--color-brand-deep) 20%, transparent) 100%
+  );
 }

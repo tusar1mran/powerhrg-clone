@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function PrivacyNoticePage() {
   return (
     <>
-      <Header transparentAtTop={false} />
+      <Header />
       <main id="main">
         <LegalDocument title={privacyTitle} blocks={privacyBlocks} />
       </main>

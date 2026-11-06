@@ -23,9 +23,11 @@ type Props = {
 };
 
 const field =
-  "h-16 w-full border-0 border-b-4 border-sky bg-white px-3 text-[20px] leading-7 text-navy outline-none placeholder:text-navy/60 focus:border-navy aria-[invalid=true]:border-[#b42318]";
+  "h-13 w-full rounded-xl border border-line bg-paper px-4 text-[16px] text-ink outline-none transition-colors placeholder:text-muted/70 hover:border-ink/30 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/15 aria-[invalid=true]:border-danger";
 
 // "service" and "consent" start empty, so the select shows its prompt and the box is unchecked.
+const nextSteps = ["We call to book a time that suits you", "We measure and inspect on site", "You get an itemized written quote"];
+
 const defaultValues: DefaultValues<ContactInput> = {
   name: "",
   email: "",
@@ -40,7 +42,7 @@ function FieldMessage({ id, error }: { id: string; error?: FieldError }) {
     return null;
   }
   return (
-    <p id={id} className="mt-2 text-[14px] text-[#b42318]">
+    <p id={id} className="mt-2 text-[14px] text-danger">
       {error.message}
     </p>
   );
@@ -49,7 +51,7 @@ function FieldMessage({ id, error }: { id: string; error?: FieldError }) {
 function Field({ label, error, errorId, children }: { label: string; error?: FieldError; errorId: string; children: ReactNode }) {
   return (
     <label className="block">
-      <span className="sr-only">{label}</span>
+      <span className="mb-2 block text-[14px] font-bold text-ink">{label}</span>
       {children}
       <FieldMessage id={errorId} error={error} />
     </label>
@@ -98,18 +100,31 @@ export default function ContactForm({ id = "quote", title, intro, consent, submi
   const describedBy = (name: keyof ContactValues) => (errors[name] ? `${id}-${name}-error` : undefined);
 
   return (
-    <section id={id} className="scroll-mt-24 bg-sky-soft px-6 py-6 text-navy lg:bg-white lg:py-24">
-      <Reveal className="mx-auto max-w-[1150px] md:bg-sky-soft lg:px-20 lg:py-10">
-        <h2 className="mb-4 text-center text-[22px] leading-[1.3] font-light tracking-[2px] uppercase lg:text-[30px] lg:tracking-[3px] xl:text-[47px] xl:tracking-[5px]">
-          {sent ? success.title : title}
-        </h2>
+    <section id={id} className="scroll-mt-24 py-4">
+      <div className="inset-panel bg-cream">
+        <Reveal className="container-page grid gap-10 py-16 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:py-24">
+          <div>
+            <p className="eyebrow text-accent-ink">Free estimate</p>
+            <h2 className="display-2 mt-4 text-brand">{sent ? success.title : title}</h2>
+            {!sent && intro && <p className="lead mt-5 max-w-[440px] text-muted">{intro}</p>}
+            <ol className="mt-8 space-y-4">
+              {nextSteps.map((step, i) => (
+                <li key={step} className="flex items-center gap-4 text-[16px] text-ink">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white font-display text-[16px] text-accent-ink">
+                    {i + 1}
+                  </span>
+                  {step}
+                </li>
+              ))}
+            </ol>
+          </div>
+          <div className="rounded-[var(--radius-card)] bg-white p-6 shadow-[var(--shadow-card)] sm:p-8 lg:p-10">
         {sent ? (
-          <p role="status" className="pb-10 text-center text-[16px] xl:text-[20px]">
+          <p role="status" className="lead text-ink">
             {success.text}
           </p>
         ) : (
           <>
-            {intro && <p className="mx-auto mb-8 max-w-[640px] text-center text-[16px] leading-[1.45] xl:text-[18px]">{intro}</p>}
             <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
               <div className="grid gap-6 md:grid-cols-2">
                 <Field label="Name (required)" error={errors.name} errorId={`${id}-name-error`}>
@@ -203,16 +218,16 @@ export default function ContactForm({ id = "quote", title, intro, consent, submi
                     type="checkbox"
                     aria-invalid={errors.consent ? true : undefined}
                     aria-describedby={describedBy("consent")}
-                    className="mt-[2px] h-5 w-5 shrink-0 rounded-sm border-4 border-sky accent-navy"
+                    className="mt-[2px] h-5 w-5 shrink-0 accent-brand"
                     {...register("consent")}
                   />
-                  <span className="text-[13px] leading-[19px]">{consent}</span>
+                  <span className="text-[13px] leading-[19px] text-muted">{consent}</span>
                 </label>
                 <FieldMessage id={`${id}-consent-error`} error={errors.consent} />
               </div>
 
               {formError && (
-                <p role="alert" className="text-[15px] text-[#b42318]">
+                <p role="alert" className="text-[15px] text-danger">
                   {formError}
                 </p>
               )}
@@ -220,14 +235,16 @@ export default function ContactForm({ id = "quote", title, intro, consent, submi
               <button
                 type="submit"
                 disabled={pending}
-                className="bg-lime px-4 py-3 text-[14px] leading-5 font-bold tracking-[0.3em] text-navy uppercase transition-colors hover:bg-navy hover:text-lime disabled:cursor-wait disabled:opacity-60 lg:px-8 lg:py-6"
+                className="btn btn-accent w-full disabled:cursor-wait disabled:opacity-60 sm:w-auto"
               >
                 {pending ? "Sending…" : submit}
               </button>
             </form>
           </>
         )}
-      </Reveal>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }

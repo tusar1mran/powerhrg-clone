@@ -4,15 +4,14 @@ export type LegalBlock = { h: string; center?: boolean } | { p: Rich } | { list:
 
 type Props = { title: string; blocks: LegalBlock[] };
 
-const container = "mx-auto w-full px-6 sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1280px] 3xl:max-w-[1728px]";
-const text = "mb-5 text-[16px] leading-[1.45] xl:text-[20px]";
-const link = "mb-3 inline-block text-[14px] leading-6 font-bold tracking-[0.3em] text-navy uppercase";
+const text = "mb-5 text-[16.5px] leading-relaxed text-ink/85";
+const link = "font-semibold text-accent-ink underline underline-offset-2 hover:no-underline";
 
 function Block({ block }: { block: LegalBlock }) {
   if ("h" in block) {
     return (
-      <p className={`${text} ${block.center ? "text-center" : ""}`}>
-        <strong role="heading" aria-level={2}>
+      <p className={`mt-10 mb-4 font-display text-[24px] leading-tight text-brand ${block.center ? "text-center" : ""}`}>
+        <strong role="heading" aria-level={2} className="font-normal">
           {block.h}
         </strong>
       </p>
@@ -27,7 +26,7 @@ function Block({ block }: { block: LegalBlock }) {
   }
   if ("list" in block) {
     return (
-      <ul className="mb-4 list-outside list-disc px-4 text-[16px] leading-6">
+      <ul className="mb-5 list-outside list-disc space-y-1 pl-5 text-[16.5px] leading-relaxed text-ink/85 marker:text-accent">
         {block.list.map((item, i) => (
           <li key={i}>
             <RichText value={item} linkClassName={link} />
@@ -38,7 +37,7 @@ function Block({ block }: { block: LegalBlock }) {
   }
   return (
     <>
-      <pre className="overflow-x-auto font-mono text-[16px] leading-6 whitespace-pre text-black">{block.pre}</pre>
+      <pre className="overflow-x-auto rounded-xl bg-cream p-5 font-mono text-[14px] leading-6 whitespace-pre text-ink">{block.pre}</pre>
       <p className="mb-5" />
     </>
   );
@@ -47,15 +46,14 @@ function Block({ block }: { block: LegalBlock }) {
 export default function LegalDocument({ title, blocks }: Props) {
   return (
     <>
-      <section className="bg-white text-navy">
-        <div className={`${container} pt-40 pb-6`}>
-          <h1 className="mb-5 text-[38px] leading-[1.3] font-light tracking-[2px] uppercase lg:text-[60px] lg:tracking-[5px] xl:text-[76px] xl:tracking-[10px] 3xl:tracking-[15px]">
-            {title}
-          </h1>
+      <section className="pt-14 pb-10 lg:pt-24">
+        <div className="container-page">
+          <p className="eyebrow text-accent-ink">Legal</p>
+          <h1 className="display-1 mt-5 max-w-[900px] text-brand">{title}</h1>
         </div>
       </section>
-      <section className="bg-white text-black antialiased">
-        <div className={`${container} pt-6 pb-24`}>
+      <section className="pb-24">
+        <div className="container-page max-w-[880px]! rounded-[var(--radius-card)] border border-line bg-white px-6 py-10 sm:px-10 lg:px-14 lg:py-14">
           {blocks.map((block, i) => (
             <Block key={i} block={block} />
           ))}

@@ -9,7 +9,6 @@ export const roofingHero = {
   title: ["A roof built", "as a system"],
   subtitle: ["Asphalt shingle roof replacement from the deck up,", "with permits, daily cleanup and a final walk-through."],
   image: "/assets/photos/roofing-hero.jpg",
-  overlay: true,
 };
 
 export const roofingIntro = {
@@ -73,7 +72,7 @@ export const roofingCta = {
   text: "We’ll get on the roof, take photos, and send a written quote that spells out every layer. No charge, no pressure.",
   label: "Get a free quote",
   href: links.quote,
-  tone: "sky" as const,
+  tone: "sand" as const,
 };
 
 export const roofingFaqs: FaqGroup[] = [

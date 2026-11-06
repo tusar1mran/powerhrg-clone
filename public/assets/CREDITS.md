@@ -1,24 +1,26 @@
-Stock photos used under licenses that permit commercial use without attribution; replace with Shah & Crew project photos as they become available.
+Photos are from Unsplash and used under the Unsplash License (https://unsplash.com/license), which permits free commercial use without attribution. Credits are listed so the source of each file is traceable. Replace them with Shah & Crew project photos as they become available.
 
-| file | description | source page URL | author (if known) | license |
+| file | description | source page URL | photographer | license |
 |---|---|---|---|---|
-| photos/home-hero.jpg | Blue craftsman-style suburban house with two-car garage at dusk, pastel sky (house number blurred) | https://www.pexels.com/photo/106399/ | unknown | Pexels License |
-| photos/services-hero.jpg | White modern farmhouse with gabled roofs, striped lawn, blue sky | https://www.pexels.com/photo/280222/ | unknown | Pexels License |
-| photos/services-sky.jpg | Hillside residential neighbourhood along the bottom edge under open blue sky | https://www.pexels.com/photo/12996190/ | unknown | Pexels License |
-| photos/about-hero.jpg | Brick ranch house with shutters and US flag between neighbouring homes, blue sky (cropped; address plaque blurred) | https://www.pexels.com/photo/4469163/ | unknown | Pexels License |
-| photos/about-story.jpg | Hands measuring wood with a steel rule on a workbench with carpentry tools | https://www.pexels.com/photo/man-working-with-wood-and-ruler-in-carpentry-studio-5973907/ | unknown | Pexels License |
-| photos/windows-hero.jpg | Modern house with glass doors and panoramic windows, lawn and cloudy sky | https://www.pexels.com/photo/exterior-of-modern-house-with-glass-doors-and-panoramic-windows-7031607/ | unknown | Pexels License |
-| photos/windows-card.jpg | Two white-framed double windows on dark wood siding | https://www.pexels.com/photo/white-glass-windows-9246507/ | unknown | Pexels License |
-| photos/roofing-hero.jpg | Two-storey house with dark asphalt shingle roof, tan shake siding and white garage | https://www.pexels.com/photo/164558/ | unknown | Pexels License |
-| photos/roofing-card.jpg | Brick-and-stone house with brown shingle roof and gables at sunset | https://www.pexels.com/photo/259600/ | unknown | Pexels License |
-| photos/siding-hero.jpg | Grey vinyl lap siding house with stone accents, blue sky | https://www.pexels.com/photo/4469137/ | unknown | Pexels License |
-| photos/siding-card.jpg | Grey vinyl-sided house with attached garage, cloudy sky | https://www.pexels.com/photo/4469136/ | unknown | Pexels License |
-| photos/doors-hero.jpg | White clapboard house with red front door and picket fence in autumn | https://www.pexels.com/photo/1029599/ | unknown | Pexels License |
-| photos/doors-card.jpg | Green-sided house with dark wood front door, porch lantern and bench (cropped; door sign blurred) | https://www.pexels.com/photo/18280833/ | unknown | Pexels License |
-| photos/insulation-hero.jpg | Worker in protective suit blowing insulation in a wooden attic | https://commons.wikimedia.org/wiki/File:Insulating_attic_(49525467656).jpg | USFWS Mountain Prairie | Public domain (US Government work) |
-| photos/insulation-card.jpg | Installer fitting fibreglass batts and foil barrier in an attic | https://commons.wikimedia.org/wiki/File:Installing_installation_in_an_attic_(9337).jpg | The EnergySmart Academy | CC0 |
-| photos/accessories-hero.jpg | Two-storey house with shutters and covered front porch, cloudy blue sky | https://www.pexels.com/photo/4469156/ | unknown | Pexels License |
-| photos/accessories-card.jpg | Brick and lap-siding house with black shutters and downspouts | https://www.pexels.com/photo/209296/ | unknown | Pexels License |
-| photos/guarantee.jpg | Brick colonial house with white garage doors and landscaped beds | https://www.pexels.com/photo/4469158/ | unknown | Pexels License |
-| photos/card-licenses.jpg | Hands signing a document on a clipboard (text not legible) | https://www.pexels.com/photo/mains-stylo-ecrite-porter-7489095/ | unknown | Pexels License |
-| photos/card-warranty.jpg | Stone and siding house with shingle roof and garage | https://www.pexels.com/photo/3555615/ | unknown | Pexels License |
+| photos/home-hero.jpg | Modern house with large windows at dusk | https://unsplash.com/photos/cUoXTLVFQ9M | Michael Brown | Unsplash License |
+| photos/services-hero.jpg | Cape Cod style house with dormers, porch and garage | https://unsplash.com/photos/white-and-gray-house-near-green-grass-field-IWl2oD_16lI | Roger Starnes Sr | Unsplash License |
+| photos/services-sky.jpg | Aerial view of a row of houses and trees | https://unsplash.com/photos/63QXU8HtxTQ | K C | Unsplash License |
+| photos/about-hero.jpg | White house with green lawn and trees | https://unsplash.com/photos/white-house-with-green-lawn-and-trees-W8z6aiwfi1E | Ian MacDonald | Unsplash License |
+| photos/about-story.jpg | Hands marking a wooden board with a pencil | https://unsplash.com/photos/person-marking-wooden-board-with-pencil-GfYA6q5ESLI | Craft Kitties | Unsplash License |
+| photos/windows-hero.jpg | Glass-fronted modern house lit at dusk | https://unsplash.com/photos/yFV39g6AZ5o | Stephan Bechert | Unsplash License |
+| photos/windows-card.jpg | Dormer window on a house with tan siding | https://unsplash.com/photos/brown-wooden-house-under-white-sky-during-daytime-jlEMgez5Lr4 | Erik Mclean | Unsplash License |
+| photos/roofing-hero.jpg | Roofer fastening shingles with a power nailer | https://unsplash.com/photos/Scaj0T40nFI | Raze Solar | Unsplash License |
+| photos/roofing-card.jpg | Roofer carrying a bundle of shingles across a roof | https://unsplash.com/photos/4XMHsy4Rvi8 | Zohair Mirza | Unsplash License |
+| photos/siding-hero.jpg | White lap-siding house with black front door and porch | https://unsplash.com/photos/a-white-house-with-a-black-front-door-_lfGDMDIJq0 | Amanda Smith | Unsplash License |
+| photos/siding-card.jpg | Close-up of white lap siding | https://unsplash.com/photos/white-wooden-wall-during-daytime-Zjq1UTyT2kE | Jon Moore | Unsplash License |
+| photos/doors-hero.jpg | Black front door on a wooden porch | https://unsplash.com/photos/black-front-door-on-wooden-porch-yGw9lt7MJOE | Eli Chamoun | Unsplash License |
+| photos/doors-card.jpg | Blue porch with a black door and wicker furniture | https://unsplash.com/photos/blue-porch-with-wicker-furniture-XcVm8mn7NUM | Francesca Tosolini | Unsplash License |
+| photos/insulation-hero.jpg | Sunlight through an attic roof | https://unsplash.com/photos/rV9m9-a5_mE | Mika Baumeister | Unsplash License |
+| photos/insulation-card.jpg | Wooden attic with exposed rafters | https://unsplash.com/photos/8JzTjhJWYF0 | Sebastian Herrmann | Unsplash License |
+| photos/accessories-hero.jpg | Siding, downspout and brick chimney detail | https://unsplash.com/photos/a-blue-house-with-a-red-brick-chimney-gvt-wjGk4S4 | Zachary Keimig | Unsplash License |
+| photos/accessories-card.jpg | Blue house with white trim and black roof | https://unsplash.com/photos/a-blue-house-with-white-windows-and-a-black-roof-Vl8HcVhuUt0 | Greg Rosenke | Unsplash License |
+| photos/guarantee.jpg | Modern house exterior lit at night | https://unsplash.com/photos/4vioYQ9Nn9Y | Arthur Baudry | Unsplash License |
+| photos/card-licenses.jpg | Man reviewing blueprints on site | https://unsplash.com/photos/man-reviews-blueprints-at-construction-site-9gCRnfwSkwo | GN Group | Unsplash License |
+| photos/card-warranty.jpg | Tradesperson wearing a leather tool belt | https://unsplash.com/photos/person-wearing-leather-tool-belt-oamw52SCGi0 | Callum Hill | Unsplash License |
+| photos/crew.jpg | Crew building a wooden deck | https://unsplash.com/photos/construction-workers-building-a-wooden-deck-outdoors-Dbn68nqrA14 | Troy Allen | Unsplash License |
+| photos/framing.jpg | Builder in a hard hat on a timber frame | https://unsplash.com/photos/construction-worker-in-hard-hat-on-building-frame-X1P1_EDNnok | Josh Olalde | Unsplash License |

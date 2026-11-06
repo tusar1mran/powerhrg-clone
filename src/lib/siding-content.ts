@@ -8,7 +8,6 @@ export const sidingHero = {
   title: ["Siding with", "a clean finish"],
   subtitle: ["Vinyl, insulated vinyl and fiber cement,", "installed over new house wrap with fresh trim."],
   image: "/assets/photos/siding-hero.jpg",
-  overlay: true,
 };
 
 export const sidingIntro = {
@@ -72,7 +71,7 @@ export const sidingCta = {
   text: "We’ll look at your walls, bring samples and send a written quote for the whole job. No charge, no pressure.",
   label: "Get a free quote",
   href: links.quote,
-  tone: "sky" as const,
+  tone: "sand" as const,
 };
 
 export const sidingFaqs: FaqGroup[] = [

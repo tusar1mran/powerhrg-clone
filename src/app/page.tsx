@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import ServicesCarousel from "@/components/ServicesCarousel";
+import ServicesGrid from "@/components/ServicesGrid";
 import Process from "@/components/Process";
 import TrustPoints from "@/components/TrustPoints";
 import OurPromise from "@/components/OurPromise";
@@ -14,12 +14,12 @@ export default function Home() {
     <>
       <Header />
       <main id="main">
-        <Hero onDark {...homeHero} />
-        <ServicesCarousel />
+        <Hero {...homeHero} />
+        <ServicesGrid />
         <Process {...processSection} />
         <TrustPoints {...trust} />
         <OurPromise {...promise} />
-        <ImageCardPair heading="Get to know us" cards={homeCards} />
+        <ImageCardPair eyebrow="Get to know us" heading="The people behind the work" cards={homeCards} />
         <CtaBand {...homeCta} />
       </main>
       <Footer />

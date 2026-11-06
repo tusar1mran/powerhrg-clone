@@ -1,114 +1,77 @@
 import Link from "next/link";
+import { Check } from "lucide-react";
 import Photo from "./Photo";
 import Reveal from "./Reveal";
 
 type Props = {
-  /** Anchor id, so other pages can link straight to this row (e.g. /support#warranty). */
   id?: string;
   title: string[];
   paragraphs: string[];
   image: string;
   imageAlt?: string;
-  /** Which side the photo sits on. */
   imageSide: "left" | "right";
-  /** Text-side tone. */
-  tone: "blue" | "white" | "sky" | "navy" | "pale";
+  tone: "white" | "cream" | "sand" | "brand";
   cta?: { label: string; href: string; external?: boolean };
   eyebrow?: string;
   bullets?: string[];
   bulletsLabel?: string;
-  capsBullets?: boolean;
-  /**
-   * "bleed": 50/50 full-width row, photo fills its half.
-   * "contained": photo + copy inside the 1150px column.
-   */
-  variant: "bleed" | "contained";
 };
 
-// One alternating image/text row. Pages stack several, flipping imageSide and tone each time.
-export default function SplitRow({
-  id,
-  title,
-  paragraphs,
-  image,
-  imageAlt = "",
-  imageSide,
-  tone,
-  cta,
-  variant,
-  eyebrow,
-  bullets,
-  bulletsLabel,
-  capsBullets = false,
-}: Props) {
-  const bg = { blue: "bg-[#edf3fd]", white: "bg-white", sky: "bg-sky-soft", navy: "bg-navy", pale: "bg-sky/20" }[tone];
-  const ink = tone === "navy" ? "on-dark text-white" : "text-navy";
+const tones = {
+  white: { wrap: "", ink: "text-ink", muted: "text-muted", heading: "text-brand" },
+  cream: { wrap: "inset-panel bg-cream", ink: "text-ink", muted: "text-muted", heading: "text-brand" },
+  sand: { wrap: "inset-panel bg-sand", ink: "text-ink", muted: "text-ink/70", heading: "text-brand" },
+  brand: { wrap: "on-dark inset-panel bg-brand", ink: "text-on-brand", muted: "text-on-brand/75", heading: "text-on-brand" },
+};
 
-  const copy = (
-    <Reveal className={`max-w-[420px] ${ink}`}>
-      {eyebrow && <p className="mb-3 text-[11px] font-bold tracking-[2.8px] uppercase">{eyebrow}</p>}
-      <h2 className="text-[30px] leading-[1.3] font-light tracking-[4px] uppercase lg:text-[47px] lg:tracking-card">
-        {title.map((l) => (
-          <span key={l} className="block">
-            {l}
-          </span>
-        ))}
-      </h2>
-      {paragraphs.map((p) => (
-        <p key={p.slice(0, 24)} className="mt-5 text-[16px] leading-[24px] lg:text-[17px] lg:leading-[26px]">
-          {p}
-        </p>
-      ))}
-      {bulletsLabel && <p className="mt-5 text-[16px] leading-[24px] lg:text-[17px] lg:leading-[26px]">{bulletsLabel}</p>}
-      {bullets && (
-        <ul className={`mt-5 space-y-3 ${capsBullets ? "" : "pl-1"}`}>
-          {bullets.map((b) => (
-            <li
-              key={b}
-              className={`flex gap-3 ${
-                capsBullets ? "text-[12px] font-bold tracking-[3px] uppercase lg:text-[13px]" : "text-[15px] leading-[24px] lg:text-[16px]"
-              }`}
-            >
-              <span aria-hidden>•</span>
-              <span>{b}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-      {cta &&
-        (cta.external ? (
-          <a href={cta.href} target="_blank" rel="noopener noreferrer" className="link-underline relative mt-6">
-            {cta.label}
-          </a>
-        ) : (
-          <Link href={cta.href} className="link-underline relative mt-6">
-            {cta.label}
-          </Link>
-        ))}
-    </Reveal>
-  );
-
-  if (variant === "bleed") {
-    return (
-      <section id={id} className={`grid scroll-mt-24 lg:grid-cols-2 ${bg}`}>
-        <div className={`flex items-center px-6 py-16 lg:min-h-[36vw] lg:px-[10%] ${imageSide === "left" ? "lg:order-2" : ""}`}>{copy}</div>
-        <Photo src={image} label={imageAlt} className={`aspect-[4/3] lg:aspect-auto lg:min-h-[36vw] ${imageSide === "left" ? "lg:order-1" : ""}`} />
-      </section>
-    );
-  }
+export default function SplitRow({ id, title, paragraphs, image, imageAlt = "", imageSide, tone, cta, eyebrow, bullets, bulletsLabel }: Props) {
+  const t = tones[tone];
 
   return (
-    <section id={id} className={`${bg} scroll-mt-24 py-16 lg:py-24`}>
-      {/* the photo always takes the wider column, whichever side it is on */}
-      <div
-        className={`mx-auto grid max-w-[1150px] items-center gap-10 px-6 lg:gap-[110px] ${
-          imageSide === "left" ? "lg:grid-cols-[1.3fr_1fr]" : "lg:grid-cols-[1fr_1.3fr]"
-        }`}
-      >
-        <Reveal className={imageSide === "right" ? "lg:order-2" : ""}>
-          <Photo src={image} label={imageAlt} className="aspect-[660/540] w-full" />
-        </Reveal>
-        <div className={imageSide === "right" ? "lg:order-1" : ""}>{copy}</div>
+    <section id={id} className={`scroll-mt-24 ${tone === "white" ? "py-16 lg:py-24" : "py-4"}`}>
+      <div className={t.wrap}>
+        <div
+          className={`container-page grid items-center gap-10 lg:gap-20 ${tone === "white" ? "" : "py-16 lg:py-24"} ${
+            imageSide === "left" ? "lg:grid-cols-[1.1fr_1fr]" : "lg:grid-cols-[1fr_1.1fr]"
+          }`}
+        >
+          <Reveal className={imageSide === "right" ? "lg:order-2" : ""}>
+            <Photo src={image} label={imageAlt} className="aspect-[5/4] w-full rounded-[var(--radius-card)]" />
+          </Reveal>
+
+          <Reveal delay={120} className={`max-w-[520px] ${t.ink} ${imageSide === "right" ? "lg:order-1" : ""}`}>
+            {eyebrow && <p className={`eyebrow ${tone === "brand" ? "text-on-brand/80" : "text-accent-ink"}`}>{eyebrow}</p>}
+            <h2 className={`display-2 mt-4 ${t.heading}`}>{title.join(" ")}</h2>
+            {paragraphs.map((p) => (
+              <p key={p.slice(0, 24)} className={`mt-5 text-[16.5px] leading-relaxed ${t.muted}`}>
+                {p}
+              </p>
+            ))}
+            {bulletsLabel && <p className="mt-6 text-[16px] font-bold">{bulletsLabel}</p>}
+            {bullets && (
+              <ul className="mt-4 space-y-3">
+                {bullets.map((b) => (
+                  <li key={b} className="flex gap-3 text-[16px] leading-relaxed">
+                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent text-ink">
+                      <Check aria-hidden className="h-3.5 w-3.5" strokeWidth={3} />
+                    </span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {cta &&
+              (cta.external ? (
+                <a href={cta.href} target="_blank" rel="noopener noreferrer" className="link-underline mt-8">
+                  {cta.label}
+                </a>
+              ) : (
+                <Link href={cta.href} className="link-underline mt-8">
+                  {cta.label}
+                </Link>
+              ))}
+          </Reveal>
+        </div>
       </div>
     </section>
   );

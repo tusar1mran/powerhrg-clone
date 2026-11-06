@@ -8,7 +8,6 @@ export const accessoriesHero = {
   title: ["The details", "that finish", "the job"],
   subtitle: ["Gutters, guards, trim, shutters, vents and more,", "on their own or added to a bigger project."],
   image: "/assets/photos/accessories-hero.jpg",
-  overlay: true,
 };
 
 export const accessoriesIntro = {
@@ -72,7 +71,7 @@ export const accessoriesCta = {
   text: "Tell us what you’d like to add or replace. We’ll take a look and send a written quote. No charge, no pressure.",
   label: "Get a free quote",
   href: links.quote,
-  tone: "sky" as const,
+  tone: "sand" as const,
 };
 
 export const accessoriesFaqs: FaqGroup[] = [

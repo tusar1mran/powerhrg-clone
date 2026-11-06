@@ -8,7 +8,6 @@ export const insulationHero = {
   title: ["Seal it,", "then fill it"],
   subtitle: ["Attic air sealing and blown-in insulation", "for rooms that hold their temperature."],
   image: "/assets/photos/insulation-hero.jpg",
-  overlay: true,
 };
 
 export const insulationIntro = {
@@ -72,7 +71,7 @@ export const insulationCta = {
   text: "We’ll check your attic, explain what we find and send a written quote. No charge, no pressure.",
   label: "Get a free quote",
   href: links.quote,
-  tone: "sky" as const,
+  tone: "sand" as const,
 };
 
 export const insulationFaqs: FaqGroup[] = [

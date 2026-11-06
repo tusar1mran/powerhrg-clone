@@ -6,8 +6,6 @@ import { site } from "@/lib/site";
 
 type Point = { icon: LucideIcon; title: string; text: string; link?: { label: string; href: string; external?: boolean } };
 
-// Verifiable commitments in place of reviews or awards: each one is something a homeowner can check
-// or will see in writing. License details come from site.ts.
 function buildPoints(): Point[] {
   return [
     {
@@ -48,32 +46,38 @@ function buildPoints(): Point[] {
   ];
 }
 
-type Props = { title: string; text: string };
+type Props = { eyebrow?: string; title: string; text: string };
 
-export default function TrustPoints({ title, text }: Props) {
+export default function TrustPoints({ eyebrow = "Why homeowners choose us", title, text }: Props) {
   const points = buildPoints();
 
   return (
-    <section className="bg-sky-soft py-20 text-navy lg:py-28">
-      <div className="mx-auto max-w-[1150px] px-6">
-        <Reveal className="max-w-[760px]">
-          <h2 className="text-[28px] font-light tracking-[4px] uppercase lg:text-[40px] lg:tracking-[5px]">{title}</h2>
-          <p className="mt-5 text-[16px] leading-[26px] lg:text-[18px] lg:leading-[28px]">{text}</p>
+    <section className="py-20 lg:py-28">
+      <div className="container-page">
+        <Reveal className="mx-auto max-w-[720px] text-center">
+          <p className="eyebrow text-accent-ink">{eyebrow}</p>
+          <h2 className="display-2 mt-4 text-brand">{title}</h2>
+          <p className="lead mt-5 text-muted">{text}</p>
         </Reveal>
-        <ul className="mt-12 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
           {points.map((p, i) => (
             <li key={p.title}>
-              <Reveal delay={(i % 3) * 100}>
-                <p.icon aria-hidden strokeWidth={1.5} className="h-11 w-11" />
-                <h3 className="mt-4 text-[13px] font-bold tracking-[3px] uppercase lg:text-[14px] lg:tracking-[4.2px]">{p.title}</h3>
-                <p className="mt-3 text-[15px] leading-[24px] lg:text-[16px]">{p.text}</p>
+              <Reveal
+                delay={(i % 3) * 90}
+                className="group flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-white p-7 transition-shadow duration-300 hover:shadow-[var(--shadow-card)] lg:p-8"
+              >
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-soft text-accent-ink transition-colors duration-300 group-hover:bg-accent group-hover:text-ink">
+                  <p.icon aria-hidden strokeWidth={1.75} className="h-7 w-7" />
+                </span>
+                <h3 className="mt-6 text-[19px] font-bold text-ink">{p.title}</h3>
+                <p className="mt-2 flex-1 text-[15.5px] leading-relaxed text-muted">{p.text}</p>
                 {p.link &&
                   (p.link.external ? (
-                    <a href={p.link.href} target="_blank" rel="noopener noreferrer" className="link-underline mt-4">
+                    <a href={p.link.href} target="_blank" rel="noopener noreferrer" className="link-underline mt-5 self-start text-ink">
                       {p.link.label}
                     </a>
                   ) : (
-                    <Link href={p.link.href} className="link-underline mt-4">
+                    <Link href={p.link.href} className="link-underline mt-5 self-start text-ink">
                       {p.link.label}
                     </Link>
                   ))}

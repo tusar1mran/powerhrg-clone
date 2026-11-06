@@ -20,10 +20,10 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <Header transparentAtTop={false} />
+      <Header />
       <main id="main">
         <Hero {...aboutHero} size="short" ctaHref="#story" ctaLabel="How we work" />
-        <SplitRow id="story" variant="contained" imageSide="left" tone="white" {...aboutStory} />
+        <SplitRow id="story" imageSide="left" tone="white" {...aboutStory} />
         <Values id="values" {...aboutValues} />
         <OurPromise {...promise} cta={undefined} />
         <CtaBand {...serviceArea} />

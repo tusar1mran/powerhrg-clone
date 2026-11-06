@@ -131,7 +131,7 @@ export const licenses = {
   image: "/assets/photos/card-licenses.jpg",
   imageAlt: "Signing paperwork on a clipboard",
   imageSide: "right" as const,
-  tone: "sky" as const,
+  tone: "sand" as const,
 };
 
 export const contactForm = {

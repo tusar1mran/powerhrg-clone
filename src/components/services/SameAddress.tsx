@@ -2,51 +2,39 @@ import Reveal from "../Reveal";
 import { sameAddress } from "@/lib/services-content";
 
 type Props = {
+  eyebrow?: string;
   title?: string[];
   text?: string;
   image?: string;
-  /** "tall" = /services "Same house"; "short" = /about story band. */
-  size?: "tall" | "short";
-  /** Body copy alignment: left on /services, centred on /about. */
-  align?: "left" | "center";
-  /** Body copy weight: 400 on /services, 300 on /about. */
-  light?: boolean;
 };
 
-// Full-bleed sky photo with houses at the bottom, lime heading and white copy near the top.
 export default function SameAddress({
+  eyebrow = "The whole house",
   title = sameAddress.title,
   text = sameAddress.text,
   image = sameAddress.image,
-  size = "tall",
-  align = "left",
-  light = false,
 }: Props) {
-  // "short" grows with the viewport, which keeps the rooflines below the copy at every desktop width.
-  const height = size === "tall" ? "min-h-[760px] lg:min-h-[1000px]" : "min-h-[560px] lg:min-h-[calc(414px+21.1vw)]";
-  const pad = size === "tall" ? "pt-24 lg:pt-32" : "pt-20 lg:pt-32";
-
   return (
-    <section
-      className={`flex justify-center bg-[#4a78b5] bg-cover bg-bottom px-6 text-center ${height} ${pad}`}
-      style={{ backgroundImage: `url(${image})` }}
-    >
-      <Reveal className="max-w-[1100px]">
-        <h2 className="text-[34px] leading-[1.35] font-light tracking-[8px] text-lime uppercase lg:text-[63px] lg:tracking-section">
-          {title.map((l) => (
-            <span key={l} className="block">
-              {l}
-            </span>
-          ))}
-        </h2>
-        <p
-          className={`mx-auto mt-8 text-[16px] leading-[26px] text-white lg:text-[20px] lg:leading-[30px] ${
-            align === "left" ? "max-w-[580px] text-left" : "max-w-[700px] text-center"
-          } ${light ? "font-light" : ""}`}
-        >
-          {text}
-        </p>
-      </Reveal>
+    <section className="py-4">
+      <div
+        className="inset-panel relative isolate flex min-h-[560px] items-end overflow-hidden bg-brand bg-cover bg-center text-on-brand lg:min-h-[680px]"
+        style={{ backgroundImage: `url(${image})` }}
+      >
+        <div aria-hidden className="absolute inset-0 -z-10 scrim-band" />
+        <Reveal className="container-page grid gap-8 py-14 lg:grid-cols-2 lg:items-end lg:py-20">
+          <div>
+            <p className="eyebrow text-on-brand/85">{eyebrow}</p>
+            <h2 className="display-1 mt-5">
+              {title.map((l, i) => (
+                <span key={l} className={`block ${i === title.length - 1 ? "text-accent italic" : ""}`}>
+                  {l}
+                </span>
+              ))}
+            </h2>
+          </div>
+          <p className="lead max-w-[560px] text-on-brand/85 lg:justify-self-end">{text}</p>
+        </Reveal>
+      </div>
     </section>
   );
 }

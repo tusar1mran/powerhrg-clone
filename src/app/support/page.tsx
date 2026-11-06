@@ -20,14 +20,14 @@ export const metadata: Metadata = {
 export default function SupportPage() {
   return (
     <>
-      <Header transparentAtTop={false} />
+      <Header />
       <main id="main">
         <PageIntro {...supportIntro} />
         <ContactOptions {...contactOptions} />
         <Faq faqs={supportFaqs} />
         <Process {...processSection} cta={{ label: "Get a free quote", href: "#quote" }} />
-        <SplitRow variant="contained" {...warranty} />
-        <SplitRow variant="contained" {...licenses} />
+        <SplitRow {...warranty} />
+        <SplitRow {...licenses} />
         <ContactForm {...contactForm} />
       </main>
       <Footer />

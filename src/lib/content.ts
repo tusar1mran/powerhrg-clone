@@ -44,7 +44,7 @@ export const searchIndex: NavItem[] = [
   { label: "Licenses & Insurance", href: links.licenses },
 ];
 
-export const headerCta = { label: "Get a Free Quote", href: links.quote };
+export const headerCta = { label: "Get a free quote", href: links.quote };
 
 export const serviceAreaBar = {
   text: `Free, no-obligation estimates across ${site.serviceArea}.`,
@@ -52,10 +52,11 @@ export const serviceAreaBar = {
 };
 
 export const homeHero = {
-  title: ["Built right", "the first time"],
+  eyebrow: "Exterior renovation, done properly",
+  title: ["Built right,", "the first time"],
+  highlights: ["Licensed and insured", "Itemized written quotes", "Written workmanship warranty", "One crew lead, start to finish"],
   subtitle: ["Windows, roofing, siding, doors and insulation,", "installed by a crew that treats your home like its own."],
   image: "/assets/photos/home-hero.jpg",
-  overlay: true,
 };
 
 const serviceImages: Record<ServiceName, { image: string; text: string }> = {
@@ -85,10 +86,18 @@ const serviceImages: Record<ServiceName, { image: string; text: string }> = {
   },
 };
 
+export const servicesIntro = {
+  eyebrow: "What we do",
+  title: "Six trades. One crew. The whole outside of your home.",
+  text: "Pick one project or plan several together. Either way, the people who quote it are the people who build it.",
+};
+
 export const services = serviceLinks.map((s) => ({ name: s.name, href: s.href, ...serviceImages[s.name] }));
 
 export const processSection = {
   title: "How a project works",
+  text: "Four clear steps, no surprises. You always know what happens next and who to call.",
+  image: "/assets/photos/framing.jpg",
   steps: [
     {
       title: "Free estimate",
@@ -111,13 +120,14 @@ export const processSection = {
 };
 
 export const trust = {
+  eyebrow: "Proof, not promises",
   title: "Proof you can check",
   text: "Any contractor can say they’re reliable. Here’s what we put in writing, so you don’t have to take our word for it.",
 };
 
 export const promise = {
-  eyebrow: "Our",
-  title: ["Crew", "promise"],
+  eyebrow: "Our crew promise",
+  title: ["What you can expect", "from every crew"],
   paragraphs: [
     "Letting a crew work on your house takes trust. These are the commitments we make to every homeowner, whether the job is one window or the whole exterior.",
   ],
@@ -168,7 +178,7 @@ export const homeCards: ImageCard[] = [
   },
   {
     title: "Support",
-    image: "/assets/photos/guarantee.jpg",
+    image: "/assets/photos/crew.jpg",
     text: "Warranty, licenses, how a project works, and answers to common questions.",
     cta: "Get support",
     href: links.support,
@@ -180,7 +190,7 @@ export const homeCta = {
   text: "Book a free estimate. We’ll measure, talk through your options and send a written quote. There’s no charge and no pressure.",
   label: "Get a free quote",
   href: links.quote,
-  tone: "navy" as const,
+  tone: "brand" as const,
 };
 
 export const footerColumns: { heading: string; links: NavItem[] }[] = [

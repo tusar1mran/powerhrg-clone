@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export default function DoorsPage() {
   return (
     <>
-      <Header transparentAtTop={false} />
+      <Header />
       <main id="main">
         <Hero {...doorsHero} ctaHref="#product" ctaLabel="Explore doors" />
         <ProductIntro {...doorsIntro} features={doorsFeatures} />

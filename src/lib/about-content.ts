@@ -11,7 +11,6 @@ export const aboutHero = {
     "do the job right, say what you mean, and stand behind the work.",
   ],
   image: "/assets/photos/about-hero.jpg",
-  overlay: true,
 };
 
 export const aboutStory = {
@@ -71,7 +70,7 @@ export const aboutCta = {
   text: "Book a free estimate and see how we work before you commit to anything.",
   label: "Get a free quote",
   href: links.quote,
-  tone: "navy" as const,
+  tone: "brand" as const,
 };
 
 export const aboutFaqs: FaqGroup[] = [

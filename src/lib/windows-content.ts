@@ -9,7 +9,6 @@ export const windowsHero = {
   title: ["New windows,", "fitted right"],
   subtitle: ["Replacement windows measured for each opening,", "then installed and sealed by our own crew."],
   image: "/assets/photos/windows-hero.jpg",
-  overlay: true,
 };
 
 export const windowsIntro = {
@@ -68,7 +67,7 @@ export const windowsCta = {
   text: "We’ll look at your windows, explain your options and send a written quote. No charge, no pressure.",
   label: "Get a free quote",
   href: links.quote,
-  tone: "sky" as const,
+  tone: "sand" as const,
 };
 
 export const windowsFaqs: FaqGroup[] = [

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import ServicesCarousel from "@/components/ServicesCarousel";
+import ServicesGrid from "@/components/ServicesGrid";
 import ImageCardPair from "@/components/ImageCardPair";
 import CtaBand from "@/components/CtaBand";
 import Footer from "@/components/Footer";
@@ -18,12 +18,12 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <Header transparentAtTop={false} />
+      <Header />
       <main id="main">
-        <Hero {...servicesHero} overlay />
-        <ServicesCarousel />
+        <Hero {...servicesHero} />
+        <ServicesGrid />
         <SameAddress />
-        <ImageCardPair heading="Reasons to relax" cards={reasons} />
+        <ImageCardPair eyebrow="Peace of mind" heading="Reasons to relax" cards={reasons} />
         <CtaBand {...servicesCta} />
         <Faq faqs={faqs} />
       </main>

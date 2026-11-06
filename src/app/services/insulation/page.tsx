@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export default function InsulationPage() {
   return (
     <>
-      <Header transparentAtTop={false} />
+      <Header />
       <main id="main">
         <Hero {...insulationHero} ctaHref="#product" ctaLabel="Explore insulation" />
         <ProductIntro {...insulationIntro} features={insulationFeatures} />

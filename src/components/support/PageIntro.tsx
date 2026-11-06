@@ -1,13 +1,14 @@
-type Props = { title: string; text: string };
+type Props = { eyebrow?: string; title: string; text: string };
 
-export default function PageIntro({ title, text }: Props) {
+export default function PageIntro({ eyebrow = "Support", title, text }: Props) {
   return (
-    <section className="bg-white px-6 pt-44 pb-14 text-center text-navy">
-      <div className="mx-auto max-w-[1150px]">
-        <h1 className="mb-5 text-[38px] leading-[1.3] font-light tracking-[2px] uppercase lg:text-[60px] lg:tracking-[5px] xl:text-[76px] xl:tracking-[10px] 2xl:tracking-[15px]">
-          {title}
-        </h1>
-        <p className="mx-auto max-w-2xl text-[16px] leading-[1.45] xl:text-[20px]">{text}</p>
+    <section className="pt-14 pb-12 lg:pt-24 lg:pb-16">
+      <div className="container-page grid gap-6 lg:grid-cols-2 lg:items-end">
+        <div>
+          <p className="fade-in-up eyebrow text-accent-ink">{eyebrow}</p>
+          <h1 className="fade-in-up display-1 mt-5 text-brand">{title}</h1>
+        </div>
+        <p className="fade-in-up-delay lead max-w-[520px] text-muted lg:pb-3">{text}</p>
       </div>
     </section>
   );

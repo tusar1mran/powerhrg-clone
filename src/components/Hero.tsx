@@ -1,127 +1,75 @@
-import { existsSync } from "node:fs";
-import path from "node:path";
-import type { CSSProperties } from "react";
-
-/**
- * How to lay the mobile image out on desktop when the desktop file is not in /public yet:
- * the portrait render is pinned to the right and the sides are filled with a gradient that
- * matches the image's own edge colours, so there is no visible seam.
- */
-export type DesktopFallback = { size: string; position: string; gradient: string };
+import Link from "next/link";
+import { ArrowDown, Check } from "lucide-react";
+import { links } from "@/lib/links";
 
 type Props = {
-  title: string[]; // one entry per line
+  title: string[];
   subtitle: string[];
-  /** Desktop (landscape) image. */
   image: string;
-  /** Mobile (portrait) image, used below the lg breakpoint. */
-  mobileImage?: string;
-  desktopFallback?: DesktopFallback;
-  /** "full" = viewport-height hero (home, services). "short" = ~700px banner (about). */
+  eyebrow?: string;
   size?: "full" | "short";
   ctaHref?: string;
   ctaLabel?: string;
-  button?: { label: string; href: string };
-  buttonVariant?: "lime" | "outline";
-  overlay?: boolean;
-  ink?: "light" | "dark";
-  onDark?: boolean;
+  highlights?: string[];
 };
-
-// Server component: checks the file system so a missing desktop image falls back cleanly,
-// and the real image takes over automatically once it is dropped into /public.
-const inPublic = (src: string) => existsSync(path.join(process.cwd(), "public", src));
 
 export default function Hero({
   title,
   subtitle,
   image,
-  mobileImage,
-  desktopFallback,
+  eyebrow,
   size = "full",
   ctaHref = "#services",
   ctaLabel = "Explore services",
-  button,
-  buttonVariant = "lime",
-  overlay = false,
-  ink = "light",
-  onDark = false,
+  highlights,
 }: Props) {
-  const dark = ink === "dark";
-  const mobile = mobileImage ?? image;
-  const base = "#7ba3e6";
-
-  let desktopBg = `url(${image}) center / cover no-repeat, ${base}`;
-  if (!inPublic(image) && mobileImage) {
-    desktopBg = desktopFallback
-      ? `url(${mobile}) ${desktopFallback.position} / ${desktopFallback.size} no-repeat, ${desktopFallback.gradient}`
-      : `url(${mobile}) center / cover no-repeat, ${base}`;
-  }
-
-  const style = {
-    "--hero-d": desktopBg,
-    "--hero-m": `url(${mobile}) center / cover no-repeat, ${base}`,
-  } as CSSProperties;
-
   return (
-    <section
-      style={style}
-      className={`relative flex items-start overflow-hidden ${onDark ? "on-dark" : ""} [background:var(--hero-m)] lg:[background:var(--hero-d)] ${
-        size === "full" ? "h-screen min-h-[640px]" : "h-[600px] lg:h-[700px]"
-      }`}
-    >
-      {overlay && (
+    <section className="pt-2 pb-4 sm:pt-3">
+      <div
+        className={`on-dark inset-panel relative isolate flex overflow-hidden bg-brand bg-cover bg-center text-on-brand ${
+          size === "full" ? "min-h-[600px] lg:min-h-[calc(100svh-150px)]" : "min-h-[520px] lg:min-h-[600px]"
+        }`}
+        style={{ backgroundImage: `url(${image})` }}
+      >
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,31,63,0.8)_15%,rgba(0,31,63,0.45)_55%,transparent_90%)] md:bg-[linear-gradient(to_right,rgba(0,31,63,0.6)_40%,rgba(0,31,63,0.25)_70%,transparent_100%)]"
+          className="absolute inset-0 -z-10 scrim-hero"
         />
-      )}
-      <div className={`relative px-6 sm:px-12 lg:pl-[203px] ${size === "full" ? "pt-[180px] lg:pt-[215px]" : "pt-[150px] lg:pt-[190px]"}`}>
-        <h1
-          className={`fade-in-up text-[40px] leading-[1.3] font-light tracking-[5px] uppercase sm:text-[56px] ${dark ? "text-navy" : "text-lime"} ${
-            // the short banner (about) uses a 60px title so four lines + CTA fit in 700px
-            size === "full" ? "lg:text-[76px] lg:tracking-hero" : "lg:text-[60px]"
-          }`}
-        >
-          {title.map((line) => (
-            <span key={line} className="block">
-              {line}
-            </span>
-          ))}
-        </h1>
-        {/* long single-paragraph subtitles are 20px and wrap at ~650px */}
-        <p
-          className={`fade-in-up-delay mt-6 text-[18px] leading-[28px] ${dark ? "max-w-[680px] text-navy" : "text-white"} ${
-            subtitle.length === 1 && subtitle[0].length > 110 ? "max-w-[650px] lg:text-[20px] lg:leading-[30px]" : ""
-          }`}
-        >
-          {subtitle.map((line) => (
-            <span key={line} className="block">
-              {line}
-            </span>
-          ))}
-        </p>
-        {button && (
-          <a
-            href={button.href}
-            className={
-              buttonVariant === "outline"
-                ? "fade-in-up mt-[35px] flex w-full items-center justify-center border-4 border-white px-8 py-6 text-[14px] leading-none font-bold tracking-[0.3em] text-white uppercase transition-colors duration-150 hover:border-navy hover:bg-navy hover:text-lime sm:inline-flex sm:w-auto sm:min-w-[240px]"
-                : "mt-10 inline-block bg-lime px-6 py-4 text-[12px] font-bold tracking-[3px] text-navy uppercase transition-colors duration-150 hover:bg-navy hover:text-lime focus:bg-navy focus:text-lime lg:mt-12 lg:text-[13px] lg:tracking-[3.5px]"
-            }
-          >
-            {button.label}
-          </a>
-        )}
-        <a
-          href={ctaHref}
-          className={`group relative inline-block pr-5 ${dark ? "text-navy" : "text-white"} ${button ? "mt-8 flex w-fit lg:mt-10" : size === "full" ? "mt-12 lg:mt-20" : "mt-8 lg:mt-10"}`}
-        >
-          <span className="link-underline">{ctaLabel}</span>
-          <span aria-hidden className="absolute top-0 right-0 inline-block text-[14px] leading-6 font-bold transition-transform duration-500 group-hover:translate-y-2">
-            ↓
-          </span>
-        </a>
+        <div className="container-page flex flex-col justify-end py-10 sm:py-14 lg:flex-row lg:items-end lg:justify-between lg:gap-12 lg:py-20">
+          <div className="max-w-[760px]">
+            {eyebrow && <p className="fade-in-up eyebrow mb-6 text-on-brand/90">{eyebrow}</p>}
+            <h1 className={`fade-in-up ${size === "full" ? "display-1" : "display-1 lg:text-[4.5rem]"}`}>
+              {title.map((line, i) => (
+                <span key={line} className={`block ${i === title.length - 1 ? "text-accent italic" : ""}`}>
+                  {line}
+                </span>
+              ))}
+            </h1>
+            <p className="fade-in-up-delay lead mt-6 max-w-[560px] text-on-brand/85">{subtitle.join(" ")}</p>
+            <div className="fade-in-up-delay mt-9 flex flex-wrap items-center gap-3">
+              <Link href={links.quote} className="btn btn-accent">
+                Get a free quote
+              </Link>
+              <a href={ctaHref} className="btn btn-ghost group text-on-brand">
+                {ctaLabel}
+                <ArrowDown aria-hidden className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
+              </a>
+            </div>
+          </div>
+
+          {highlights && highlights.length > 0 && (
+            <ul className="fade-in-up-delay mt-10 hidden w-[320px] shrink-0 space-y-3 rounded-[var(--radius-card)] border border-white/15 bg-white/10 p-6 backdrop-blur-md lg:block">
+              {highlights.map((h) => (
+                <li key={h} className="flex items-center gap-3 text-[15px] font-semibold">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-ink">
+                    <Check aria-hidden className="h-4 w-4" strokeWidth={3} />
+                  </span>
+                  {h}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </section>
   );

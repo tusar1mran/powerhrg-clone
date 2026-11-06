@@ -1,42 +1,50 @@
-import Photo from "./Photo";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import Reveal from "./Reveal";
 
 export type ImageCard = { title: string; image: string; text: string; cta: string; href?: string };
 
 type Props = {
+  eyebrow?: string;
   heading: string;
   cards: ImageCard[];
-  /** Vertical white title over the photo. */
-  verticalTitle?: boolean;
-  tone?: "white" | "sky";
 };
 
-// Two photo cards - "Reasons to relax" on /services, "Where to next" on the homepage.
-export default function ImageCardPair({ heading, cards, verticalTitle = true, tone = "white" }: Props) {
+export default function ImageCardPair({ eyebrow, heading, cards }: Props) {
   return (
-    <section className={`${tone === "sky" ? "bg-sky-soft" : "bg-white"} py-20 lg:py-24`}>
-      <div className="mx-auto max-w-[1150px] px-6">
-        <Reveal>
-          <h2 className="text-[28px] font-light tracking-[4px] text-navy uppercase lg:text-[37px] lg:tracking-card">{heading}</h2>
+    <section className="py-20 lg:py-28">
+      <div className="container-page">
+        <Reveal className="max-w-[640px]">
+          {eyebrow && <p className="eyebrow text-accent-ink">{eyebrow}</p>}
+          <h2 className="display-2 mt-4 text-brand">{heading}</h2>
         </Reveal>
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
           {cards.map((c, i) => (
-            <Reveal key={c.title} delay={i * 150}>
-              <a href={c.href ?? "#"} aria-label={c.title} className="group relative block aspect-[565/338] overflow-hidden">
-                <Photo src={c.image} className="absolute inset-0 scale-100 transition-transform duration-700 group-hover:scale-110 group-focus:scale-110" />
-                {verticalTitle && (
-                  <h3
-                    className="absolute top-6 left-5 text-[32px] font-light tracking-card text-white uppercase lg:text-[40px]"
-                    style={{ writingMode: "vertical-rl" }}
-                  >
+            <Reveal key={c.title} delay={i * 120} className="h-full">
+              <Link
+                href={c.href ?? "#"}
+                className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-white transition-shadow duration-300 hover:shadow-[var(--shadow-card)]"
+              >
+                <span className="relative block aspect-[16/10] overflow-hidden bg-sand">
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
+                    style={{ backgroundImage: `url(${c.image})` }}
+                  />
+                  <span className="absolute top-5 left-5 rounded-full bg-paper/95 px-3.5 py-1.5 text-[12px] font-bold tracking-[0.12em] text-ink uppercase">
                     {c.title}
-                  </h3>
-                )}
-              </a>
-              <p className="mt-4 text-[16px] whitespace-pre-line text-navy">{c.text}</p>
-              <a href={c.href ?? "#"} className="link-underline mt-3 text-navy">
-                {c.cta}
-              </a>
+                  </span>
+                </span>
+                <span className="flex flex-1 flex-col p-7 lg:p-8">
+                  <span className="flex-1 text-[16.5px] leading-relaxed whitespace-pre-line text-muted">{c.text}</span>
+                  <span className="mt-6 flex items-center justify-between gap-4">
+                    <span className="text-[16px] font-bold text-ink">{c.cta}</span>
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-cream text-ink transition-colors duration-300 group-hover:bg-accent">
+                      <ArrowUpRight aria-hidden className="h-5 w-5" />
+                    </span>
+                  </span>
+                </span>
+              </Link>
             </Reveal>
           ))}
         </div>

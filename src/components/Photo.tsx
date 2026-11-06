@@ -7,7 +7,7 @@ export default function Photo({ src, className = "", contain = false, label }: P
     <div
       role={label ? "img" : undefined}
       aria-label={label}
-      className={`bg-center bg-no-repeat ${contain ? "bg-contain" : "bg-cover bg-slate-300"} ${className}`}
+      className={`bg-center bg-no-repeat ${contain ? "bg-contain" : "bg-cover bg-sand"} ${className}`}
       style={{ backgroundImage: `url(${src})` }}
     />
   );

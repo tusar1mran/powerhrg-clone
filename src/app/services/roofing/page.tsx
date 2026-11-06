@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export default function RoofingPage() {
   return (
     <>
-      <Header transparentAtTop={false} />
+      <Header />
       <main id="main">
         <Hero {...roofingHero} ctaHref="#product" ctaLabel="Explore roofing" />
         <ProductIntro {...roofingIntro} features={roofingFeatures} />

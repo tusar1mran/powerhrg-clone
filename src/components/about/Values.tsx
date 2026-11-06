@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import { Eye, HardHat, HeartHandshake, MessageSquare, Scale, type LucideIcon } from "lucide-react";
 import Reveal from "../Reveal";
 
@@ -15,62 +12,31 @@ const icons: Record<ValueIcon, LucideIcon> = {
 };
 
 export type Value = { title: string; text: string; icon: ValueIcon };
-type Props = { id?: string; title: string[]; text: string; values: Value[] };
+type Props = { id?: string; eyebrow?: string; title: string[]; text: string; values: Value[] };
 
-// Heading + copy, then a 3-column grid of values.
-// Unlike the service feature grid, the chevron sits right after the label, and each value opens on its own.
-export default function Values({ id, title, text, values }: Props) {
-  const [open, setOpen] = useState<Set<number>>(new Set());
-  const toggle = (i: number) =>
-    setOpen((prev) => {
-      const next = new Set(prev);
-      if (next.has(i)) next.delete(i);
-      else next.add(i);
-      return next;
-    });
-
+export default function Values({ id, eyebrow = "Our values", title, text, values }: Props) {
   return (
-    <section id={id} className="scroll-mt-24 bg-white py-20 text-navy lg:py-24">
-      <div className="mx-auto max-w-[1150px] px-6">
-        <Reveal>
-          <h2 className="text-[30px] leading-[1.3] font-light tracking-[4px] uppercase lg:text-[46px] lg:tracking-card">
-            {title.map((l) => (
-              <span key={l} className="block">
-                {l}
-              </span>
-            ))}
-          </h2>
-          <p className="mt-6 max-w-[660px] text-[16px] leading-[24px]">{text}</p>
+    <section id={id} className="scroll-mt-24 py-20 lg:py-28">
+      <div className="container-page">
+        <Reveal className="grid gap-6 lg:grid-cols-2 lg:items-end">
+          <div>
+            <p className="eyebrow text-accent-ink">{eyebrow}</p>
+            <h2 className="display-2 mt-4 text-brand">{title.join(" ")}</h2>
+          </div>
+          <p className="lead text-muted lg:pb-2">{text}</p>
         </Reveal>
 
-        <ul className="mt-14 grid items-start gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-6 lg:gap-5">
           {values.map((v, i) => {
-            const isOpen = open.has(i);
             const Icon = icons[v.icon];
             return (
-              <li key={v.title}>
-                <Reveal delay={(i % 3) * 100} className="flex items-start gap-5">
-                  <Icon aria-hidden strokeWidth={1.5} className="h-[40px] w-[40px] shrink-0" />
-                  <div className="pt-[10px]">
-                    <button type="button" aria-expanded={isOpen} onClick={() => toggle(i)} className="flex items-center gap-6 text-left">
-                      <span className="text-[12px] font-bold tracking-[3px] uppercase lg:text-[14px] lg:tracking-[4.2px]">{v.title}</span>
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 14 14"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        aria-hidden
-                        className={`shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
-                      >
-                        <path d="m2 5 5 5 5-5" />
-                      </svg>
-                    </button>
-                    <div className={`grid transition-all duration-300 ${isOpen ? "mt-3 grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-                      <p className="max-w-[300px] overflow-hidden text-[14px] leading-[22px] lg:text-[16px] lg:leading-[24px]">{v.text}</p>
-                    </div>
-                  </div>
+              <li key={v.title} className={i < 3 ? "lg:col-span-2" : "lg:col-span-3"}>
+                <Reveal delay={(i % 3) * 90} className="h-full rounded-[var(--radius-card)] border border-line bg-white p-7 lg:p-8">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-soft text-accent-ink">
+                    <Icon aria-hidden strokeWidth={1.75} className="h-6 w-6" />
+                  </span>
+                  <h3 className="mt-5 text-[19px] font-bold text-ink">{v.title}</h3>
+                  <p className="mt-2 text-[15.5px] leading-relaxed text-muted">{v.text}</p>
                 </Reveal>
               </li>
             );

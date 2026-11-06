@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export default function WindowsPage() {
   return (
     <>
-      <Header transparentAtTop={false} />
+      <Header />
       <main id="main">
         <Hero {...windowsHero} ctaHref="#product" ctaLabel="Explore windows" />
         <ProductIntro {...windowsIntro} features={windowsFeatures} />

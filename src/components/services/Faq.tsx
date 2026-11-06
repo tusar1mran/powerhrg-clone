@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Plus } from "lucide-react";
 import Reveal from "../Reveal";
 import RichText, { type Rich } from "../RichText";
 
@@ -8,31 +9,22 @@ export type FaqItem = { q: string; a: Rich; list?: string[]; more?: Rich[] };
 export type FaqGroup = { tab: string; items: FaqItem[] };
 type Props = { faqs: FaqGroup[]; heading?: string; intro?: string; variant?: "boxed" | "plain"; animate?: boolean };
 
-/**
- * Tabbed FAQ in a light-blue box. Pass a single group with an empty `tab` to get the
- * plain variant used on the accessories page: white background, no tabs, no sub-heading.
- */
-export default function Faq({ faqs, heading = "FAQs", intro, variant, animate = true }: Props) {
+export default function Faq({ faqs, heading = "Questions, answered", intro, variant, animate = true }: Props) {
   const [tab, setTab] = useState(0);
-  const [open, setOpen] = useState<number | null>(null);
+  const [open, setOpen] = useState<number | null>(0);
   const current = faqs[tab];
   const plain = variant ? variant === "plain" : faqs.length === 1 && faqs[0].tab === "";
   const showTabs = !plain && faqs.some((f) => f.tab !== "");
 
   return (
-    <section className="bg-white px-0 pb-14 lg:px-6">
-      <Reveal
-        speed="normal"
-        still={!animate}
-        className={`mx-auto grid max-w-[1190px] gap-10 px-6 py-14 text-navy lg:grid-cols-[1fr_1.65fr] lg:px-[54px] lg:py-[74px] ${
-          plain ? "" : "bg-sky-soft"
-        }`}
-      >
+    <section className="py-20 lg:py-28">
+      <Reveal speed="normal" still={!animate} className="container-page grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <div>
-          <h2 className="text-[30px] font-light tracking-card uppercase lg:text-[47px]">{heading}</h2>
-          {intro && <p className="mt-6 text-[16px] leading-[1.45] xl:text-[20px]">{intro}</p>}
+          <p className="eyebrow text-accent-ink">FAQ</p>
+          <h2 className="display-2 mt-4 text-brand">{heading}</h2>
+          {intro && <p className="lead mt-5 text-muted">{intro}</p>}
           {showTabs && (
-            <ul role="tablist" aria-label="FAQ categories" className="mt-6 flex flex-wrap gap-4 lg:block lg:space-y-[10px]">
+            <ul role="tablist" aria-label="FAQ categories" className="mt-8 flex flex-wrap gap-2">
               {faqs.map((f, i) => (
                 <li key={f.tab}>
                   <button
@@ -41,9 +33,11 @@ export default function Faq({ faqs, heading = "FAQs", intro, variant, animate = 
                     aria-selected={tab === i}
                     onClick={() => {
                       setTab(i);
-                      setOpen(null);
+                      setOpen(0);
                     }}
-                    className={`px-[2px] text-[12px] font-bold tracking-[2.8px] uppercase lg:text-[13px] ${tab === i ? "bg-lime" : ""}`}
+                    className={`h-10 rounded-full px-4 text-[14px] font-bold transition-colors ${
+                      tab === i ? "bg-brand text-on-brand" : "border border-line bg-white text-ink hover:border-ink"
+                    }`}
                   >
                     {f.tab}
                   </button>
@@ -53,27 +47,35 @@ export default function Faq({ faqs, heading = "FAQs", intro, variant, animate = 
           )}
         </div>
 
-        <div role={plain ? undefined : "tabpanel"}>
-          {!plain && current.tab && <h3 className="mb-6 text-[30px] font-light tracking-card uppercase lg:text-[47px]">{current.tab}</h3>}
-          <ul className="border-b border-[#8ea9dc]">
-            {current.items.map((item, i) => {
-              const isOpen = open === i;
-              return (
-                <li key={item.q} className="border-t border-[#8ea9dc]">
-                  <button
-                    type="button"
-                    aria-expanded={isOpen}
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    className="flex w-full items-center justify-between gap-6 py-[14px] text-left"
+        <ul role={showTabs ? "tabpanel" : undefined} className="space-y-3">
+          {current.items.map((item, i) => {
+            const isOpen = open === i;
+            return (
+              <li key={item.q} className={`rounded-[var(--radius-card)] border transition-colors ${isOpen ? "border-transparent bg-cream" : "border-line bg-white"}`}>
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left lg:px-7"
+                >
+                  <span className="text-[16.5px] font-bold text-ink lg:text-[17.5px]">{item.q}</span>
+                  <span
+                    aria-hidden
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-300 ${
+                      isOpen ? "rotate-45 bg-accent text-ink" : "bg-cream text-ink"
+                    }`}
                   >
-                    <span className="text-[12px] leading-[20px] font-bold tracking-[3px] uppercase lg:text-[14px] lg:tracking-[4.2px]">{item.q}</span>
-                    <span aria-hidden className="text-[18px] font-light">{isOpen ? "−" : "+"}</span>
-                  </button>
-                  {/* grid-rows trick animates height without measuring */}
-                  <div className={`grid transition-all duration-[250ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${isOpen ? "grid-rows-[1fr] pb-8" : "grid-rows-[0fr]"}`}>
-                    <div className="space-y-4 overflow-hidden text-[14px] leading-[24px] whitespace-pre-line">
+                    <Plus className="h-4 w-4" />
+                  </span>
+                </button>
+                <div
+                  className={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+                  inert={!isOpen}
+                >
+                  <div className="overflow-hidden">
+                    <div className="space-y-4 px-6 pb-6 text-[15.5px] leading-relaxed whitespace-pre-line text-muted lg:px-7">
                       <p>
-                        <RichText value={item.a} />
+                        <RichText value={item.a} linkClassName="font-semibold text-accent-ink underline underline-offset-2 hover:no-underline" />
                       </p>
                       {item.list && (
                         <ul className="list-disc space-y-1 pl-5">
@@ -84,16 +86,16 @@ export default function Faq({ faqs, heading = "FAQs", intro, variant, animate = 
                       )}
                       {item.more?.map((m, j) => (
                         <p key={j}>
-                          <RichText value={m} />
+                          <RichText value={m} linkClassName="font-semibold text-accent-ink underline underline-offset-2 hover:no-underline" />
                         </p>
                       ))}
                     </div>
                   </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </Reveal>
     </section>
   );

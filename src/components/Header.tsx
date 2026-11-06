@@ -1,49 +1,18 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
-import { headerCta, isNavGroup, navMenu, searchIndex, serviceAreaBar, topSearches } from "@/lib/content";
+import { ArrowRight, ChevronDown, Menu, Phone, Search, X } from "lucide-react";
+import { headerCta, isNavGroup, navMenu, searchIndex, serviceAreaBar, services, topSearches } from "@/lib/content";
+import { site } from "@/lib/site";
+import Logo from "./Logo";
 
 type Props = {
-  transparentAtTop?: boolean;
   cta?: { label: string; href: string };
 };
 
-const BAR_HEIGHT = 48;
-
-const ctaClass =
-  "absolute top-0 z-50 px-8 py-0 text-[14px] font-bold tracking-[0.3em] whitespace-nowrap text-navy uppercase antialiased transition-colors duration-150 bg-lime hover:bg-navy hover:text-lime focus:bg-navy focus:text-lime";
-
-const navLabelClass = "group mb-0 flex h-full items-center px-6 text-[14px] leading-[18.2px] font-bold uppercase";
-
-function Arrow({ className = "" }: { className?: string }) {
-  return (
-    <svg className={className} width="14" height="12" viewBox="0 0 14 12" fill="none" aria-hidden>
-      <path
-        d="M9.65818 4.9875H0L8.85156e-08 7.0125L9.6635 7.0125L5.40532 11.4H8.25651L13.5 6.00274L8.25651 0.599998L5.4 0.599999L9.65818 4.9875Z"
-        fill="#102F48"
-      />
-    </svg>
-  );
-}
-
-function SearchIcon({ className = "w-5 h-5" }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-    </svg>
-  );
-}
-
-function Chevron({ up = false }: { up?: boolean }) {
-  return (
-    <svg className={`h-3 w-4 ${up ? "rotate-180" : ""}`} viewBox="0 0 12 9" fill="none" aria-hidden>
-      <path d="M12 0V3.1739L5.99695 9L0 3.1739L0 0.00591481L5.99695 5.8261L12 0Z" fill="#102F48" />
-    </svg>
-  );
-}
+const serviceByHref = new Map(services.map((s) => [s.href as string, s]));
 
 function useSearch(query: string) {
   return useMemo(() => {
@@ -53,35 +22,37 @@ function useSearch(query: string) {
   }, [query]);
 }
 
-function SearchResults({ query, onPick, mobile = false }: { query: string; onPick: () => void; mobile?: boolean }) {
+function SearchResults({ query, onPick }: { query: string; onPick: () => void }) {
   const results = useSearch(query);
   const list = query.trim() ? results : topSearches;
-  const title = query.trim() ? "Search results" : "Top searches";
-  if (query.trim() && results.length === 0) return null;
+  const title = query.trim() ? "Search results" : "Popular";
+  if (query.trim() && results.length === 0) {
+    return <p className="px-3 py-4 text-[15px] text-muted">No matches. Try “roof” or “warranty”.</p>;
+  }
   return (
-    <div className="flex flex-col">
-      <h3 className="m-0 pb-[10px] text-[14px] font-bold tracking-[0.2em] text-navy uppercase opacity-60">{title}</h3>
-      <div className={`flex flex-col ${mobile ? "mt-3 ml-6" : ""}`}>
+    <div>
+      <p className="px-3 pb-2 text-[12px] font-bold tracking-[0.14em] text-muted uppercase">{title}</p>
+      <ul>
         {list.map((r) => (
-          <Link
-            key={r.href + r.label}
-            href={r.href}
-            onClick={onPick}
-            className={`group flex items-center justify-between text-navy transition-all duration-200 ${mobile ? "py-3" : "p-6 hover:bg-lime"}`}
-          >
-            <span className="block text-[15.5px] leading-[1.4] font-normal">{r.label}</span>
-            <Arrow className="h-3 w-[14px] shrink-0 -translate-x-[10px] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
-          </Link>
+          <li key={r.href + r.label}>
+            <Link
+              href={r.href}
+              onClick={onPick}
+              className="group flex items-center justify-between rounded-xl px-3 py-3 text-[16px] text-ink transition-colors hover:bg-cream"
+            >
+              <span>{r.label}</span>
+              <ArrowRight aria-hidden className="h-4 w-4 -translate-x-1 text-accent-ink opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
 
-export default function Header({ transparentAtTop = true, cta = headerCta }: Props) {
-  const isHome = transparentAtTop;
+export default function Header({ cta = headerCta }: Props) {
   const [barOpen, setBarOpen] = useState(true);
-  const [atTop, setAtTop] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -92,14 +63,12 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
   const searchRef = useRef<HTMLInputElement>(null);
   const pathname = usePathname();
 
-  const threshold = barOpen ? BAR_HEIGHT : 0;
-
   useEffect(() => {
-    const onScroll = () => setAtTop(window.scrollY < threshold || (threshold === 0 && window.scrollY <= 0));
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [threshold]);
+  }, []);
 
   useEffect(() => {
     if (!openMenu && !searchOpen) return;
@@ -148,82 +117,65 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
     }
   };
 
-  const transparent = isHome && atTop;
-  const desktopClass = atTop
-    ? transparent
-      ? "absolute bg-transparent text-white"
-      : "absolute bg-white/85 text-navy border-b border-lime"
-    : "fixed top-0 bg-white/85 backdrop-blur-[20px] text-navy border-b border-lime";
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+  const navItem =
+    "relative inline-flex h-10 items-center gap-1.5 rounded-full px-4 text-[15px] font-semibold text-ink transition-colors hover:bg-cream aria-expanded:bg-cream";
 
   return (
     <>
       <a
         href="#main"
-        className="absolute -m-1 h-0 w-0 overflow-hidden border-0 bg-black p-0 text-center text-white focus:relative focus:m-0 focus:block focus:h-auto focus:w-full focus:p-2"
+        className="sr-only z-[100] rounded-full bg-ink px-4 py-2 text-paper focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
       >
-        <span>Skip to main content</span>
+        Skip to main content
       </a>
 
       {barOpen && (
-        <div id="services-bar" className="relative z-30 flex w-full items-center justify-center bg-navy py-3 text-center text-white lg:h-12 lg:py-0">
-          <p className="m-0 pr-11 pl-1 text-[15px] leading-[1.5]">
-            <span>{serviceAreaBar.text}</span>{" "}
-            <Link href={serviceAreaBar.link.href} className="underline">
+        <div id="services-bar" className="relative bg-brand text-on-brand">
+          <p className="container-page py-2.5 pr-12 text-center text-[14px] leading-snug">
+            <span className="opacity-85">{serviceAreaBar.text}</span>{" "}
+            <Link href={serviceAreaBar.link.href} className="font-semibold text-accent underline-offset-4 hover:underline">
               {serviceAreaBar.link.label}
             </Link>
           </p>
-          <button type="button" aria-label="Close" onClick={() => setBarOpen(false)} className="absolute top-0 right-0 h-10 w-10 lg:h-12 lg:w-12">
-            <svg
-              className="absolute top-1/2 left-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 lg:h-4 lg:w-4"
-              viewBox="0 0 12 12"
-              fill="none"
-              aria-hidden
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M5.53033 6.59099L10 11.0607L11.0607 10L6.59099 5.53033L11.0607 1.06066L10 0L5.53033 4.46967L1.06066 0L0 1.06066L4.46967 5.53033L3.57628e-07 10L1.06066 11.0607L5.53033 6.59099Z"
-                fill="white"
-              />
-            </svg>
+          <button
+            type="button"
+            aria-label="Dismiss announcement"
+            onClick={() => setBarOpen(false)}
+            className="absolute top-1/2 right-2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full transition-colors hover:bg-white/10"
+          >
+            <X aria-hidden className="h-4 w-4" />
           </button>
         </div>
       )}
 
-      <header ref={navRef} className={`z-40 hidden h-[90px] w-full lg:block ${desktopClass}`}>
-        <Link
-          href="/"
-          onClick={goHome}
-          aria-label="Return to homepage"
-          className={`absolute left-6 z-40 ${transparent ? "top-[17px]" : "top-[21px]"}`}
-        >
-          {transparent ? (
-            <img src="/assets/logo/shah-crew-white.svg" alt="" width={150} height={56} className="h-[56px] w-[150px]" />
-          ) : (
-            <img src="/assets/logo/shah-crew-navy.svg" alt="" width={128} height={48} className="h-[48px] w-[128px] transition-all" />
-          )}
-        </Link>
+      <header
+        ref={navRef}
+        className={`sticky top-0 z-50 w-full border-b transition-[background-color,border-color,box-shadow] duration-300 ${
+          scrolled ? "border-line bg-paper/85 shadow-[0_8px_24px_-18px_rgb(27_31_28/0.35)] backdrop-blur-xl" : "border-transparent bg-paper"
+        }`}
+      >
+        <div className="container-page flex h-[72px] items-center justify-between gap-4 lg:h-[84px]">
+          <Link href="/" onClick={goHome} aria-label="Return to homepage" className="shrink-0">
+            <Logo className="hidden h-[44px] w-auto sm:block lg:h-[48px]" />
+            <Logo iconOnly className="h-[40px] w-auto sm:hidden" />
+          </Link>
 
-        <div className="mx-auto w-full px-5 sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1280px] 3xl:max-w-[1728px]">
-          <nav aria-label="Main" className="flex h-[90px] items-center justify-center">
+          <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
             {navMenu.map((entry) => {
               if (!isNavGroup(entry)) {
-                const active = pathname === entry.href || pathname.startsWith(`${entry.href}/`);
+                const active = isActive(entry.href);
                 return (
-                  <div key={entry.label} className="relative h-full">
-                    <Link href={entry.href} aria-current={active ? "page" : undefined} className={navLabelClass}>
-                      <span
-                        className={`w-[calc(100%-0.3em)] border-b-2 tracking-[0.3rem] ${active ? "border-b-lime" : "border-transparent group-hover:border-b-lime"}`}
-                      >
-                        {entry.label}
-                      </span>
-                    </Link>
-                  </div>
+                  <Link key={entry.label} href={entry.href} aria-current={active ? "page" : undefined} className={navItem}>
+                    {entry.label}
+                    {active && <span aria-hidden className="absolute bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-accent" />}
+                  </Link>
                 );
               }
               const group = entry;
               const isOpen = openMenu === group.label;
               const id = `dropdown-${group.label.toLowerCase()}`;
+              const [overview, ...rest] = group.items;
               return (
                 <div key={group.label} className="relative">
                   <button
@@ -234,34 +186,61 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
                       setSearchOpen(false);
                       setOpenMenu(isOpen ? null : group.label);
                     }}
-                    className={navLabelClass}
+                    className={navItem}
                   >
-                    <span
-                      className={`w-[calc(100%-0.3em)] border-b-2 tracking-[0.3rem] ${isOpen ? "border-b-lime" : "border-transparent group-hover:border-b-lime"}`}
-                    >
-                      {group.label}
-                    </span>
+                    {group.label}
+                    <ChevronDown aria-hidden className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
                   </button>
                   {isOpen && (
-                    <div id={id} className="absolute top-[50px] left-0 mt-[6px] min-w-[300px] origin-top-left animate-[dropdown-in_150ms_ease-out] bg-white text-navy shadow">
-                      {group.items.map((item) => (
-                        <div key={item.href} className="group relative">
-                          <Link
-                            href={item.href}
-                            onClick={() => setOpenMenu(null)}
-                            className="flex justify-between pt-[18px] pr-6 pb-[18px] pl-5 text-[20px] leading-[26px] font-normal whitespace-nowrap transition-[padding] group-hover:bg-lime"
-                          >
-                            <span className="inline-block">{item.label}</span>
-                            <Arrow className="absolute top-6 right-8 opacity-0 transition-[right,opacity] duration-500 group-hover:right-6 group-hover:opacity-100" />
-                          </Link>
-                        </div>
-                      ))}
+                    <div
+                      id={id}
+                      className="absolute top-[calc(100%+14px)] left-1/2 w-[640px] -translate-x-1/2 animate-[dropdown-in_180ms_ease-out] rounded-[var(--radius-card)] border border-line bg-white p-3 shadow-[var(--shadow-float)]"
+                    >
+                      <ul className="grid grid-cols-2 gap-1">
+                        {rest.map((item) => {
+                          const s = serviceByHref.get(item.href);
+                          return (
+                            <li key={item.href}>
+                              <Link
+                                href={item.href}
+                                onClick={() => setOpenMenu(null)}
+                                className="group flex items-center gap-4 rounded-xl p-2.5 transition-colors hover:bg-cream"
+                              >
+                                {s && (
+                                  <span
+                                    aria-hidden
+                                    className="h-14 w-14 shrink-0 rounded-lg bg-sand bg-cover bg-center"
+                                    style={{ backgroundImage: `url(${s.image})` }}
+                                  />
+                                )}
+                                <span className="min-w-0">
+                                  <span className="block text-[15px] font-bold text-ink">{item.label}</span>
+                                  {s && <span className="mt-0.5 line-clamp-1 block text-[13px] text-muted">{s.text}</span>}
+                                </span>
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                      {overview && (
+                        <Link
+                          href={overview.href}
+                          onClick={() => setOpenMenu(null)}
+                          className="mt-2 flex items-center justify-between rounded-xl bg-cream px-4 py-3 text-[14px] font-bold text-ink transition-colors hover:bg-sand"
+                        >
+                          {overview.label}
+                          <ArrowRight aria-hidden className="h-4 w-4" />
+                        </Link>
+                      )}
                     </div>
                   )}
                 </div>
               );
             })}
-            <div className="relative">
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <div className="relative hidden lg:block">
               <button
                 type="button"
                 aria-label="Search"
@@ -271,169 +250,143 @@ export default function Header({ transparentAtTop = true, cta = headerCta }: Pro
                   setSearchOpen((v) => !v);
                   setTimeout(() => searchRef.current?.focus(), 0);
                 }}
-                className={navLabelClass}
+                className="flex h-11 w-11 items-center justify-center rounded-full text-ink transition-colors hover:bg-cream aria-expanded:bg-cream"
               >
-                <SearchIcon />
+                <Search aria-hidden className="h-[18px] w-[18px]" />
               </button>
-            </div>
-          </nav>
-        </div>
-
-        {searchOpen && (
-          <div className="absolute top-[90px] right-0 left-0 z-[10001] flex max-h-[calc(100vh-90px)] w-full items-start justify-center overflow-y-auto border-b border-[#d4ff00] bg-white">
-            <div className="relative flex h-[550px] w-full max-w-[640px] flex-col bg-white p-10">
-              <div className="shrink-0 pb-10">
-                <div className="relative flex items-center">
-                  <SearchIcon className="mr-3 h-5 w-5 shrink-0 text-navy opacity-60" />
-                  <input
-                    ref={searchRef}
-                    type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search"
-                    autoComplete="off"
-                    aria-label="Search"
-                    className="w-full border-none bg-white/80 py-3 pr-10 pl-4 align-middle text-[20px] leading-none font-normal text-navy shadow-none outline-none"
-                  />
-                  {query && (
-                    <button
-                      type="button"
-                      aria-label="Clear search"
-                      onClick={() => setQuery("")}
-                      className="absolute top-1/2 right-10 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-navy text-white"
-                    >
-                      <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 18 6M6 6l12 12" />
-                      </svg>
-                    </button>
-                  )}
-                </div>
-              </div>
-              <SearchResults query={query} onPick={() => setSearchOpen(false)} />
-            </div>
-          </div>
-        )}
-
-        <Link href={cta.href} className={`${ctaClass} right-0 h-[90px] leading-[90px]`}>
-          {cta.label}
-        </Link>
-      </header>
-
-      <header className={`sticky top-0 z-[60] h-[60px] w-full lg:hidden ${isHome ? "bg-white" : "border-b border-lime bg-white/85"}`}>
-        <Link href="/" onClick={goHome} aria-label="Return to homepage" className="absolute top-2 left-4 z-40">
-          <img src="/assets/logo/shah-crew-icon-navy.svg" alt="" width={40} height={44} className="h-[44px] w-[40px]" />
-        </Link>
-        <button
-          type="button"
-          aria-label="Open menu"
-          aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen(true)}
-          className="absolute top-0 right-0 z-[60] h-[60px] w-[60px]"
-        >
-          <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" width="22" height="18" viewBox="0 0 22 18" fill="none" aria-hidden>
-            <line x1="22" y1="1" x2="0" y2="1" stroke="#102F48" strokeWidth="2" />
-            <line x1="22" y1="9" x2="0" y2="9" stroke="#102F48" strokeWidth="2" />
-            <line x1="22" y1="17" x2="0" y2="17" stroke="#102F48" strokeWidth="2" />
-          </svg>
-        </button>
-        <Link href={cta.href} className={`${ctaClass} right-[60px] h-[60px] leading-[60px]`}>
-          {cta.label}
-        </Link>
-
-        {mobileOpen && (
-          <div role="dialog" aria-modal="true" aria-label="Mobile Navigation" className="fixed inset-0 z-[60] overflow-y-auto">
-            <div className="relative h-screen w-full origin-center animate-[dropdown-in_150ms_ease-out] overflow-y-auto bg-white">
-              <div className={`relative z-[60] h-[60px] w-full ${isHome ? "" : "border-b border-lime bg-white/85"}`}>
-                <Link href="/" onClick={goHome} aria-label="Return to homepage" className="absolute top-2 left-4 z-[60]">
-                  <img src="/assets/logo/shah-crew-icon-navy.svg" alt="" width={40} height={44} className="h-[44px] w-[40px]" />
-                </Link>
-                <button
-                  type="button"
-                  aria-label="Close menu"
-                  onClick={() => setMobileOpen(false)}
-                  className="absolute top-0 right-0 z-[60] h-[60px] w-[60px]"
-                >
-                  <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
-                    <line x1="2" y1="2" x2="20" y2="20" stroke="#102F48" strokeWidth="2" />
-                    <line x1="20" y1="2" x2="2" y2="20" stroke="#102F48" strokeWidth="2" />
-                  </svg>
-                </button>
-                <Link href={cta.href} className={`${ctaClass} right-[60px] h-[60px] leading-[60px]`}>
-                  {cta.label}
-                </Link>
-              </div>
-
-              <div className="mx-auto w-full px-6 pt-7 sm:max-w-[640px] md:max-w-[768px]">
-                <div className="mb-4">
-                  <div className="relative flex h-[45px] w-full items-center border border-navy/20 bg-white">
+              {searchOpen && (
+                <div className="absolute top-[calc(100%+14px)] right-0 w-[420px] animate-[dropdown-in_180ms_ease-out] rounded-[var(--radius-card)] border border-line bg-white p-3 shadow-[var(--shadow-float)]">
+                  <div className="relative mb-3">
+                    <Search aria-hidden className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-muted" />
                     <input
-                      type="text"
-                      value={mobileQuery}
-                      onChange={(e) => setMobileQuery(e.target.value)}
-                      placeholder="Search"
+                      ref={searchRef}
+                      type="search"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder="Search the site"
                       autoComplete="off"
                       aria-label="Search"
-                      className="h-full w-full border-none bg-transparent pr-10 pl-4 text-[16px] leading-none font-normal text-navy outline-none"
+                      className="h-12 w-full rounded-full border border-line bg-paper pr-4 pl-11 text-[15px] text-ink outline-none focus:border-accent"
                     />
-                    <SearchIcon className="absolute right-3 h-[18px] w-[18px] text-navy opacity-60" />
                   </div>
+                  <SearchResults query={query} onPick={() => setSearchOpen(false)} />
                 </div>
-                {mobileQuery && (
-                  <div className="mb-4">
-                    <SearchResults query={mobileQuery} onPick={() => setMobileOpen(false)} mobile />
-                  </div>
-                )}
+              )}
+            </div>
+            <a href={site.phone.href} className="hidden items-center gap-2 px-3 text-[15px] font-semibold text-ink hover:text-accent-ink xl:inline-flex">
+              <Phone aria-hidden className="h-4 w-4" />
+              {site.phone.display}
+            </a>
+            <Link href={cta.href} className="btn btn-accent hidden min-h-11 px-5 sm:inline-flex">
+              {cta.label}
+            </Link>
+            <button
+              type="button"
+              aria-label="Open menu"
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen(true)}
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-cream text-ink lg:hidden"
+            >
+              <Menu aria-hidden className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+      </header>
 
-                <div>
-                  {navMenu.map((entry) => {
-                    if (!isNavGroup(entry)) {
-                      return (
-                        <Link
-                          key={entry.label}
-                          href={entry.href}
-                          onClick={() => setMobileOpen(false)}
-                          className="relative block w-full py-5 text-left text-[20px] leading-7 tracking-[0.2em] text-navy uppercase"
-                        >
+      {mobileOpen && (
+        <div role="dialog" aria-modal="true" aria-label="Menu" className="fixed inset-0 z-[70] lg:hidden">
+          <div className="absolute inset-0 animate-[fade-in_200ms_ease] bg-ink/40" onClick={() => setMobileOpen(false)} />
+          <div className="absolute inset-y-0 right-0 flex w-full max-w-[420px] animate-[dropdown-in_200ms_ease-out] flex-col overflow-y-auto bg-paper">
+            <div className="flex h-[72px] items-center justify-between border-b border-line px-5">
+              <Link href="/" onClick={goHome} aria-label="Return to homepage">
+                <Logo className="h-[40px] w-auto" />
+              </Link>
+              <button
+                type="button"
+                aria-label="Close menu"
+                onClick={() => setMobileOpen(false)}
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-cream text-ink"
+              >
+                <X aria-hidden className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="flex-1 px-5 py-6">
+              <div className="relative">
+                <Search aria-hidden className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-muted" />
+                <input
+                  type="search"
+                  value={mobileQuery}
+                  onChange={(e) => setMobileQuery(e.target.value)}
+                  placeholder="Search the site"
+                  autoComplete="off"
+                  aria-label="Search"
+                  className="h-12 w-full rounded-full border border-line bg-white pr-4 pl-11 text-[16px] text-ink outline-none focus:border-accent"
+                />
+              </div>
+              {mobileQuery && (
+                <div className="mt-3 rounded-[var(--radius-card)] bg-white p-2">
+                  <SearchResults query={mobileQuery} onPick={() => setMobileOpen(false)} />
+                </div>
+              )}
+
+              <ul className="mt-6 divide-y divide-line border-y border-line">
+                {navMenu.map((entry) => {
+                  if (!isNavGroup(entry)) {
+                    return (
+                      <li key={entry.label}>
+                        <Link href={entry.href} onClick={() => setMobileOpen(false)} className="block py-4 font-display text-[26px] text-ink">
                           {entry.label}
                         </Link>
-                      );
-                    }
-                    const group = entry;
-                    const isOpen = mobileGroup === group.label;
-                    return (
-                      <div key={group.label}>
-                        <button
-                          type="button"
-                          aria-expanded={isOpen}
-                          onClick={() => setMobileGroup(isOpen ? null : group.label)}
-                          className="relative block w-full py-5 text-left text-[20px] leading-7 tracking-[0.2em] text-navy uppercase"
-                        >
-                          <span>{group.label}</span>
-                          <span aria-hidden className="absolute top-1/2 right-0 -translate-y-1/2">
-                            <Chevron up={isOpen} />
-                          </span>
-                        </button>
-                        <div
-                          className={`grid transition-[grid-template-rows] duration-[250ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
-                          inert={!isOpen}
-                        >
-                          <div className="overflow-hidden">
-                            {group.items.map((item) => (
-                              <Link key={item.href} href={item.href} className="mb-0 block py-2 text-navy">
-                                <span className="inline-block">{item.label}</span>
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
+                      </li>
                     );
-                  })}
-                </div>
-              </div>
+                  }
+                  const group = entry;
+                  const isOpen = mobileGroup === group.label;
+                  return (
+                    <li key={group.label}>
+                      <button
+                        type="button"
+                        aria-expanded={isOpen}
+                        onClick={() => setMobileGroup(isOpen ? null : group.label)}
+                        className="flex w-full items-center justify-between py-4 text-left font-display text-[26px] text-ink"
+                      >
+                        {group.label}
+                        <ChevronDown aria-hidden className={`h-5 w-5 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                      </button>
+                      <div
+                        className={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+                        inert={!isOpen}
+                      >
+                        <ul className="overflow-hidden">
+                          {group.items.map((item) => (
+                            <li key={item.href}>
+                              <Link href={item.href} onClick={() => setMobileOpen(false)} className="block py-2.5 pl-1 text-[17px] text-muted hover:text-ink">
+                                {item.label}
+                              </Link>
+                            </li>
+                          ))}
+                          <li className="h-3" />
+                        </ul>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            <div className="space-y-3 border-t border-line p-5">
+              <Link href={cta.href} onClick={() => setMobileOpen(false)} className="btn btn-accent w-full">
+                {cta.label}
+              </Link>
+              <a href={site.phone.href} className="btn btn-ghost w-full text-ink">
+                <Phone aria-hidden className="h-4 w-4" />
+                {site.phone.display}
+              </a>
             </div>
           </div>
-        )}
-      </header>
+        </div>
+      )}
     </>
   );
 }
