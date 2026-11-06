@@ -20,11 +20,17 @@ export const titleBlockLabels = {
   contractor: "Contractor",
   project: "Project",
   license: "License",
+  licenseNumber: "No.",
   insurance: "Insurance",
   warranty: "Warranty",
   contact: "Call the office",
   sheetTitle: "Sheet title",
   sheetNumber: "Sheet",
+  scale: "Scale",
+  scaleValue: "NTS",
+  scaleTitle: "Not to scale",
+  /** "Sheet 4 of 12" */
+  position: (position: number, count: number) => `${position} of ${count}`,
 };
 
 export const titleBlockWarranty = {
@@ -43,4 +49,26 @@ export const footerLabels = {
   details: "Details",
   legal: "Legal",
   rights: "All rights reserved.",
+  sheets: "Sheet index",
+  issuedBy: "Drawing set issued by",
+  /** The drawings explain how the work goes together; they are not construction documents. */
+  disclaimer: "Drawings on this site are explanatory diagrams. Not to scale and not for construction.",
 };
+
+/** Section anchors on /about and /support, listed in the footer under "Details". */
+export const footerDetails = [
+  { label: "Our promise", href: links.promise },
+  { label: "Service area", href: links.serviceArea },
+  { label: "How a project works", href: links.process },
+  { label: "Warranty", href: links.warranty },
+  { label: "Licenses & insurance", href: links.licenses },
+];
+
+export const mobileBarLabels = {
+  region: "Call or request a quote",
+  quote: "Free quote",
+};
+
+export const skipLinkLabel = "Skip to main content";
+
+export const titleBlockAriaLabel = "Title block";

@@ -3,6 +3,7 @@
 import type { ImageCard } from "@/components/ImageCardPair";
 import { links, serviceLinks, type ServiceName } from "./links";
 import { servicesHero } from "./services-content";
+import { overviewSheet, serviceSheet, sheets } from "./sheets";
 import { site } from "./site";
 
 export type NavItem = { label: string; href: string };
@@ -200,7 +201,11 @@ export const coverSheet = {
 
 export const coverSections = {
   index: { label: "Sheet index", title: "One set of drawings for the whole outside", ref: "A-000 / 01" },
-  notes: { label: "General notes", ref: "A-000 / 02" },
+  notes: {
+    label: "General notes",
+    title: `${promise.eyebrow} ${promise.title.join(" ").toLowerCase()}`,
+    ref: "A-000 / 02",
+  },
   sequence: { label: "Sequence of work", ref: "A-000 / 03" },
   trust: { label: "Title block", ref: "A-000 / 04" },
   workOrder: { label: "Work order", ref: "A-000 / 05" },
@@ -231,4 +236,44 @@ export const homeWorkOrder = {
     { label: "You receive", value: "Written quote" },
     { label: "Charge", value: "No charge, no pressure" },
   ],
+};
+
+/** Part of the house each service's callout points at on the cover sheet key plan. */
+const elevationLabels: Record<ServiceName, string> = {
+  Windows: "Windows",
+  Roofing: "Roof",
+  Siding: "Siding",
+  Doors: "Entry door",
+  Insulation: "Attic insulation",
+  Accessories: "Gutters",
+};
+
+export const coverElevationCallouts = serviceLinks.map((s) => ({
+  service: s.name,
+  number: serviceSheet(s.name).number,
+  label: elevationLabels[s.name],
+  href: s.href,
+}));
+
+/** Sheet index rows on the cover: one per service sheet, with the service's one-line description. */
+export const coverServiceSheets = services.map((s) => ({
+  ...serviceSheet(s.name),
+  service: s.name,
+  text: s.text,
+}));
+
+/** The general sheets listed under the service sheets in the cover index. */
+export const coverGeneralSheets = [
+  { ...overviewSheet, text: generalSheetText.services },
+  { ...sheets.about, text: generalSheetText.about },
+  { ...sheets.support, text: generalSheetText.support },
+];
+
+export const coverLabels = {
+  openSheet: "Open sheet",
+  serviceSheets: "Service sheets",
+  generalSheets: "General sheets",
+  projectData: "Project data",
+  step: "Step",
+  trustRef: "T",
 };

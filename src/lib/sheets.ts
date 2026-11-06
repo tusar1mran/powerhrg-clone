@@ -105,12 +105,16 @@ const terms: SheetEntry = {
 };
 
 /** The sheet index shown in the header and the mobile menu, in drawing-set order. */
-export const sheetIndex: SheetEntry[] = [cover, services, ...serviceSheets, about, support];
+export const sheetIndex: SheetEntry[] = [cover, ...serviceSheets, about, support];
+
+/** The services overview is part of the set; it is linked from the cover sheet and the footer. */
+export const overviewSheet: SheetEntry = services;
 
 /** Legal sheets are part of the set but are only linked from the footer. */
 export const legalSheets: SheetEntry[] = [privacy, terms];
 
-const allSheets: SheetEntry[] = [...sheetIndex, ...legalSheets];
+/** Every sheet in the set, in sheet-number order. */
+export const allSheets: SheetEntry[] = [cover, services, ...serviceSheets, about, support, ...legalSheets];
 
 export const sheets = Object.fromEntries(allSheets.map((s) => [s.id, s])) as Record<SheetId, SheetEntry>;
 

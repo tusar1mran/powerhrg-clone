@@ -44,3 +44,33 @@ export function SheetSectionRef({ children }: { children: ReactNode }) {
 export function SheetSectionBody({ className, ...props }: ComponentProps<"div">) {
   return <div className={cn("px-4 py-12 sm:px-6 lg:px-12 lg:py-16", className)} {...props} />;
 }
+
+type SheetBlockProps = Omit<ComponentProps<"section">, "title"> & {
+  /** Block number printed in the left cell, e.g. "02". */
+  number: string;
+  title: string;
+  /** Drawing reference printed on the right, e.g. "A-200 / 02". */
+  reference: string;
+  /** Classes for the body (padding, layout). */
+  bodyClassName?: string;
+};
+
+/**
+ * The common case, assembled from the parts above: a section labelled by its strip title.
+ *
+ *   <SheetBlock id="notes" number="02" title="General notes" reference="A-000 / 02">…</SheetBlock>
+ */
+export function SheetBlock({ id, number, title, reference, bodyClassName, children, ...props }: SheetBlockProps) {
+  const titleId = `${id ?? number}-title`;
+
+  return (
+    <SheetSection id={id} aria-labelledby={titleId} {...props}>
+      <SheetSectionHeader>
+        <SheetSectionNumber>{number}</SheetSectionNumber>
+        <SheetSectionTitle id={titleId}>{title}</SheetSectionTitle>
+        <SheetSectionRef>{reference}</SheetSectionRef>
+      </SheetSectionHeader>
+      <SheetSectionBody className={bodyClassName}>{children}</SheetSectionBody>
+    </SheetSection>
+  );
+}

@@ -252,3 +252,13 @@ export const roofingWorkOrder = {
     { label: "Charge", value: "No charge, no pressure" },
   ],
 };
+
+/** Numbered blocks on sheet A-200, in page order. `ref` is the block's reference on the sheet. */
+export const roofingSections = {
+  detail: { number: "01", label: "Detail 1 · Roof system", ref: `${roofingSheetNumber} / 01` },
+  notes: { number: "02", label: roofingNotes.title, ref: `${roofingSheetNumber} / 02` },
+  schedule: { number: "03", label: roofingSchedule.title, ref: `${roofingSheetNumber} / 03` },
+  warranty: { number: "04", label: "Warranty", ref: `${roofingSheetNumber} / 04` },
+  faq: { number: "05", label: "Questions", ref: `${roofingSheetNumber} / 05` },
+  workOrder: { number: "06", label: "Work order", ref: `${roofingSheetNumber} / 06` },
+};

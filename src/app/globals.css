@@ -253,6 +253,32 @@ a:focus-visible .link-underline {
   fill: currentColor;
 }
 
+/* Linked callouts (cover sheet key plan): the bubble fills gold on hover and keyboard focus. */
+.drawing .callout-bubble {
+  fill: var(--color-paper);
+  transition: fill 150ms ease;
+}
+
+.drawing .callout-link {
+  cursor: pointer;
+}
+
+.drawing .callout-link:hover .callout-bubble,
+.drawing .callout-link:focus-visible .callout-bubble {
+  fill: var(--color-gold);
+}
+
+.drawing .callout-link:hover .callout-label,
+.drawing .callout-link:focus-visible .callout-label {
+  text-decoration: underline;
+  text-decoration-color: var(--color-gold);
+}
+
+.drawing .callout-link:focus-visible {
+  outline: 2px solid var(--color-charcoal);
+  outline-offset: 4px;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;

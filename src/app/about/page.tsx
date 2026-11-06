@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Header from "@/components/Header";
+import SheetFrame from "@/components/sheet/SheetFrame";
 import Hero from "@/components/Hero";
-import Footer from "@/components/Footer";
 import SplitRow from "@/components/SplitRow";
 import CtaBand from "@/components/CtaBand";
 import OurPromise from "@/components/OurPromise";
@@ -19,18 +18,14 @@ export const metadata: Metadata = {
 // One page for everything "About": story, values, our promise and where we work.
 export default function AboutPage() {
   return (
-    <>
-      <Header transparentAtTop={false} />
-      <main id="main">
-        <Hero {...aboutHero} size="short" ctaHref="#story" ctaLabel="How we work" />
-        <SplitRow id="story" variant="contained" imageSide="left" tone="white" {...aboutStory} />
-        <Values id="values" {...aboutValues} />
-        <OurPromise {...promise} cta={undefined} />
-        <CtaBand {...serviceArea} />
-        <Faq faqs={aboutFaqs} />
-        <CtaBand {...aboutCta} />
-      </main>
-      <Footer />
-    </>
+    <SheetFrame sheet="about">
+      <Hero {...aboutHero} size="short" ctaHref="#story" ctaLabel="How we work" />
+      <SplitRow id="story" variant="contained" imageSide="left" tone="white" {...aboutStory} />
+      <Values id="values" {...aboutValues} />
+      <OurPromise {...promise} cta={undefined} />
+      <CtaBand {...serviceArea} />
+      <Faq faqs={aboutFaqs} />
+      <CtaBand {...aboutCta} />
+    </SheetFrame>
   );
 }

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Header from "@/components/Header";
+import SheetFrame from "@/components/sheet/SheetFrame";
 import Hero from "@/components/Hero";
-import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
 import ProductIntro from "@/components/services/ProductIntro";
 import Guarantee from "@/components/services/Guarantee";
@@ -23,16 +22,12 @@ export const metadata: Metadata = {
 
 export default function InsulationPage() {
   return (
-    <>
-      <Header transparentAtTop={false} />
-      <main id="main">
-        <Hero {...insulationHero} ctaHref="#product" ctaLabel="Explore insulation" />
-        <ProductIntro {...insulationIntro} features={insulationFeatures} />
-        <Guarantee {...insulationGuarantee} />
-        <CtaBand {...insulationCta} />
-        <Faq faqs={insulationFaqs} />
-      </main>
-      <Footer />
-    </>
+    <SheetFrame sheet="insulation">
+      <Hero {...insulationHero} ctaHref="#product" ctaLabel="Explore insulation" />
+      <ProductIntro {...insulationIntro} features={insulationFeatures} />
+      <Guarantee {...insulationGuarantee} />
+      <CtaBand {...insulationCta} />
+      <Faq faqs={insulationFaqs} />
+    </SheetFrame>
   );
 }

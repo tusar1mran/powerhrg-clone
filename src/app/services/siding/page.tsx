@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Header from "@/components/Header";
+import SheetFrame from "@/components/sheet/SheetFrame";
 import Hero from "@/components/Hero";
-import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
 import ProductIntro from "@/components/services/ProductIntro";
 import Guarantee from "@/components/services/Guarantee";
@@ -23,16 +22,12 @@ export const metadata: Metadata = {
 
 export default function SidingPage() {
   return (
-    <>
-      <Header transparentAtTop={false} />
-      <main id="main">
-        <Hero {...sidingHero} ctaHref="#product" ctaLabel="Explore siding" />
-        <ProductIntro {...sidingIntro} features={sidingFeatures} />
-        <Guarantee {...sidingGuarantee} />
-        <CtaBand {...sidingCta} />
-        <Faq faqs={sidingFaqs} />
-      </main>
-      <Footer />
-    </>
+    <SheetFrame sheet="siding">
+      <Hero {...sidingHero} ctaHref="#product" ctaLabel="Explore siding" />
+      <ProductIntro {...sidingIntro} features={sidingFeatures} />
+      <Guarantee {...sidingGuarantee} />
+      <CtaBand {...sidingCta} />
+      <Faq faqs={sidingFaqs} />
+    </SheetFrame>
   );
 }

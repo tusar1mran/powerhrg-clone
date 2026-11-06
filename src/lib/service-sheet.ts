@@ -92,9 +92,11 @@ export function buildServiceSheet<const F extends readonly Feature[], Part exten
   const calloutByTitle = new Map(callouts.map((c) => [c.title, c]));
   const noteByTitle = new Map(notes.map((n) => [n.title, n]));
 
-  const schedule: ScheduleRow[] = features.map((feature, i) => {
-    const callout = calloutByTitle.get(feature.title);
-    const note = noteByTitle.get(feature.title);
+  const schedule: ScheduleRow[] = features.map((feature: F[number], i) => {
+    // Read the title through the feature list's own type, so it can index the typed `kinds` record.
+    const title: F[number]["title"] = feature.title;
+    const callout = calloutByTitle.get(title);
+    const note = noteByTitle.get(title);
 
     if (callout && note) {
       throw new Error(`Service sheet ${plan.sheetNumber}: "${feature.title}" is both a callout and a note.`);
@@ -115,7 +117,7 @@ export function buildServiceSheet<const F extends readonly Feature[], Part exten
     return {
       mark: `S-${String(i + 1).padStart(2, "0")}`,
       item: feature.title,
-      kind: plan.kinds[feature.title],
+      kind: plan.kinds[title],
       ref,
     };
   });
