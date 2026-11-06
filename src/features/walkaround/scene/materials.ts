@@ -234,7 +234,7 @@ export function useHouseMaterials(): HouseMaterialSet {
         }
       },
     };
-  }, []);
+  });
 
   return resources;
 }

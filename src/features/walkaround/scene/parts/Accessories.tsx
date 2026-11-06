@@ -89,7 +89,6 @@ function Shutters({ materials }: { materials: HouseMaterials }) {
   const rightRef = useRef<InstancedMesh>(null);
   const geometry = useDisposable(
     () => applyWorldUVs(box([SHUTTER_WIDTH, houseSpec.window.height + 0.14, 0.035], [0, 0, 0.02]), textureScale.louvers),
-    [],
   );
 
   useLayoutEffect(() => {
@@ -115,7 +114,6 @@ export function Accessories({ materials }: { materials: HouseMaterials }) {
       trim: buildTrim(),
       gutters: buildGutters(),
     }),
-    [],
   );
 
   return (

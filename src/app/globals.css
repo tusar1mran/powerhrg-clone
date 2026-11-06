@@ -175,6 +175,9 @@ a:focus-visible .link-underline {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   .reveal,
   .reveal.is-visible,
   .fade-in-up,
@@ -324,5 +327,47 @@ a:focus-visible .link-underline {
   }
   html {
     @apply font-sans;
+  }
+}
+
+/*
+  Walk-around stage (homepage). The 3D canvas is transparent, so this backdrop is its sky: a soft
+  daylight haze behind the house fading out to the charcoal chrome. The lawn's edge fades into it,
+  so there is no hard horizon. `data-time="dusk"` swaps in an evening sky.
+*/
+.walkaround-backdrop {
+  background:
+    radial-gradient(ellipse 70% 60% at 66% 58%, #d5d6cd 0%, #aab1ab 26%, #66767a 52%, #26363d 78%, #121b20 100%);
+  transition: background-color 1.2s ease;
+}
+
+.walkaround-backdrop[data-time="dusk"] {
+  background:
+    radial-gradient(ellipse 70% 60% at 66% 60%, #e7a877 0%, #a6716a 24%, #4c4d66 50%, #1c2536 76%, #0b1114 100%);
+}
+
+@media (max-width: 1023px) {
+  .walkaround-backdrop {
+    background:
+      radial-gradient(ellipse 120% 55% at 50% 52%, #d5d6cd 0%, #aab1ab 28%, #66767a 55%, #26363d 80%, #121b20 100%);
+  }
+  .walkaround-backdrop[data-time="dusk"] {
+    background:
+      radial-gradient(ellipse 120% 55% at 50% 52%, #e7a877 0%, #a6716a 26%, #4c4d66 52%, #1c2536 78%, #0b1114 100%);
+  }
+}
+
+/* Darkens the side of the stage where the HTML sits (left on wide screens, top and bottom on narrow). */
+.walkaround-scrim {
+  background:
+    linear-gradient(90deg, rgb(11 17 20 / 0.82) 0%, rgb(11 17 20 / 0.45) 28%, rgb(11 17 20 / 0) 52%),
+    linear-gradient(0deg, rgb(11 17 20 / 0.55) 0%, rgb(11 17 20 / 0) 22%);
+}
+
+@media (max-width: 1023px) {
+  .walkaround-scrim {
+    background:
+      linear-gradient(180deg, rgb(11 17 20 / 0.85) 0%, rgb(11 17 20 / 0.35) 34%, rgb(11 17 20 / 0) 52%),
+      linear-gradient(0deg, rgb(11 17 20 / 0.7) 0%, rgb(11 17 20 / 0) 30%);
   }
 }

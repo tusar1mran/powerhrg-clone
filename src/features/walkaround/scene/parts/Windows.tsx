@@ -121,7 +121,6 @@ export function Windows({ materials }: { materials: HouseMaterials }) {
       frame: buildFrame(),
       glass: buildGlass(),
     }),
-    [],
   );
 
   return (

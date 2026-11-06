@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type RefObject } from "react";
+import { useRef, type ReactNode } from "react";
 import { useFrame } from "@react-three/fiber";
 import type { Group } from "three";
 import { applyWorldUVs, box, mergeAll, profileSlab } from "@/features/three/geometry";
@@ -56,18 +56,39 @@ function hingedSlab(from: number, depth: number, uvScale: number) {
   return geometry;
 }
 
-type PeelLayer = "sheathing" | "wrap" | "siding";
+type PeelLayerKey = "sheathing" | "wrap" | "siding";
 
 const peelStrength = (frame: SceneFrameState) => frame.effects.wallPeel;
 
-export function SidingWall({ materials }: { materials: HouseMaterials }) {
-  const frameRef = useSceneFrame();
-  const refs = {
-    sheathing: useRef<Group>(null),
-    wrap: useRef<Group>(null),
-    siding: useRef<Group>(null),
-  } satisfies Record<PeelLayer, RefObject<Group | null>>;
+type PeelLayerProps = {
+  layer: PeelLayerKey;
+  children: ReactNode;
+};
 
+/** One layer of the wall, hanging from a hinge at the back corner. It swings open as the wall peels. */
+function PeelLayer({ layer, children }: PeelLayerProps) {
+  const frameRef = useSceneFrame();
+  const groupRef = useRef<Group>(null);
+  const { swing, slide } = layers[layer];
+
+  useFrame(() => {
+    const group = groupRef.current;
+    if (!group) {
+      return;
+    }
+    const peel = frameRef.current.effects.wallPeel;
+    group.rotation.y = swing * peel;
+    group.position.x = halfWidth + slide * peel;
+  });
+
+  return (
+    <group ref={groupRef} position={[halfWidth, 0, -halfDepth]}>
+      {children}
+    </group>
+  );
+}
+
+export function SidingWall({ materials }: { materials: HouseMaterials }) {
   const geometry = useDisposable(
     () => ({
       drywall: profileSlab(gableOutline, 0.02, halfWidth - 0.22),
@@ -80,20 +101,7 @@ export function SidingWall({ materials }: { materials: HouseMaterials }) {
         box([0.03, wallTop - foundation, 0.14], [halfWidth + 0.015, (wallTop + foundation) / 2, -halfDepth + 0.07]),
       ]).translate(-halfWidth, 0, halfDepth),
     }),
-    [],
   );
-
-  useFrame(() => {
-    const peel = frameRef.current.effects.wallPeel;
-    for (const key of ["sheathing", "wrap", "siding"] as const) {
-      const group = refs[key].current;
-      if (!group) {
-        continue;
-      }
-      group.rotation.y = layers[key].swing * peel;
-      group.position.x = halfWidth + layers[key].slide * peel;
-    }
-  });
 
   const [sheathingLabel, wrapLabel, sidingLabel] = chapterDetails.Siding.layers;
   const labelY = foundation + houseSpec.floorHeight * 1.1;
@@ -103,20 +111,19 @@ export function SidingWall({ materials }: { materials: HouseMaterials }) {
       <mesh geometry={geometry.drywall} material={materials.drywall} receiveShadow />
       <mesh geometry={geometry.studs} material={materials.framing} castShadow receiveShadow />
 
-      {/* each peeling layer hangs from a hinge at the back corner of the wall */}
-      <group ref={refs.sheathing} position={[halfWidth, 0, -halfDepth]}>
+      <PeelLayer layer="sheathing">
         <mesh geometry={geometry.sheathing} material={materials.sheathing} castShadow receiveShadow />
         <SceneLabel text={sheathingLabel} position={[0.05, labelY - 0.9, halfDepth * 2 - 0.9]} strength={peelStrength} />
-      </group>
-      <group ref={refs.wrap} position={[halfWidth, 0, -halfDepth]}>
+      </PeelLayer>
+      <PeelLayer layer="wrap">
         <mesh geometry={geometry.wrap} material={materials.wrap} castShadow receiveShadow />
         <SceneLabel text={wrapLabel} position={[0.05, labelY, halfDepth * 2 - 0.7]} strength={peelStrength} />
-      </group>
-      <group ref={refs.siding} position={[halfWidth, 0, -halfDepth]}>
+      </PeelLayer>
+      <PeelLayer layer="siding">
         <mesh geometry={geometry.siding} material={materials.siding} castShadow receiveShadow />
         <mesh geometry={geometry.cornerTrim} material={materials.trim} castShadow />
         <SceneLabel text={sidingLabel} position={[0.05, labelY + 0.9, halfDepth * 2 - 0.5]} strength={peelStrength} />
-      </group>
+      </PeelLayer>
     </ServicePart>
   );
 }

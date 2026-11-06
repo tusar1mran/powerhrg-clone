@@ -70,7 +70,6 @@ export function Attic({ materials }: { materials: HouseMaterials }) {
         textureScale.insulation,
       ),
     }),
-    [],
   );
 
   useFrame(() => {

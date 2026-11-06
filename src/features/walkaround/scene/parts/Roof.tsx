@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { useFrame } from "@react-three/fiber";
-import type { Group, MeshStandardMaterial } from "three";
+import type { BufferGeometry, Group, MeshStandardMaterial } from "three";
 import { applyWorldUVs, box, mergeAll, place } from "@/features/three/geometry";
 import { textureScale } from "@/features/three/textures";
 import { useDisposable } from "@/features/three/use-disposable";
@@ -65,29 +65,81 @@ function buildRidgeVent() {
 
 const explodeStrength = (frame: SceneFrameState) => frame.effects.roofExplode;
 
-/** Sets a fading material's opacity, and stops drawing it once it is fully transparent. */
-function setFade(material: MeshStandardMaterial, opacity: number, group: Group | null) {
-  material.opacity = opacity;
-  material.depthWrite = opacity > 0.98;
-  if (group) {
-    group.visible = opacity > 0.01;
-  }
+type SlopeLayerProps = {
+  side: SlopeSide;
+  layer: RoofLayerKey;
+  geometry: BufferGeometry;
+  material: MeshStandardMaterial;
+  /** The front slope lifts away and fades out for the attic view; the back slope stays. */
+  fades: boolean;
+  children?: ReactNode;
+};
+
+/**
+ * One layer of one slope. It lifts along the slope normal as the roof explodes (higher layers
+ * further), and, on the front slope, rises and fades out when the attic is revealed.
+ */
+function SlopeLayer({ side, layer, geometry, material, fades, children }: SlopeLayerProps) {
+  const frameRef = useSceneFrame();
+  const groupRef = useRef<Group>(null);
+  const { normal } = slopeFrame(side);
+
+  useFrame(() => {
+    const group = groupRef.current;
+    if (!group) {
+      return;
+    }
+    const { roofExplode, atticReveal } = frameRef.current.effects;
+    const lift = layerStack[layer].lift * roofExplode + (fades ? ATTIC_LIFT * atticReveal : 0);
+    group.position.set(0, normal[1] * lift, normal[2] * lift);
+    if (fades) {
+      applyFade(group, material, atticReveal);
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      <mesh geometry={geometry} material={material} castShadow receiveShadow />
+      {children}
+    </group>
+  );
 }
 
-export function Roof({ materials }: { materials: HouseMaterials }) {
-  const frameRef = useSceneFrame();
-  const front = {
-    deck: useRef<Group>(null),
-    underlayment: useRef<Group>(null),
-    shingles: useRef<Group>(null),
-  };
-  const back = {
-    deck: useRef<Group>(null),
-    underlayment: useRef<Group>(null),
-    shingles: useRef<Group>(null),
-  };
-  const ridgeRef = useRef<Group>(null);
+/** Fades a group's material out as the attic is revealed, and stops drawing it once it's gone. */
+function applyFade(group: Group, material: MeshStandardMaterial, reveal: number) {
+  const opacity = 1 - Math.min(reveal * 1.25, 1);
+  material.opacity = opacity;
+  material.depthWrite = opacity > 0.98;
+  group.visible = opacity > 0.01;
+}
 
+function RidgeVent({ geometry, material, label }: { geometry: BufferGeometry; material: MeshStandardMaterial; label: string }) {
+  const frameRef = useSceneFrame();
+  const groupRef = useRef<Group>(null);
+
+  useFrame(() => {
+    const group = groupRef.current;
+    if (!group) {
+      return;
+    }
+    const { roofExplode, atticReveal } = frameRef.current.effects;
+    group.position.y = RIDGE_VENT_LIFT * roofExplode + ATTIC_LIFT * 0.6 * atticReveal;
+    applyFade(group, material, atticReveal);
+  });
+
+  return (
+    <group ref={groupRef}>
+      <mesh geometry={geometry} material={material} castShadow />
+      <SceneLabel text={label} position={[labelX, ridgeHeight + 0.5, 0]} strength={explodeStrength} />
+    </group>
+  );
+}
+
+// Labels ride on the front slope layers, which face the Roofing camera, staggered down the slope
+// so they don't overlap once the layers separate.
+const labelX = roofLength / 2 - 1.6;
+
+export function Roof({ materials }: { materials: HouseMaterials }) {
   const geometry = useDisposable(
     () => ({
       frontDeck: slopeLayer(1, "deck"),
@@ -98,63 +150,27 @@ export function Roof({ materials }: { materials: HouseMaterials }) {
       backShingles: slopeLayer(-1, "shingles"),
       ridgeVent: buildRidgeVent(),
     }),
-    [],
   );
 
-  useFrame(() => {
-    const { roofExplode, atticReveal } = frameRef.current.effects;
-    const frontNormal = slopeFrame(1).normal;
-    const backNormal = slopeFrame(-1).normal;
-
-    for (const key of ["deck", "underlayment", "shingles"] as const) {
-      const lift = layerStack[key].lift * roofExplode;
-      const frontLift = lift + ATTIC_LIFT * atticReveal;
-      front[key].current?.position.set(0, frontNormal[1] * frontLift, frontNormal[2] * frontLift);
-      back[key].current?.position.set(0, backNormal[1] * lift, backNormal[2] * lift);
-    }
-    ridgeRef.current?.position.set(0, RIDGE_VENT_LIFT * roofExplode + ATTIC_LIFT * 0.6 * atticReveal, 0);
-
-    const opacity = 1 - Math.min(atticReveal * 1.25, 1);
-    setFade(materials.frontDeck, opacity, front.deck.current);
-    setFade(materials.frontUnderlayment, opacity, front.underlayment.current);
-    setFade(materials.frontShingles, opacity, front.shingles.current);
-    setFade(materials.ridgeVent, opacity, ridgeRef.current);
-  });
-
   const [deckLabel, underlaymentLabel, shinglesLabel, ridgeLabel] = chapterDetails.Roofing.layers;
-  // Labels ride on the front slope layers, which face the Roofing camera, staggered down the
-  // slope so they don't overlap once the layers separate.
-  const labelX = roofLength / 2 - 1.6;
 
   return (
     <ServicePart service="Roofing">
-      <group ref={front.deck}>
-        <mesh geometry={geometry.frontDeck} material={materials.frontDeck} castShadow receiveShadow />
+      <SlopeLayer side={1} layer="deck" geometry={geometry.frontDeck} material={materials.frontDeck} fades>
         <SceneLabel text={deckLabel} position={slopePoint(1, slopeLength * 0.82, 0.08, labelX)} strength={explodeStrength} />
-      </group>
-      <group ref={front.underlayment}>
-        <mesh geometry={geometry.frontUnderlayment} material={materials.frontUnderlayment} castShadow receiveShadow />
+      </SlopeLayer>
+      <SlopeLayer side={1} layer="underlayment" geometry={geometry.frontUnderlayment} material={materials.frontUnderlayment} fades>
         <SceneLabel text={underlaymentLabel} position={slopePoint(1, slopeLength * 0.62, 0.08, labelX)} strength={explodeStrength} />
-      </group>
-      <group ref={front.shingles}>
-        <mesh geometry={geometry.frontShingles} material={materials.frontShingles} castShadow receiveShadow />
+      </SlopeLayer>
+      <SlopeLayer side={1} layer="shingles" geometry={geometry.frontShingles} material={materials.frontShingles} fades>
         <SceneLabel text={shinglesLabel} position={slopePoint(1, slopeLength * 0.42, 0.12, labelX)} strength={explodeStrength} />
-      </group>
+      </SlopeLayer>
 
-      <group ref={back.deck}>
-        <mesh geometry={geometry.backDeck} material={materials.deck} castShadow receiveShadow />
-      </group>
-      <group ref={back.underlayment}>
-        <mesh geometry={geometry.backUnderlayment} material={materials.underlayment} castShadow receiveShadow />
-      </group>
-      <group ref={back.shingles}>
-        <mesh geometry={geometry.backShingles} material={materials.shingles} castShadow receiveShadow />
-      </group>
+      <SlopeLayer side={-1} layer="deck" geometry={geometry.backDeck} material={materials.deck} fades={false} />
+      <SlopeLayer side={-1} layer="underlayment" geometry={geometry.backUnderlayment} material={materials.underlayment} fades={false} />
+      <SlopeLayer side={-1} layer="shingles" geometry={geometry.backShingles} material={materials.shingles} fades={false} />
 
-      <group ref={ridgeRef}>
-        <mesh geometry={geometry.ridgeVent} material={materials.ridgeVent} castShadow />
-        <SceneLabel text={ridgeLabel} position={[labelX, ridgeHeight + 0.5, 0]} strength={explodeStrength} />
-      </group>
+      <RidgeVent geometry={geometry.ridgeVent} material={materials.ridgeVent} label={ridgeLabel} />
     </ServicePart>
   );
 }

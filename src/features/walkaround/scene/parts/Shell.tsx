@@ -67,7 +67,6 @@ export function Shell({ materials }: { materials: HouseMaterials }) {
       chimney: buildChimney(),
       flue: box([0.3, 0.4, 0.3], [-halfWidth - chimney.depth / 2, chimney.top + 0.2, 0.2]),
     }),
-    [],
   );
 
   return (

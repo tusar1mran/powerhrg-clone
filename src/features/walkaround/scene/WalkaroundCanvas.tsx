@@ -33,11 +33,11 @@ function ReadySignal() {
 /** Pointer cursor while a clickable part of the house is under the mouse. */
 function CursorSync() {
   const { hovered } = useWalkaroundState();
-  const canvas = useThree((state) => state.gl.domElement);
+  const get = useThree((state) => state.get);
 
   useEffect(() => {
-    canvas.style.cursor = hovered ? "pointer" : "";
-  }, [canvas, hovered]);
+    get().gl.domElement.style.cursor = hovered ? "pointer" : "";
+  }, [get, hovered]);
 
   return null;
 }

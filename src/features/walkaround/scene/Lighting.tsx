@@ -25,14 +25,14 @@ const SHADOW_EXTENT = 15;
  */
 export function Lighting() {
   const frameRef = useSceneFrame();
-  const gl = useThree((state) => state.gl);
-  const scene = useThree((state) => state.scene);
+  const get = useThree((state) => state.get);
   const sunRef = useRef<DirectionalLight>(null);
   const fillRef = useRef<DirectionalLight>(null);
   const skyRef = useRef<HemisphereLight>(null);
   const lastDusk = useRef(-1);
 
   useEffect(() => {
+    const { gl, scene } = get();
     const generator = new PMREMGenerator(gl);
     const room = new RoomEnvironment();
     const target = generator.fromScene(room, 0.04);
@@ -44,9 +44,9 @@ export function Lighting() {
       scene.environment = null;
       target.dispose();
     };
-  }, [gl, scene]);
+  }, [get]);
 
-  useFrame(() => {
+  useFrame((state) => {
     const dusk = frameRef.current.dusk;
     if (dusk === lastDusk.current) {
       return;
@@ -68,7 +68,7 @@ export function Lighting() {
     if (fill) {
       fill.intensity = lerp(lighting.fill.dayIntensity, lighting.fill.duskIntensity, dusk);
     }
-    scene.environmentIntensity = lerp(lighting.environment.day, lighting.environment.dusk, dusk);
+    state.scene.environmentIntensity = lerp(lighting.environment.day, lighting.environment.dusk, dusk);
   });
 
   return (

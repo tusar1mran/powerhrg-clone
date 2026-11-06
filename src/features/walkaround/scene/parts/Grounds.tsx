@@ -76,7 +76,6 @@ export function Grounds({ materials }: { materials: HouseMaterials }) {
       foliage: new IcosahedronGeometry(1, 1),
       trunk: new CylinderGeometry(0.12, 0.18, 1, 8).translate(0, 0.5, 0),
     }),
-    [],
   );
 
   useLayoutEffect(() => {

@@ -95,7 +95,6 @@ export function EntryDoor({ materials }: { materials: HouseMaterials }) {
       // Lit room behind the door, seen through the opening. Only its inside faces are drawn.
       foyer: place(new BoxGeometry(2.6, 2.9, 2.4), [0, foundation + 1.45, slabZ - 1.25]),
     }),
-    [],
   );
 
   useFrame(() => {
