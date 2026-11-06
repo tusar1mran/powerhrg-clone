@@ -1,12 +1,21 @@
 // Copy for the "Your House" homepage and the service-page template. Wherever possible it is drawn
 // from the existing content files (content.ts, the *-content.ts service files) so the drawing, the
 // layer diagrams and the service pages always say the same thing.
+import type { FaqGroup } from "@/components/services/Faq";
 import type { Feature } from "@/components/services/FeatureIcons";
 import { homeCta, homeHero, processSection, promise, trust } from "./content";
 import type { AtticLayer, LayerNote, RoofLayer, WallLayer } from "./house/layers";
 import { insulationFeatures, insulationIntro } from "./insulation-content";
 import { links, serviceLinks, type ServiceName } from "./links";
-import { roofingFeatures, roofingIntro } from "./roofing-content";
+import { buildQuoteHref } from "./quote/href";
+import {
+  roofingCta,
+  roofingFaqs,
+  roofingFeatures,
+  roofingGuarantee,
+  roofingHero,
+  roofingIntro,
+} from "./roofing-content";
 import { sameAddress } from "./services-content";
 import { sidingFeatures, sidingIntro } from "./siding-content";
 import { site } from "./site";
@@ -178,4 +187,66 @@ export const houseClosing = {
   quote: { label: homeCta.label, href: homeCta.href },
   callLabel: `Call ${site.phone.display}`,
   back: { label: "Or pick parts on the house", href: "#house" },
+};
+
+// ---- Service-page template ("sheet") -------------------------------------------------------------
+
+export type ServiceSheet<K extends string> = {
+  service: ServiceName;
+  /** Lettering above the title, like the sheet number on a drawing set. */
+  sheetLabel: string;
+  hero: { title: string[]; intro: string };
+  figureLabel: string;
+  keyPlan: { label: string; back: { label: string; href: string } };
+  actions: { quote: { label: string; href: string }; callLabel: string };
+  system: StoryChapter<K>;
+  included: { eyebrow: string; title: string; text: string; items: Feature[] };
+  guarantee: { eyebrow: string; title: string[]; text: string; cta: string; href: string; seal: string };
+  faqs: { eyebrow: string; title: string; groups: FaqGroup[] };
+  closing: { title: string[]; text: string };
+};
+
+/** Features already explained as a layer of the roof are left out of the "included work" list. */
+const roofLayerTitles: ReadonlySet<string> = new Set(Object.values(roofStory.notes).map((n) => n.title));
+
+export const roofingSheet: ServiceSheet<RoofLayer> = {
+  service: "Roofing",
+  sheetLabel: `Sheet 02 · ${roofingIntro.eyebrow}`,
+  hero: {
+    title: roofingHero.title,
+    intro: roofingHero.subtitle.join(" "),
+  },
+  figureLabel: "Fig. 1 · Roof system, each layer cut back",
+  keyPlan: {
+    label: `Key plan · ${partLocations.Roofing}`,
+    back: { label: "Back to the house", href: `${links.home}#house` },
+  },
+  actions: {
+    quote: { label: roofingCta.label, href: buildQuoteHref(["Roofing"]) },
+    callLabel: `Call ${site.phone.display}`,
+  },
+  system: roofStory,
+  included: {
+    eyebrow: "Included work",
+    title: "Also part of every roof",
+    text: "Beyond the layers themselves, this is what comes with a roof replacement from us.",
+    items: roofingFeatures.filter((f) => !roofLayerTitles.has(f.title)),
+  },
+  guarantee: {
+    eyebrow: roofingGuarantee.eyebrow,
+    title: roofingGuarantee.title,
+    text: roofingGuarantee.text,
+    cta: roofingGuarantee.cta,
+    href: roofingGuarantee.href,
+    seal: "Workmanship warranty · In writing · ",
+  },
+  faqs: {
+    eyebrow: "Questions",
+    title: "Roofing questions, answered",
+    groups: roofingFaqs,
+  },
+  closing: {
+    title: roofingCta.title,
+    text: roofingCta.text,
+  },
 };

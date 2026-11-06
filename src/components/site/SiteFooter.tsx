@@ -97,7 +97,7 @@ export default function SiteFooter() {
         </div>
 
         <div className="flex flex-col gap-3 border-x border-t border-charcoal/20 px-6 py-5 text-[14px] leading-6 text-charcoal-700 lg:flex-row lg:items-center lg:justify-between">
-          <p className="annotation">{footerContent.license}</p>
+          <p className="max-w-[60ch]">{footerContent.license}</p>
           <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5">
             <p>
               © <CopyrightYear /> {site.legalName}. {footerContent.rights}

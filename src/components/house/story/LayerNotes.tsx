@@ -5,11 +5,13 @@ type Props<K extends string> = {
   /** Layer keys in installation order; the position gives each note its callout number. */
   order: readonly K[];
   notes: Record<K, LayerNote>;
+  /** Heading level for each note title, one below the heading of the section the list sits in. */
+  titleAs: "h3" | "h4";
   className?: string;
 };
 
 /** Numbered layer notes that match the callout bubbles on a layer diagram. */
-export function LayerNotes<K extends string>({ order, notes, className }: Props<K>) {
+export function LayerNotes<K extends string>({ order, notes, titleAs: Title, className }: Props<K>) {
   return (
     <ol className={cn("flex flex-col", className)}>
       {order.map((key, index) => {
@@ -23,7 +25,7 @@ export function LayerNotes<K extends string>({ order, notes, className }: Props<
               {String(index + 1).padStart(2, "0")}
             </span>
             <div className="flex flex-col gap-1">
-              <h4 className="text-[17px] leading-6 font-semibold">{note.title}</h4>
+              <Title className="text-[17px] leading-6 font-semibold">{note.title}</Title>
               <p className="max-w-[56ch] text-[15px] leading-6 text-charcoal-700">{note.text}</p>
             </div>
           </li>

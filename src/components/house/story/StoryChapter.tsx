@@ -41,7 +41,7 @@ export function StoryChapter<K extends string>({ chapter, order, figure, figureS
           {chapter.title}
         </h3>
         <p className="max-w-[60ch] text-[16px] leading-7 text-charcoal-700">{chapter.text}</p>
-        <LayerNotes order={order} notes={chapter.notes} className="mt-3" />
+        <LayerNotes order={order} notes={chapter.notes} titleAs="h4" className="mt-3" />
         <Link href={chapter.href} className="inline-flex w-fit items-center gap-2 py-2 text-charcoal">
           <span className="link-underline">{chapter.linkLabel}</span>
           <ArrowRight aria-hidden className="size-4" />
