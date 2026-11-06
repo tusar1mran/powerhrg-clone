@@ -1,26 +1,41 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Viewports tall enough for the desktop title block to stay pinned beside the drawing. */
+@custom-variant tall (@media (min-height: 50rem));
 
 /*
-  Shah & Crew design tokens. Headings are set in Fraunces (a soft serif, SIL OFL) in sentence case;
-  body copy and UI labels are Inter (SIL OFL). The logo wordmark is outlined Jost and does not
-  depend on these fonts.
+  Shah & Crew design tokens, "Field Manual" concept: every page is a sheet in a construction drawing set.
+  Type is IBM Plex (SIL OFL): Plex Sans for body copy, its condensed width (wdth axis) for headings and
+  sheet titles, and Plex Mono for annotations, sheet numbers and labels. The logo wordmark is outlined
+  Jost and does not depend on these fonts.
 */
 @theme {
-  --color-charcoal: #1e2b31;     /* headings, footer, process band, logo */
+  --color-charcoal: #1e2b31;     /* ink: linework, headings, title block, logo */
   --color-charcoal-700: #33454d; /* "Our promise" background */
-  --color-gold: #f0ad3c;         /* CTA buttons, accents, link underlines, logo roof */
+  --color-gold: #f0ad3c;         /* the single accent: CTA, callout highlights, revision marks, logo roof */
   --color-gold-600: #d9922a;     /* gold button hover */
   --color-oat: #ddd3c4;          /* promise panel, CTA bands */
   --color-sand: #f6f2eb;         /* trust points, FAQ box, contact cards */
   --color-slate: #c5cbd3;        /* photo placeholder while loading */
   --color-ink: #1f2427;          /* body copy */
+  --color-paper: #f4f1ea;        /* drawing sheet ground */
+  --color-paper-deep: #e8e2d5;   /* plotter margin around the sheet, filled cells */
 
-  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  /* Older body sections still use font-display; it now resolves to Plex Sans. */
+  --font-display: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  /* shadcn/ui titles (SheetTitle etc.) */
+  --font-heading: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
 
   /* Letter-spacing used across the site */
-  --tracking-display: -0.015em; /* serif headings */
+  --tracking-display: -0.015em; /* large headings */
   --tracking-label: 0.14em;     /* small uppercase eyebrows */
+  --tracking-mono: 0.06em;      /* monospaced annotations */
 
   --breakpoint-3xl: 108rem;
 }
@@ -47,6 +62,14 @@ a.underline,
 html {
   scroll-behavior: smooth;
   color-scheme: only light;
+  /* Keeps anchored sections (e.g. /support#quote) clear of the sticky header. */
+  scroll-padding-top: 4.5rem;
+}
+
+@media (min-width: 64rem) {
+  html {
+    scroll-padding-top: 7rem;
+  }
 }
 
 a[href],
@@ -62,22 +85,32 @@ input[type="checkbox"] {
 }
 
 body {
-  background: #fff;
+  background: var(--color-paper-deep);
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
 
-/* Serif headings: the optical-size axis keeps large titles crisp and small ones sturdy. */
+/* Headings wrap evenly; the condensed heading styles are the type-* utilities below. */
 h1,
 h2,
 h3 {
-  font-optical-sizing: auto;
   text-wrap: balance;
+}
+
+/* One focus style for the whole sheet set: a solid ink outline that clears the element. */
+:focus-visible {
+  outline: 2px solid var(--color-charcoal);
+  outline-offset: 2px;
 }
 
 .on-dark {
   --link-rest: var(--color-gold);
   --link-hover: #fff;
+}
+
+/* On ink-filled panels the outline switches to gold so it stays visible. */
+.on-ink :focus-visible {
+  outline-color: var(--color-gold);
 }
 
 /*
@@ -127,6 +160,99 @@ a:focus-visible .link-underline {
     box-shadow 150ms ease;
 }
 
+/* ---------------------------------------------------------------------------------------------
+   Field Manual: sheet typography
+   --------------------------------------------------------------------------------------------- */
+
+/* Page titles: condensed, uppercase lettering like a drawing title. */
+@utility type-display {
+  font-family: var(--font-sans);
+  font-stretch: 75%;
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+/* Section and content headings: condensed, sentence case. */
+@utility type-heading {
+  font-family: var(--font-sans);
+  font-stretch: 80%;
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.005em;
+}
+
+/* Sheet titles in strips and title blocks: condensed, uppercase, slightly tracked. */
+@utility type-sheet {
+  font-family: var(--font-sans);
+  font-stretch: 80%;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Annotations: sheet numbers, labels, captions. */
+@utility type-mono {
+  font-family: var(--font-mono);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------------------------------------
+   Field Manual: drawing sheet surfaces
+   --------------------------------------------------------------------------------------------- */
+
+/* Fine drafting grid: 8px minor lines, 48px major lines, drawn from the element's top-left corner. */
+@utility bg-drawing-grid {
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(to right, rgb(30 43 49 / 0.075) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(30 43 49 / 0.075) 1px, transparent 1px),
+    linear-gradient(to right, rgb(30 43 49 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(30 43 49 / 0.035) 1px, transparent 1px);
+  background-size:
+    48px 48px,
+    48px 48px,
+    8px 8px,
+    8px 8px;
+}
+
+/*
+  Line weights for SVG drawings. Strokes don't scale with the drawing, so a heavy cut line reads
+  the same on a phone as on a wide screen. Pattern (hatch) contents keep their own scaling.
+*/
+.drawing :where(path, line, polyline, polygon, rect, circle, ellipse):not(pattern *) {
+  vector-effect: non-scaling-stroke;
+}
+
+.drawing {
+  --lw-heavy: 2.25px;
+  --lw-medium: 1.4px;
+  --lw-light: 0.9px;
+  --lw-hair: 0.6px;
+  color: var(--color-charcoal);
+}
+
+.drawing .lw-heavy {
+  stroke-width: var(--lw-heavy);
+}
+.drawing .lw-medium {
+  stroke-width: var(--lw-medium);
+}
+.drawing .lw-light {
+  stroke-width: var(--lw-light);
+}
+.drawing .lw-hair {
+  stroke-width: var(--lw-hair);
+}
+
+.drawing text {
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  fill: currentColor;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -171,5 +297,74 @@ a:focus-visible .link-underline {
     opacity: 1;
     animation-duration: 1ms !important;
     animation-delay: 0s !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* shadcn/ui overlays (sheet, accordion) open instantly. */
+  [data-slot] {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* shadcn/ui semantic tokens, mapped onto the sheet palette (light only: color-scheme is "only light"). */
+@theme inline {
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: var(--color-paper);
+  --foreground: var(--color-charcoal);
+  --card: var(--color-paper);
+  --card-foreground: var(--color-charcoal);
+  --popover: var(--color-paper);
+  --popover-foreground: var(--color-charcoal);
+  --primary: var(--color-gold);
+  --primary-foreground: var(--color-charcoal);
+  --secondary: var(--color-charcoal);
+  --secondary-foreground: var(--color-paper);
+  --muted: var(--color-paper-deep);
+  /* charcoal at ~78% on paper: 6.4:1 */
+  --muted-foreground: #4a565c;
+  --accent: var(--color-paper-deep);
+  --accent-foreground: var(--color-charcoal);
+  --destructive: #b42318;
+  --border: rgb(30 43 49 / 0.2);
+  --input: rgb(30 43 49 / 0.35);
+  --ring: var(--color-charcoal);
+  /* Square corners throughout: drawings don't have rounded boxes. */
+  --radius: 0rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
   }
 }

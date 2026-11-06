@@ -2,49 +2,14 @@
 // Photos are in /public/assets/photos (see public/assets/CREDITS.md).
 import type { ImageCard } from "@/components/ImageCardPair";
 import { links, serviceLinks, type ServiceName } from "./links";
+import { servicesHero } from "./services-content";
 import { site } from "./site";
 
 export type NavItem = { label: string; href: string };
-export type NavGroup = { label: string; items: NavItem[] };
-/** A top-level entry is either a dropdown group or a single link. */
-export type NavEntry = NavGroup | NavItem;
 
-export const isNavGroup = (entry: NavEntry): entry is NavGroup => "items" in entry;
-
-// Top navigation. Groups open a dropdown on click (not hover); plain links go straight to their page.
-export const navMenu: NavEntry[] = [
-  {
-    label: "Services",
-    items: [{ label: "All Services", href: links.services }, ...serviceLinks.map((s) => ({ label: s.name, href: s.href }))],
-  },
-  { label: "About", href: links.about },
-  { label: "Support", href: links.support },
-];
-
-// Shown in the header search panel before the visitor types anything.
-export const topSearches: NavItem[] = [
-  { label: "Get a Free Quote", href: links.quote },
-  { label: "View All Services", href: links.services },
-  { label: "Warranty", href: links.warranty },
-  { label: "Licenses & Insurance", href: links.licenses },
-  { label: "About Shah & Crew", href: links.about },
-];
-
-// Everything the header search can find: services plus the main sections of /about and /support.
-export const searchIndex: NavItem[] = [
-  { label: "All Services", href: links.services },
-  ...serviceLinks.map((s) => ({ label: s.name, href: s.href })),
-  { label: "About Shah & Crew", href: links.about },
-  { label: "Our Promise", href: links.promise },
-  { label: "Service Area", href: links.serviceArea },
-  { label: "Get Support", href: links.support },
-  { label: "Get a Free Quote", href: links.quote },
-  { label: "How It Works", href: links.process },
-  { label: "Warranty", href: links.warranty },
-  { label: "Licenses & Insurance", href: links.licenses },
-];
-
-export const headerCta = { label: "Get a Free Quote", href: links.quote };
+// Site navigation is the sheet index in src/lib/sheets.ts (one numbered sheet per page).
+// The quote button is shown in the header, the title block and the mobile call / quote bar.
+export const headerCta = { label: "Request a free quote", href: links.quote };
 
 export const serviceAreaBar = {
   text: `Free, no-obligation estimates across ${site.serviceArea}.`,
@@ -200,3 +165,70 @@ export const footerColumns: { heading: string; links: NavItem[] }[] = [
     ],
   },
 ];
+
+// ---------------------------------------------------------------------------------------------
+// Cover sheet (A-000): the homepage drawn as the first sheet of a construction drawing set.
+// Everything below reuses the homepage copy above; only the sheet labels are new.
+// ---------------------------------------------------------------------------------------------
+
+const serviceNames = serviceLinks.map((s) => s.name);
+
+export const coverSheet = {
+  kicker: `Project · ${site.tagline}`,
+  title: homeHero.title,
+  subtitle: homeHero.subtitle,
+  projectData: [
+    { label: "Contractor", value: site.name },
+    { label: "Scope", value: serviceNames.join(" · ") },
+    { label: "Service area", value: site.serviceArea },
+    { label: "Estimate", value: "Free, no obligation" },
+  ],
+  elevation: {
+    title: "Front elevation · key plan",
+    hint: "Each callout opens the sheet for that part of the house.",
+    description:
+      "Line drawing of the front of a two-storey house with a hip roof, lap siding, double-hung windows, a covered front door, gutters and downspouts. Dashed hidden lines show insulation on the attic floor. Callouts point to the roof, windows, siding, door, attic insulation and gutters.",
+  },
+  photo: {
+    src: "/assets/photos/home-hero.jpg",
+    width: 2400,
+    height: 1600,
+    alt: "Blue craftsman-style house with a two-car garage at dusk",
+    caption: "Photo ref. 01 · Exterior at dusk",
+  },
+};
+
+export const coverSections = {
+  index: { label: "Sheet index", title: "One set of drawings for the whole outside", ref: "A-000 / 01" },
+  notes: { label: "General notes", ref: "A-000 / 02" },
+  sequence: { label: "Sequence of work", ref: "A-000 / 03" },
+  trust: { label: "Title block", ref: "A-000 / 04" },
+  workOrder: { label: "Work order", ref: "A-000 / 05" },
+};
+
+/** Text for the general (non-service) sheets in the homepage sheet index. */
+export const generalSheetText: Record<"services" | "about" | "support", string> = {
+  services: servicesHero.subtitle.join(" "),
+  about: homeCards[0].text,
+  support: homeCards[1].text,
+};
+
+export const notesPhoto = {
+  src: "/assets/photos/about-story.jpg",
+  width: 1600,
+  height: 1067,
+  alt: "Hands measuring a board with a steel rule on a workbench",
+  caption: "Photo ref. 02 · Measure before you cut",
+};
+
+export const homeWorkOrder = {
+  title: homeCta.title.join(" "),
+  text: homeCta.text,
+  action: { label: homeCta.label, href: homeCta.href },
+  fields: [
+    { label: "Type", value: "Free estimate" },
+    { label: "Scope", value: serviceNames.join(" · ") },
+    { label: "You receive", value: "Written quote" },
+    { label: "Charge", value: "No charge, no pressure" },
+  ],
+};

@@ -1,20 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 
-// Body copy and UI labels. Variable font, so every weight comes from one file.
-const inter = Inter({
-  variable: "--font-inter",
+// Body copy, headings and UI labels. Variable font with the width axis loaded, so the condensed
+// heading cut and every weight come from one file.
+const plexSans = IBM_Plex_Sans({
+  variable: "--font-plex-sans",
   subsets: ["latin"],
+  axes: ["wdth"],
   display: "swap",
 });
 
-// Headings. The optical-size axis is loaded so large titles get the display cut.
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+// Annotations: sheet numbers, callout labels, captions and title block labels.
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
   subsets: ["latin"],
-  axes: ["opsz"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -41,7 +43,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable} antialiased`}>
+    <html lang="en" className={`${plexSans.variable} ${plexMono.variable} antialiased`}>
       {/* suppressHydrationWarning: browser extensions (e.g. dark-mode tools) add attributes to <body> */}
       <body suppressHydrationWarning>{children}</body>
     </html>
