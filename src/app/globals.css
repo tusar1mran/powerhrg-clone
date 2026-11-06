@@ -6,7 +6,7 @@
 
 /*
   Shah & Crew design tokens, "Your House" concept. The site reads like a hand-inked drawing sheet:
-  warm paper, charcoal linework, and gold only where something is highlighted or actionable.
+  white paper, charcoal linework, and gold only where something is highlighted or actionable.
   Headings are Instrument Serif (SIL OFL) in sentence case; body copy and UI labels are
   Instrument Sans (SIL OFL); drawing annotations (numbers, part labels, notes) are IBM Plex Mono
   (SIL OFL). The logo wordmark is outlined Jost and does not depend on these fonts.
@@ -19,8 +19,8 @@
   --color-gold-800: #8a5a10;     /* gold-toned text on paper (5:1 contrast) */
   --color-gold-100: #fcebc8;     /* hovered / focused house part fill */
   --color-gold-200: #f8d694;     /* selected house part fill */
-  --color-paper: #f7f3ea;        /* page background */
-  --color-paper-2: #efe8da;      /* footer, trays, alternating bands */
+  --color-paper: #ffffff;        /* page background (white) */
+  --color-paper-2: #f5f5f4;      /* footer, trays, alternating bands (neutral, so the page stays white) */
   --color-paper-3: #e3d8c4;      /* deeper paper for drawn surfaces */
   --color-glass: #e2e6df;        /* window glass in the drawings */
   --color-oat: #ddd3c4;          /* legacy sections: promise panel, CTA bands */
@@ -71,17 +71,17 @@
 
 /* The site is light-only (see `viewport.colorScheme` in the root layout), so there is no .dark block. */
 :root {
-  --background: #f7f3ea;
+  --background: #ffffff;
   --foreground: #1e2b31;
-  --card: #fbf8f2;
+  --card: #ffffff;
   --card-foreground: #1e2b31;
-  --popover: #fbf8f2;
+  --popover: #ffffff;
   --popover-foreground: #1e2b31;
   --primary: #f0ad3c;
   --primary-foreground: #1e2b31;
-  --secondary: #efe8da;
+  --secondary: #f5f5f4;
   --secondary-foreground: #1e2b31;
-  --muted: #efe8da;
+  --muted: #f5f5f4;
   --muted-foreground: #4b5a61;
   --accent: #fcebc8;
   --accent-foreground: #1e2b31;
