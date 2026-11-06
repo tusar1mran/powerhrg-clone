@@ -28,7 +28,7 @@ export default function SplitRow({ id, title, paragraphs, image, imageAlt = "", 
   const t = tones[tone];
 
   return (
-    <section id={id} className={`scroll-mt-24 ${tone === "white" ? "py-16 lg:py-24" : "py-4"}`}>
+    <section id={id} className={`scroll-mt-24 ${tone === "white" ? "py-16 lg:py-24" : "panel-wrap"}`}>
       <div className={t.wrap}>
         <div
           className={`container-page grid items-center gap-10 lg:gap-20 ${tone === "white" ? "" : "py-16 lg:py-24"} ${

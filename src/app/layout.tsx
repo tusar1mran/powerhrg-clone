@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import { Bricolage_Grotesque, Fraunces, Instrument_Serif, Manrope, Oswald, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { themeScript } from "@/lib/themes";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
+import { layoutScript } from "@/lib/layouts";
+import DesignDock from "@/components/DesignDock";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -15,6 +16,33 @@ const fraunces = Fraunces({
   subsets: ["latin"],
   axes: ["opsz", "SOFT"],
 });
+
+const instrument = Instrument_Serif({
+  variable: "--font-instrument",
+  subsets: ["latin"],
+  weight: "400",
+  preload: false,
+});
+
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  preload: false,
+});
+
+const oswald = Oswald({
+  variable: "--font-oswald",
+  subsets: ["latin"],
+  preload: false,
+});
+
+const space = Space_Grotesk({
+  variable: "--font-space",
+  subsets: ["latin"],
+  preload: false,
+});
+
+const fontVars = [manrope, fraunces, instrument, bricolage, oswald, space].map((f) => f.variable).join(" ");
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -40,14 +68,14 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${manrope.variable} ${fraunces.variable} antialiased`} suppressHydrationWarning>
+    <html lang="en" className={`${fontVars} antialiased`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript() }} />
+        <script dangerouslySetInnerHTML={{ __html: themeScript() + layoutScript() }} />
       </head>
       {/* suppressHydrationWarning: browser extensions (e.g. dark-mode tools) add attributes to <body> */}
       <body suppressHydrationWarning>
         {children}
-        <ThemeSwitcher />
+        <DesignDock />
       </body>
     </html>
   );

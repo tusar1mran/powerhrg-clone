@@ -63,7 +63,7 @@ export default function ThemeSwitcher() {
   const current = themes.find((t) => t.id === active) ?? themes[0];
 
   return (
-    <div ref={rootRef} className="fixed right-4 bottom-4 z-[90] sm:right-6 sm:bottom-6">
+    <div ref={rootRef} className="relative">
       {open && (
         <div
           id="theme-panel"

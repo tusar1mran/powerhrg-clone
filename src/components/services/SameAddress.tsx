@@ -15,7 +15,7 @@ export default function SameAddress({
   image = sameAddress.image,
 }: Props) {
   return (
-    <section className="py-4">
+    <section className="panel-wrap">
       <div
         className="inset-panel relative isolate flex min-h-[560px] items-end overflow-hidden bg-brand bg-cover bg-center text-on-brand lg:min-h-[680px]"
         style={{ backgroundImage: `url(${image})` }}
@@ -26,7 +26,7 @@ export default function SameAddress({
             <p className="eyebrow text-on-brand/85">{eyebrow}</p>
             <h2 className="display-1 mt-5">
               {title.map((l, i) => (
-                <span key={l} className={`block ${i === title.length - 1 ? "text-accent italic" : ""}`}>
+                <span key={l} className={`block ${i === title.length - 1 ? "text-accent display-em" : ""}`}>
                   {l}
                 </span>
               ))}

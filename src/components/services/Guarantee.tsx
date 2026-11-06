@@ -7,7 +7,7 @@ type Props = { eyebrow: string; title: string[]; text: string; cta: string; href
 
 export default function Guarantee({ eyebrow, title, text, cta, href, image }: Props) {
   return (
-    <section className="py-4">
+    <section className="panel-wrap">
       <div className="inset-panel bg-cream">
         <div className="container-page grid items-center gap-10 py-16 lg:grid-cols-[1.2fr_1fr] lg:gap-20 lg:py-24">
           <Reveal className="relative">

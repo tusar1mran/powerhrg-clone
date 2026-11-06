@@ -1,6 +1,8 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { Phone } from "lucide-react";
 import Reveal from "./Reveal";
+import Slot from "./layout/Slot";
 import { site } from "@/lib/site";
 
 type Props = {
@@ -19,12 +21,31 @@ const tones = {
   brand: { panel: "on-dark bg-brand text-on-brand", text: "text-on-brand/75", roof: "text-accent/50", button: "btn-accent", ghost: "text-on-brand" },
 };
 
-export default function CtaBand({ id, title, label, href = "#", text, tone = "sand", variant = "button" }: Props) {
-  const t = tones[tone];
-  const external = !href.startsWith("/") && !href.startsWith("#");
+function MainLink({ href, className, children }: { href: string; className: string; children: ReactNode }) {
+  return href.startsWith("/") || href.startsWith("#") ? (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  ) : (
+    <a href={href} className={className}>
+      {children}
+    </a>
+  );
+}
 
+function PhoneButton({ className }: { className: string }) {
   return (
-    <section id={id} className="scroll-mt-24 py-4">
+    <a href={site.phone.href} className={`btn btn-ghost ${className}`}>
+      <Phone aria-hidden className="h-4 w-4" />
+      {site.phone.display}
+    </a>
+  );
+}
+
+function CtaPanel({ id, title, label, href = "#", text, tone = "sand", variant = "button" }: Props) {
+  const t = tones[tone];
+  return (
+    <section id={id} className="panel-wrap scroll-mt-24">
       <div className={`inset-panel relative isolate overflow-hidden ${t.panel}`}>
         <svg
           aria-hidden
@@ -46,28 +67,90 @@ export default function CtaBand({ id, title, label, href = "#", text, tone = "sa
           <div className="flex flex-wrap gap-3 lg:justify-end">
             {variant === "button" ? (
               <>
-                {external ? (
-                  <a href={href} className={`btn ${t.button}`}>
-                    {label}
-                  </a>
-                ) : (
-                  <Link href={href} className={`btn ${t.button}`}>
-                    {label}
-                  </Link>
-                )}
-                <a href={site.phone.href} className={`btn btn-ghost ${t.ghost}`}>
-                  <Phone aria-hidden className="h-4 w-4" />
-                  {site.phone.display}
-                </a>
+                <MainLink href={href} className={`btn ${t.button}`}>
+                  {label}
+                </MainLink>
+                <PhoneButton className={t.ghost} />
               </>
             ) : (
-              <Link href={href} className="link-underline">
+              <MainLink href={href} className="link-underline">
                 {label}
-              </Link>
+              </MainLink>
             )}
           </div>
         </Reveal>
       </div>
     </section>
+  );
+}
+
+function CtaBandFull({ id, title, label, href = "#", text }: Props) {
+  return (
+    <section id={id} className="panel-wrap scroll-mt-24">
+      <div className="inset-panel bg-accent text-ink">
+        <Reveal className="container-page flex flex-col items-center py-16 text-center lg:py-24">
+          <h2 className="display-1 max-w-[900px]">{title.join(" ")}</h2>
+          {text && <p className="lead mt-5 max-w-[620px] whitespace-pre-line text-ink/80">{text}</p>}
+          <div className="mt-9 flex flex-wrap justify-center gap-3">
+            <MainLink href={href} className="btn btn-brand">
+              {label}
+            </MainLink>
+            <PhoneButton className="text-ink" />
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function CtaSplit({ id, title, label, href = "#", text }: Props) {
+  return (
+    <section id={id} className="panel-wrap scroll-mt-24">
+      <div className="on-dark inset-panel grid overflow-hidden bg-brand text-on-brand lg:grid-cols-2">
+        <div aria-hidden className="min-h-[280px] bg-brand-soft bg-cover bg-center" style={{ backgroundImage: "url(/assets/photos/crew.jpg)" }} />
+        <Reveal className="flex flex-col justify-center px-6 py-14 sm:px-10 lg:px-16 lg:py-20">
+          <h2 className="display-2">{title.join(" ")}</h2>
+          {text && <p className="lead mt-5 max-w-[520px] whitespace-pre-line text-on-brand/75">{text}</p>}
+          <div className="mt-8 flex flex-wrap gap-3">
+            <MainLink href={href} className="btn btn-accent">
+              {label}
+            </MainLink>
+            <PhoneButton className="text-on-brand" />
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function CtaMinimal({ id, title, label, href = "#", text }: Props) {
+  return (
+    <section id={id} className="scroll-mt-24 border-t border-line py-20 lg:py-32">
+      <Reveal className="container-page text-center">
+        <h2 className="display-1 mx-auto max-w-[1000px] text-brand">{title.join(" ")}</h2>
+        {text && <p className="lead mx-auto mt-6 max-w-[620px] whitespace-pre-line text-muted">{text}</p>}
+        <div className="mt-10 flex flex-wrap justify-center gap-3">
+          <MainLink href={href} className="btn btn-accent">
+            {label}
+          </MainLink>
+          <PhoneButton className="text-ink" />
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+export default function CtaBand(props: Props) {
+  return (
+    <Slot
+      name="cta"
+      fallback="panel"
+      variants={{
+        panel: <CtaPanel {...props} />,
+        band: <CtaBandFull {...props} />,
+        split: <CtaSplit {...props} />,
+        minimal: <CtaMinimal {...props} />,
+      }}
+    />
   );
 }

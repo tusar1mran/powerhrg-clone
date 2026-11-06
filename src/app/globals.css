@@ -60,6 +60,122 @@
   }
 }
 
+:root {
+  --radius-btn: 999px;
+  --panel-gutter: 0.75rem;
+  --panel-gap: 1rem;
+  --display-weight: 400;
+  --display-tracking: -0.02em;
+  --display-case: none;
+  --display-em: italic;
+  --display-scale: 1;
+}
+
+@media (width >= 40rem) {
+  :root {
+    --panel-gutter: 1.25rem;
+  }
+}
+
+html[data-corners="soft"] {
+  --radius-card: 0.6rem;
+  --radius-panel: 0.9rem;
+  --radius-btn: 0.5rem;
+}
+html[data-corners="sharp"] {
+  --radius-card: 0px;
+  --radius-panel: 0px;
+  --radius-btn: 0px;
+}
+html[data-corners="xl"] {
+  --radius-card: 1.9rem;
+  --radius-panel: 2.75rem;
+  --radius-btn: 999px;
+}
+html[data-corners="sharp"] :is(.rounded-lg, .rounded-xl, .rounded-2xl) {
+  border-radius: 0;
+}
+html[data-corners="soft"] :is(.rounded-xl, .rounded-2xl) {
+  border-radius: 0.5rem;
+}
+
+html[data-panels="bleed"] {
+  --panel-gutter: 0px;
+  --panel-gap: 0px;
+  --radius-panel: 0px;
+}
+
+html[data-type="editorial"] {
+  --font-display: var(--font-instrument), ui-serif, Georgia, serif;
+  --display-weight: 400;
+  --display-tracking: -0.015em;
+  --display-scale: 1.08;
+}
+html[data-type="sans"] {
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 800;
+  --display-tracking: -0.04em;
+  --display-em: normal;
+  --display-scale: 0.92;
+}
+html[data-type="grotesk"] {
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 700;
+  --display-tracking: -0.035em;
+  --display-em: normal;
+  --display-scale: 0.95;
+}
+html[data-type="condensed"] {
+  --font-display: var(--font-oswald), "Arial Narrow", sans-serif;
+  --display-weight: 600;
+  --display-tracking: 0.005em;
+  --display-case: uppercase;
+  --display-em: normal;
+  --display-scale: 0.98;
+}
+html[data-type="light"] {
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 300;
+  --display-tracking: -0.045em;
+  --display-em: normal;
+  --display-scale: 0.95;
+}
+html[data-type="caps"] {
+  --display-weight: 300;
+  --display-tracking: 0.08em;
+  --display-case: uppercase;
+  --display-em: normal;
+  --display-scale: 0.7;
+}
+html[data-type="tech"] {
+  --font-display: var(--font-space), ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 600;
+  --display-tracking: -0.04em;
+  --display-em: normal;
+  --display-scale: 0.95;
+}
+
+html[data-eyebrow="pill"] .eyebrow {
+  padding: 0.45rem 0.85rem;
+  border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+  border-radius: var(--radius-btn);
+}
+html[data-eyebrow="pill"] .eyebrow::before {
+  display: none;
+}
+html[data-eyebrow="dot"] .eyebrow::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+html[data-eyebrow="plain"] .eyebrow::before {
+  display: none;
+}
+
+html[data-layout-pending] body {
+  visibility: hidden;
+}
+
 html {
   scroll-behavior: smooth;
   color-scheme: only light;
@@ -110,38 +226,46 @@ input[type="checkbox"] {
 }
 
 @utility inset-panel {
-  margin-inline: 0.75rem;
+  margin-inline: var(--panel-gutter);
   border-radius: var(--radius-panel);
-  @media (width >= 40rem) {
-    margin-inline: 1.25rem;
-  }
+}
+
+@utility panel-wrap {
+  padding-block: calc(var(--panel-gap) / 2);
+}
+
+@utility display-em {
+  font-style: var(--display-em);
 }
 
 @utility display-1 {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.6rem, 6.2vw, 5.75rem);
+  font-weight: var(--display-weight);
+  font-size: calc(clamp(2.6rem, 6.2vw, 5.75rem) * var(--display-scale));
   line-height: 1;
-  letter-spacing: -0.025em;
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-case);
   font-variation-settings: "opsz" 144, "SOFT" 30;
 }
 
 @utility display-2 {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.1rem, 4.2vw, 3.6rem);
+  font-weight: var(--display-weight);
+  font-size: calc(clamp(2.1rem, 4.2vw, 3.6rem) * var(--display-scale));
   line-height: 1.05;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-case);
   font-variation-settings: "opsz" 144, "SOFT" 30;
 }
 
 @utility display-3 {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-weight: var(--display-weight);
+  font-size: calc(clamp(1.5rem, 2.2vw, 2rem) * var(--display-scale));
   line-height: 1.15;
-  letter-spacing: -0.01em;
-  font-variation-settings: "opsz" 72, "SOFT" 30;
+  letter-spacing: var(--display-tracking);
+  text-transform: var(--display-case);
+  font-variation-settings: "opsz" 144, "SOFT" 30;
 }
 
 @utility eyebrow {
@@ -176,7 +300,7 @@ input[type="checkbox"] {
   gap: 0.6rem;
   min-height: 3.25rem;
   padding: 0 1.6rem;
-  border-radius: 999px;
+  border-radius: var(--radius-btn);
   font-size: 15px;
   font-weight: 700;
   line-height: 1;

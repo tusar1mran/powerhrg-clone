@@ -100,7 +100,7 @@ export default function ContactForm({ id = "quote", title, intro, consent, submi
   const describedBy = (name: keyof ContactValues) => (errors[name] ? `${id}-${name}-error` : undefined);
 
   return (
-    <section id={id} className="scroll-mt-24 py-4">
+    <section id={id} className="scroll-mt-24 panel-wrap">
       <div className="inset-panel bg-cream">
         <Reveal className="container-page grid gap-10 py-16 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:py-24">
           <div>
