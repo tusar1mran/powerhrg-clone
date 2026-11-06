@@ -10,6 +10,7 @@
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "deploy:redesign": "opennextjs-cloudflare build --env redesign && opennextjs-cloudflare deploy --env redesign",
+    "deploy:redesign3": "opennextjs-cloudflare build --env redesign3 && opennextjs-cloudflare deploy --env redesign3",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
