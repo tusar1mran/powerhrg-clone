@@ -22,8 +22,8 @@
   --color-sand: #f6f2eb;         /* trust points, FAQ box, contact cards */
   --color-slate: #c5cbd3;        /* photo placeholder while loading */
   --color-ink: #1f2427;          /* body copy */
-  --color-paper: #f4f1ea;        /* drawing sheet ground */
-  --color-paper-deep: #e8e2d5;   /* plotter margin around the sheet, filled cells */
+  --color-paper: #ffffff;        /* drawing sheet ground and page background (white) */
+  --color-paper-deep: #ededeb;   /* filled cells, footer band (neutral, so the page stays white) */
 
   --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
@@ -85,7 +85,7 @@ input[type="checkbox"] {
 }
 
 body {
-  background: var(--color-paper-deep);
+  background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
